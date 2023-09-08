@@ -59,7 +59,9 @@ var model = {
 
 	generateShipLocations: function() {
 		var locations;
+		this.shipsSunk = 0;
 		for (var i = 0; i < this.numShips; i++) {
+			this.ships[i].hits = ["", "", ""];
 			do {
 				locations = this.generateShip();
 			} while (this.collision(locations));
@@ -123,6 +125,18 @@ var view = {
 		cell.setAttribute("class", "miss");
 	},
 
+	resetBoard: function() {
+		for (var row = 0; row < model.boardSize; row++) {
+			for (var column = 0; column < model.boardSize; column++) {
+				document.getElementById(row + "" + column).removeAttribute("class");
+			}
+		}
+		document.getElementById("messageArea").innerHTML = "Choose a coordinate to fire.";
+		var counterArea = document.getElementById("counterArea");
+		counterArea.classList.remove("absolute");
+		counterArea.innerHTML = "<p>You have 60 seconds to sink at least two battleships.</p><p>Each battleship takes 3 grid boxes.</p><p>Enter coordinates from A0 to G6.</p>";
+	},
+
 	displayEndScene: function(sign_msg, text_msg) {
 		document.getElementById('fireButton').setAttribute("disabled", true);
 		const endScene = document.getElementById('endscene');
@@ -137,6 +151,7 @@ var timer = {
 	started: false,
 
 	handleTimeOut: function() {
+		controller.gameOver = true;
 		if (model.shipsSunk > 1) {
 			view.displayEndScene("You Won!", "You sank " + model.shipsSunk + " battleships in " + controller.guesses + " guesses");
 		} else {
@@ -157,24 +172,40 @@ var timer = {
 	stopCountDown: function() {
 		if (this.started) {
 			this.started = false;
-			counter.endTimer();
+			counter.endTimer(false);
 		}
 	}
 };
 
 var controller = {
 	guesses: 0,
+	gameOver: false,
 
 	processGuess: function(guess) {
+		if (this.gameOver) {
+			return;
+		}
 		var location = parseGuess(guess);
 		if (location) {
 			this.guesses++;
 			var hit = model.fire(location);
-			if (hit && model.shipsSunk === model.numShips) {
-				timer.stopCountDown();
+				if (hit && model.shipsSunk === model.numShips) {
+					this.gameOver = true;
+					timer.stopCountDown();
 				view.displayEndScene("You Won!", "You sank all battleships in " + this.guesses + " guesses");
 			}
 		}
+	},
+
+	restart: function() {
+		this.guesses = 0;
+		this.gameOver = false;
+		timer.stopCountDown();
+		model.generateShipLocations();
+		view.resetBoard();
+		document.getElementById("endscene").classList.remove("show");
+		document.getElementById("fireButton").disabled = false;
+		document.getElementById("guessInput").focus();
 	}
 };
 
@@ -182,16 +213,16 @@ var controller = {
 // helper function to parse a guess from the user
 
 function parseGuess(guess) {
-	var alphabet = ["A", "B", "C", "D", "E", "F", "G"];
+var alphabet = ["A", "B", "C", "D", "E", "F", "G"];
 
-	if (guess === null || guess.length !== 2) {
+		if (guess === null || guess.length !== 2) {
 		alert("Oops, please enter a letter and a number on the board.");
 	} else {
-		var firstChar = guess.charAt(0);
-		var row = alphabet.indexOf(firstChar);
-		var column = guess.charAt(1);
-		
-		if (isNaN(row) || isNaN(column)) {
+			var firstChar = guess.charAt(0);
+			var row = alphabet.indexOf(firstChar);
+			var column = guess.charAt(1);
+			
+			if (row < 0 || !/^\d$/.test(column)) {
 			alert("Oops, that isn't on the board.");
 		} else if (row < 0 || row >= model.boardSize ||
 		           column < 0 || column >= model.boardSize) {
@@ -243,9 +274,15 @@ counter.functionsToExecuteAtTimerEnd = function() {
 window.onload = init;
 
 function init() {
-	// Fire! button onclick handler
-	var fireButton = document.getElementById("fireButton");
-	fireButton.onclick = handleFireButton;
+	var guessForm = document.getElementById("guessForm");
+	guessForm.addEventListener("submit", function(event) {
+		event.preventDefault();
+		handleFireButton();
+	});
+
+	document.getElementById("restartButton").addEventListener("click", function() {
+		controller.restart();
+	});
 
 	// handle "return" key press
 	var guessInput = document.getElementById("guessInput");
@@ -254,8 +291,5 @@ function init() {
 	// place the ships on the game board
 	model.generateShipLocations();
 }
-
-
-
 
 
