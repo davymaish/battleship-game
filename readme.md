@@ -11,6 +11,7 @@ _The game in action, with ships placed and gameplay in progress._
 - Interactive map grid for ship placement and guessing
 - Real-time feedback on hits and misses
 - A 60-second time limit with a real-time countdown
+- New-game control for starting a fresh board without reloading the page
 
 ## Installation
 
@@ -24,6 +25,7 @@ _The game in action, with ships placed and gameplay in progress._
 3. Each battleship occupies three grid boxes.
 4. Enter coordinates using a letter followed by a number, from `A0` to `G6`.
 5. Hit all three boxes occupied by a ship to sink it.
+6. Select **New game** at any time to reset the board and timer.
 
 ## Contributing
 
