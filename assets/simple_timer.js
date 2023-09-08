@@ -33,11 +33,13 @@ class SimpleTimer {
     /**
      * Force ends the timer and resets its container to their original state.
      */
-    endTimer() {
+    endTimer(invokeCallback = true) {
         clearInterval(this._timerFunction);
         this._timeLeft = this._duration;
         this._changeContainerText(this._timerContainer, this._originalText);
-        this.functionsToExecuteAtTimerEnd();
+        if (invokeCallback) {
+            this.functionsToExecuteAtTimerEnd();
+        }
     }
 
     /**
