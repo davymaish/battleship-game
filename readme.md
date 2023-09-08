@@ -1,17 +1,16 @@
 ## JS Battleship Game
 
-This is a simple Battleship game implemented in HTML5, CSS, and JavaScript. The game allows player to hit the ships by guessing their locations on the map. Ships are randomly placed on the map grid on game lunch.
+This is a simple Battleship game implemented in HTML5, CSS, and JavaScript. The game allows a player to find ships by guessing their locations on the map. Ships are randomly placed on the map when a new game starts.
 
 ![Gameplay Screenshot](screenshots/gameplay.png)
 _The game in action, with ships placed and gameplay in progress._
 
 ## Features
 
-- Responsive design, compatible with different screen sizes
-- Animated ship placement and gameplay
+- Responsive design compatible with different screen sizes
 - Interactive map grid for ship placement and guessing
 - Real-time feedback on hits and misses
-- Time limit and real-time update of remaining time.
+- A 60-second time limit with a real-time countdown
 
 ## Installation
 
@@ -21,10 +20,10 @@ _The game in action, with ships placed and gameplay in progress._
 ## How to Play
 
 1. Open the game in your web browser.
-2. You have 60 seconds to sink at least two battleship!
-3. Each battleship takes 3 grid boxes.
-4. You must hit a ship thrice to sink it (hit all 3 grids boxes)
-5. Guess ship coordinates in (YX) format.
+2. You have 60 seconds to sink at least two battleships.
+3. Each battleship occupies three grid boxes.
+4. Enter coordinates using a letter followed by a number, from `A0` to `G6`.
+5. Hit all three boxes occupied by a ship to sink it.
 
 ## Contributing
 
