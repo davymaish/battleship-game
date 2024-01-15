@@ -1,14 +1,20 @@
 var model = {
-  boardSize: 7,
-  numShips: 3,
-  shipLength: 3,
+  boardSize: gameConfig.boardSize,
+  numShips: gameConfig.numShips,
+  shipLength: gameConfig.shipLength,
   shipsSunk: 0,
+  ships: [],
 
-  ships: [
-    { locations: [0, 0, 0], hits: ["", "", ""] },
-    { locations: [0, 0, 0], hits: ["", "", ""] },
-    { locations: [0, 0, 0], hits: ["", "", ""] }
-  ],
+  resetShips: function() {
+    this.ships = [];
+    for (var i = 0; i < this.numShips; i++) {
+      this.ships.push({
+        locations: [],
+        hits: new Array(this.shipLength).fill("")
+      });
+    }
+    this.shipsSunk = 0;
+  },
 
   fire: function(guess) {
     for (var i = 0; i < this.numShips; i++) {
@@ -64,10 +70,9 @@ var model = {
 
   generateShipLocations: function() {
     var locations;
-    this.shipsSunk = 0;
+    this.resetShips();
 
     for (var i = 0; i < this.numShips; i++) {
-      this.ships[i].hits = ["", "", ""];
       do {
         locations = this.generateShip();
       } while (this.collision(locations));
