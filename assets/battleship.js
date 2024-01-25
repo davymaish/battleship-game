@@ -2,7 +2,7 @@ console.log(
   "JS Battleship Made by David Maina \nhttps://davymaish.github.io"
 );
 
-var timerDurationInSeconds = 60;
+var timerDurationInSeconds = gameConfig.timeLimitSeconds;
 var uniqueTimerContainerClassName = "counterArea";
 var originalTextInContainer = "Timeout!";
 var counter = new SimpleTimer(
@@ -16,7 +16,7 @@ var timer = {
 
   handleTimeOut: function() {
     controller.gameOver = true;
-    if (model.shipsSunk > 1) {
+    if (model.shipsSunk >= gameConfig.minimumShipsToWin) {
       view.displayEndScene(
         "You Won!",
         "You sank " + model.shipsSunk + " battleships in " + controller.guesses + " guesses"
@@ -100,7 +100,7 @@ var controller = {
 };
 
 function parseGuess(guess) {
-  var alphabet = ["A", "B", "C", "D", "E", "F", "G"];
+  var alphabet = gameConfig.coordinateAlphabet.split("");
 
   if (guess === null || guess.length !== 2) {
     alert("Oops, please enter a letter and a number on the board.");
@@ -115,7 +115,7 @@ function parseGuess(guess) {
     return null;
   }
 
-  if (row >= model.boardSize || column < 0 || column >= model.boardSize) {
+  if (row >= gameConfig.boardSize || column < 0 || column >= gameConfig.boardSize) {
     alert("Oops, that's off the board!");
     return null;
   }
