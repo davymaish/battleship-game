@@ -13,9 +13,14 @@ var counter = new SimpleTimer(
 
 var timer = {
   started: false,
+  paused: false,
 
   handleTimeOut: function() {
+    this.started = false;
+    this.paused = false;
     controller.gameOver = true;
+    gameState.transitionTo(gameState.states.EXPIRED);
+    view.updateLifecycle(gameState.current);
     if (model.shipsSunk >= gameConfig.minimumShipsToWin) {
       view.displayEndScene(
         "You Won!",
@@ -32,6 +37,9 @@ var timer = {
   startCountDown: function() {
     if (!this.started) {
       this.started = true;
+      this.paused = false;
+      gameState.transitionTo(gameState.states.PLAYING);
+      view.updateLifecycle(gameState.current);
       var counterArea = document.getElementById("counterArea");
       counterArea.innerHTML = " ";
       counterArea.classList.add("absolute");
@@ -42,7 +50,26 @@ var timer = {
   stopCountDown: function() {
     if (this.started) {
       this.started = false;
+      this.paused = false;
       counter.endTimer(false);
+    }
+  },
+
+  pauseCountDown: function() {
+    if (this.started && !this.paused && gameState.canPlay()) {
+      this.paused = true;
+      counter.pauseTimer();
+      gameState.transitionTo(gameState.states.PAUSED);
+      view.updateLifecycle(gameState.current);
+    }
+  },
+
+  resumeCountDown: function() {
+    if (this.started && this.paused && gameState.is(gameState.states.PAUSED)) {
+      this.paused = false;
+      counter.resumeTimer();
+      gameState.transitionTo(gameState.states.PLAYING);
+      view.updateLifecycle(gameState.current);
     }
   }
 };
@@ -52,7 +79,7 @@ var controller = {
   gameOver: false,
 
   processGuess: function(guess) {
-    if (this.gameOver) {
+    if (this.gameOver || !gameState.canPlay()) {
       return;
     }
 
@@ -80,6 +107,8 @@ var controller = {
     if (result.hit && model.shipsSunk === model.numShips) {
       this.gameOver = true;
       timer.stopCountDown();
+      gameState.transitionTo(gameState.states.WON);
+      view.updateLifecycle(gameState.current);
       view.displayEndScene(
         "You Won!",
         "You sank all battleships in " + this.guesses + " guesses"
@@ -91,6 +120,7 @@ var controller = {
     this.guesses = 0;
     this.gameOver = false;
     timer.stopCountDown();
+    gameState.reset();
     model.generateShipLocations();
     view.resetBoard();
     document.getElementById("endscene").classList.remove("show");
@@ -159,6 +189,16 @@ function init() {
     controller.restart();
   });
 
+  document.getElementById("pauseButton").addEventListener("click", function() {
+    timer.pauseCountDown();
+  });
+
+  document.getElementById("resumeButton").addEventListener("click", function() {
+    timer.resumeCountDown();
+  });
+
   document.getElementById("guessInput").onkeypress = handleKeyPress;
   model.generateShipLocations();
+  gameState.reset();
+  view.updateLifecycle(gameState.current);
 }
