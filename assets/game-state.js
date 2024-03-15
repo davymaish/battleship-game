@@ -26,7 +26,12 @@ var gameState = {
     if (allowed.indexOf(nextState) < 0) {
       return false;
     }
+    var previousState = this.current;
     this.current = nextState;
+    gameEvents.emit("stateChanged", {
+      previous: previousState,
+      current: this.current
+    });
     return true;
   },
 
@@ -39,7 +44,9 @@ var gameState = {
   },
 
   reset: function() {
-    this.current = this.states.IDLE;
+    if (!this.is(this.states.IDLE)) {
+      this.transitionTo(this.states.IDLE);
+    }
     this.transitionTo(this.states.SETUP);
   }
 };
