@@ -1,4 +1,30 @@
 var view = {
+  bindEvents: function() {
+    gameEvents.on("stateChanged", function(payload) {
+      view.updateLifecycle(payload.current);
+    });
+
+    gameEvents.on("shotResolved", function(result) {
+      if (result.alreadyHit) {
+        view.displayMessage("Oops, you already hit that location!");
+      } else if (result.hit) {
+        view.displayHit(result.location);
+        view.displayMessage(result.sunk ? "You sank my battleship!" : "HIT!");
+      } else {
+        view.displayMiss(result.location);
+        view.displayMessage("You missed.");
+      }
+    });
+
+    gameEvents.on("gameEnded", function(result) {
+      view.displayEndScene(result.title, result.message);
+    });
+
+    gameEvents.on("gameReset", function() {
+      view.resetBoard();
+    });
+  },
+
   updateLifecycle: function(state) {
     document.getElementById("gameState").innerHTML = "Game state: " + state;
     document.getElementById("fireButton").disabled = state !== gameState.states.SETUP && state !== gameState.states.PLAYING;
