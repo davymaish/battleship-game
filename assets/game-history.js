@@ -31,6 +31,20 @@ var gameHistory = {
     return this.entries.slice();
   },
 
+  getEntriesByEvent: function(eventName) {
+    return this.entries.filter(function(entry) {
+      return entry.event === eventName;
+    });
+  },
+
+  latest: function() {
+    return this.entries.length ? this.entries[this.entries.length - 1] : null;
+  },
+
+  size: function() {
+    return this.entries.length;
+  },
+
   clear: function() {
     this.entries = [];
     this.nextId = 1;
