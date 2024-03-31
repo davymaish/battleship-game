@@ -20,17 +20,16 @@ var timer = {
     this.paused = false;
     controller.gameOver = true;
     gameState.transitionTo(gameState.states.EXPIRED);
-    view.updateLifecycle(gameState.current);
     if (model.shipsSunk >= gameConfig.minimumShipsToWin) {
-      view.displayEndScene(
-        "You Won!",
-        "You sank " + model.shipsSunk + " battleships in " + controller.guesses + " guesses"
-      );
+      gameEvents.emit("gameEnded", {
+        title: "You Won!",
+        message: "You sank " + model.shipsSunk + " battleships in " + controller.guesses + " guesses"
+      });
     } else {
-      view.displayEndScene(
-        "Game Over!",
-        "Your " + controller.guesses + " guesses sunk only " + model.shipsSunk + " ships!"
-      );
+      gameEvents.emit("gameEnded", {
+        title: "Game Over!",
+        message: "Your " + controller.guesses + " guesses sunk only " + model.shipsSunk + " ships!"
+      });
     }
   },
 
@@ -39,7 +38,6 @@ var timer = {
       this.started = true;
       this.paused = false;
       gameState.transitionTo(gameState.states.PLAYING);
-      view.updateLifecycle(gameState.current);
       var counterArea = document.getElementById("counterArea");
       counterArea.innerHTML = " ";
       counterArea.classList.add("absolute");
@@ -60,7 +58,6 @@ var timer = {
       this.paused = true;
       counter.pauseTimer();
       gameState.transitionTo(gameState.states.PAUSED);
-      view.updateLifecycle(gameState.current);
     }
   },
 
@@ -69,7 +66,6 @@ var timer = {
       this.paused = false;
       counter.resumeTimer();
       gameState.transitionTo(gameState.states.PLAYING);
-      view.updateLifecycle(gameState.current);
     }
   }
 };
@@ -91,28 +87,20 @@ var controller = {
     this.guesses++;
     var result = model.fire(location);
 
-    if (result.alreadyHit) {
-      view.displayMessage("Oops, you already hit that location!");
-      return;
-    }
+    gameEvents.emit("shotResolved", result);
 
-    if (result.hit) {
-      view.displayHit(result.location);
-      view.displayMessage(result.sunk ? "You sank my battleship!" : "HIT!");
-    } else {
-      view.displayMiss(result.location);
-      view.displayMessage("You missed.");
+    if (result.alreadyHit) {
+      return;
     }
 
     if (result.hit && model.shipsSunk === model.numShips) {
       this.gameOver = true;
       timer.stopCountDown();
       gameState.transitionTo(gameState.states.WON);
-      view.updateLifecycle(gameState.current);
-      view.displayEndScene(
-        "You Won!",
-        "You sank all battleships in " + this.guesses + " guesses"
-      );
+      gameEvents.emit("gameEnded", {
+        title: "You Won!",
+        message: "You sank all battleships in " + this.guesses + " guesses"
+      });
     }
   },
 
@@ -122,7 +110,7 @@ var controller = {
     timer.stopCountDown();
     gameState.reset();
     model.generateShipLocations();
-    view.resetBoard();
+    gameEvents.emit("gameReset");
     document.getElementById("endscene").classList.remove("show");
     document.getElementById("fireButton").disabled = false;
     document.getElementById("guessInput").focus();
@@ -179,6 +167,8 @@ counter.functionsToExecuteAtTimerEnd = function() {
 window.onload = init;
 
 function init() {
+  view.bindEvents();
+
   var guessForm = document.getElementById("guessForm");
   guessForm.addEventListener("submit", function(event) {
     event.preventDefault();
@@ -200,5 +190,4 @@ function init() {
   document.getElementById("guessInput").onkeypress = handleKeyPress;
   model.generateShipLocations();
   gameState.reset();
-  view.updateLifecycle(gameState.current);
 }
