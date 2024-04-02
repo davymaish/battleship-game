@@ -43,6 +43,20 @@ var gameState = {
     return this.is(this.states.PLAYING);
   },
 
+  restore: function(previousState) {
+    if (!this.transitions[previousState]) {
+      return false;
+    }
+    var oldState = this.current;
+    this.current = previousState;
+    gameEvents.emit("stateChanged", {
+      previous: oldState,
+      current: this.current,
+      restored: true
+    });
+    return true;
+  },
+
   reset: function() {
     if (!this.is(this.states.IDLE)) {
       this.transitionTo(this.states.IDLE);
