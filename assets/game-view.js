@@ -14,6 +14,7 @@ var view = {
         view.displayMiss(result.location);
         view.displayMessage("You missed.");
       }
+      view.updateLifecycle(gameState.current);
     });
 
     gameEvents.on("gameEnded", function(result) {
@@ -23,11 +24,18 @@ var view = {
     gameEvents.on("gameReset", function() {
       view.resetBoard();
     });
+
+    gameEvents.on("gameUndone", function(payload) {
+      view.resetBoard();
+      view.renderShots(payload.shots);
+      view.displayMessage("Last shot undone.");
+    });
   },
 
   updateLifecycle: function(state) {
     document.getElementById("gameState").innerHTML = "Game state: " + state;
     document.getElementById("fireButton").disabled = state !== gameState.states.SETUP && state !== gameState.states.PLAYING;
+    document.getElementById("undoButton").disabled = state !== gameState.states.PLAYING || gameReplay.snapshots.length === 0;
     document.getElementById("pauseButton").disabled = state !== gameState.states.PLAYING;
     document.getElementById("resumeButton").disabled = state !== gameState.states.PAUSED;
   },
@@ -42,6 +50,16 @@ var view = {
 
   displayMiss: function(location) {
     document.getElementById(location).setAttribute("class", "miss");
+  },
+
+  renderShots: function(shots) {
+    shots.forEach(function(shot) {
+      if (shot.hit) {
+        view.displayHit(shot.location);
+      } else {
+        view.displayMiss(shot.location);
+      }
+    });
   },
 
   resetBoard: function() {
