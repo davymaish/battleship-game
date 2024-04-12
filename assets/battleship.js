@@ -85,13 +85,17 @@ var controller = {
     }
 
     this.guesses++;
+    gameReplay.capture();
     var result = model.fire(location);
 
     gameEvents.emit("shotResolved", result);
 
     if (result.alreadyHit) {
+      gameReplay.discardLastCapture();
       return;
     }
+
+    gameReplay.recordShot(result);
 
     if (result.hit && model.shipsSunk === model.numShips) {
       this.gameOver = true;
@@ -109,11 +113,23 @@ var controller = {
     this.gameOver = false;
     timer.stopCountDown();
     gameState.reset();
+    gameReplay.reset();
     model.generateShipLocations();
     gameEvents.emit("gameReset");
     document.getElementById("endscene").classList.remove("show");
     document.getElementById("fireButton").disabled = false;
     document.getElementById("guessInput").focus();
+  },
+
+  undo: function() {
+    if (!gameState.canPlay()) {
+      view.displayMessage("Undo is available while the game is playing.");
+      return;
+    }
+
+    if (!gameReplay.undo()) {
+      view.displayMessage("There is no shot to undo.");
+    }
   }
 };
 
@@ -180,6 +196,10 @@ function init() {
     controller.restart();
   });
 
+  document.getElementById("undoButton").addEventListener("click", function() {
+    controller.undo();
+  });
+
   document.getElementById("pauseButton").addEventListener("click", function() {
     timer.pauseCountDown();
   });
@@ -190,5 +210,6 @@ function init() {
 
   document.getElementById("guessInput").onkeypress = handleKeyPress;
   model.generateShipLocations();
+  gameReplay.reset();
   gameState.reset();
 }
