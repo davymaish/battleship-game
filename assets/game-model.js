@@ -81,16 +81,16 @@ var model = {
   },
 
   generateShip: function() {
-    var direction = Math.floor(Math.random() * 2);
+    var direction = Math.floor(gameRandom.random() * 2);
     var row;
     var col;
 
     if (direction === 1) {
-      row = Math.floor(Math.random() * this.boardSize);
-      col = Math.floor(Math.random() * (this.boardSize - this.shipLength + 1));
+      row = Math.floor(gameRandom.random() * this.boardSize);
+      col = Math.floor(gameRandom.random() * (this.boardSize - this.shipLength + 1));
     } else {
-      row = Math.floor(Math.random() * (this.boardSize - this.shipLength + 1));
-      col = Math.floor(Math.random() * this.boardSize);
+      row = Math.floor(gameRandom.random() * (this.boardSize - this.shipLength + 1));
+      col = Math.floor(gameRandom.random() * this.boardSize);
     }
 
     var newShipLocations = [];
