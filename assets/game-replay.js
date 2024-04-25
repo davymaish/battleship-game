@@ -10,9 +10,10 @@ var gameReplay = {
     this.snapshots.push(this.clone({
       ships: model.ships,
       shipsSunk: model.shipsSunk,
-      guesses: controller.guesses,
-      gameOver: controller.gameOver,
-      state: gameState.current
+	      guesses: controller.guesses,
+	      gameOver: controller.gameOver,
+	      state: gameState.current,
+	      randomState: gameRandom.getState()
     }));
   },
 
@@ -32,9 +33,10 @@ var gameReplay = {
     var snapshot = this.snapshots.pop();
     model.ships = this.clone(snapshot.ships);
     model.shipsSunk = snapshot.shipsSunk;
-    controller.guesses = snapshot.guesses;
-    controller.gameOver = snapshot.gameOver;
-    gameState.restore(snapshot.state);
+	    controller.guesses = snapshot.guesses;
+	    controller.gameOver = snapshot.gameOver;
+	    gameRandom.restoreState(snapshot.randomState);
+	    gameState.restore(snapshot.state);
     this.shots.pop();
     gameEvents.emit("gameUndone", {
       shots: this.clone(this.shots),
