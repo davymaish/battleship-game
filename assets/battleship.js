@@ -134,27 +134,13 @@ var controller = {
 };
 
 function parseGuess(guess) {
-  var alphabet = gameConfig.coordinateAlphabet.split("");
-
-  if (guess === null || guess.length !== 2) {
-    alert("Oops, please enter a letter and a number on the board.");
+  var result = gameValidation.validateCoordinate(guess, gameConfig);
+  if (!result.valid) {
+    alert(result.reason);
     return null;
   }
 
-  var row = alphabet.indexOf(guess.charAt(0));
-  var column = guess.charAt(1);
-
-  if (row < 0 || !/^\d$/.test(column)) {
-    alert("Oops, that isn't on the board.");
-    return null;
-  }
-
-  if (row >= gameConfig.boardSize || column < 0 || column >= gameConfig.boardSize) {
-    alert("Oops, that's off the board!");
-    return null;
-  }
-
-  return row + column;
+  return result.row + "" + result.column;
 }
 
 function handleFireButton() {
@@ -183,6 +169,11 @@ counter.functionsToExecuteAtTimerEnd = function() {
 window.onload = init;
 
 function init() {
+  var configResult = gameValidation.validateConfig(gameConfig);
+  if (!configResult.valid) {
+    throw new Error("Invalid game configuration: " + configResult.errors.join("; "));
+  }
+
   gameHistory.bindEvents();
   view.bindEvents();
 
