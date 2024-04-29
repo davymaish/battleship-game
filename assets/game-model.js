@@ -78,6 +78,11 @@ var model = {
       } while (this.collision(locations));
       this.ships[i].locations = locations;
     }
+
+    var fleetResult = gameValidation.validateFleet(this.ships, gameConfig);
+    if (!fleetResult.valid) {
+      throw new Error("Generated fleet is invalid: " + fleetResult.reason);
+    }
   },
 
   generateShip: function() {
