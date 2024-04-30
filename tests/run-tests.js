@@ -4,6 +4,8 @@ function test(name, callback) {
   tests.push({ name: name, callback: callback });
 }
 
+global.test = test;
+
 function run() {
   var failures = [];
   tests.forEach(function(currentTest) {
