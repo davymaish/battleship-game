@@ -12,6 +12,8 @@ _The game in action, with ships placed and gameplay in progress._
 - Real-time feedback on hits and misses
 - A 60-second time limit with a real-time countdown
 - New-game control for starting a fresh board without reloading the page
+- Active game sessions are restored after a page refresh
+- New game clears the saved session
 
 ## Installation
 
@@ -26,6 +28,14 @@ _The game in action, with ships placed and gameplay in progress._
 4. Enter coordinates using a letter followed by a number, from `A0` to `G6`.
 5. Hit all three boxes occupied by a ship to sink it.
 6. Select **New game** at any time to reset the board and timer.
+
+## Development checks
+
+Run the browser-independent regression suite with Node.js:
+
+```bash
+node tests/run-tests.js
+```
 
 ## Contributing
 
