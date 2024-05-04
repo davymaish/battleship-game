@@ -96,6 +96,8 @@ var controller = {
     }
 
     gameReplay.recordShot(result);
+    gameStats.record(result);
+    view.updateStats();
     this.saveSession();
 
     if (result.hit && model.shipsSunk === model.numShips) {
@@ -112,6 +114,7 @@ var controller = {
   restart: function() {
     this.guesses = 0;
     this.gameOver = false;
+    gameStats.reset();
     gameStorage.clear();
     timer.stopCountDown();
     gameState.reset();
@@ -151,12 +154,15 @@ var controller = {
     model.shipsSunk = session.shipsSunk;
     this.guesses = session.guesses;
     this.gameOver = session.gameOver;
+    gameStats.reset();
+    session.shots.forEach(function(shot) { gameStats.record(shot); });
     gameRandom.restoreState(session.randomState);
     gameReplay.shots = session.shots;
     gameState.restore(session.state);
     view.resetBoard();
     view.renderShots(gameReplay.shots);
     view.updateLifecycle(gameState.current);
+    view.updateStats();
     return true;
   },
 

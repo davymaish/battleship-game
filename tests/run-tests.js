@@ -27,4 +27,5 @@ function run() {
 require("./validation.test.js");
 require("./model.test.js");
 require("./storage.test.js");
+require("./stats.test.js");
 run();
