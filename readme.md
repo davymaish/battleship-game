@@ -14,6 +14,7 @@ _The game in action, with ships placed and gameplay in progress._
 - New-game control for starting a fresh board without reloading the page
 - Active game sessions are restored after a page refresh
 - New game clears the saved session
+- Live shot, hit, miss, and accuracy statistics
 
 ## Installation
 
