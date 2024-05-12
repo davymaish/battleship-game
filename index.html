@@ -53,6 +53,12 @@
 			<form id="guessForm">
 				<label for="guessInput">Guess a coordinate (A0–G6)</label>
 				<div class="controls">
+					<label for="difficultySelect">Difficulty</label>
+					<select id="difficultySelect">
+						<option value="easy">Easy</option>
+						<option value="normal" selected>Normal</option>
+						<option value="hard">Hard</option>
+					</select>
 					<input type="text" id="guessInput" placeholder="A0" maxlength="2" autocomplete="off" aria-describedby="coordinateHelp">
 					<input type="submit" id="fireButton" value="Fire!">
 					<button type="button" id="restartButton">New game</button>
