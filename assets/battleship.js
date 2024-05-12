@@ -70,6 +70,21 @@ var timer = {
   }
 };
 
+function applyDifficulty(name) {
+  var preset = gameDifficulty.apply(name, gameConfig);
+  model.numShips = gameConfig.numShips;
+  timer.stopCountDown();
+  counter = new SimpleTimer(
+    gameConfig.timeLimitSeconds,
+    uniqueTimerContainerClassName,
+    originalTextInContainer
+  );
+  counter.functionsToExecuteAtTimerEnd = function() {
+    timer.handleTimeOut();
+  };
+  return preset;
+}
+
 var controller = {
   guesses: 0,
   gameOver: false,
@@ -124,6 +139,11 @@ var controller = {
     document.getElementById("endscene").classList.remove("show");
     document.getElementById("fireButton").disabled = false;
     document.getElementById("guessInput").focus();
+  },
+
+  changeDifficulty: function(name) {
+    applyDifficulty(name);
+    this.restart();
   },
 
   saveSession: function() {
@@ -244,7 +264,12 @@ function init() {
     timer.resumeCountDown();
   });
 
+  document.getElementById("difficultySelect").addEventListener("change", function(event) {
+    controller.changeDifficulty(event.target.value);
+  });
+
   document.getElementById("guessInput").onkeypress = handleKeyPress;
+  applyDifficulty(document.getElementById("difficultySelect").value);
   model.generateShipLocations();
   gameReplay.reset();
   gameState.reset();

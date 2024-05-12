@@ -15,6 +15,7 @@ function loadGameContext() {
 
   [
     "assets/game-config.js",
+    "assets/game-difficulty.js",
     "assets/game-validation.js",
     "assets/game-random.js",
     "assets/game-storage.js",
