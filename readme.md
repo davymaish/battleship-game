@@ -15,6 +15,7 @@ _The game in action, with ships placed and gameplay in progress._
 - Active game sessions are restored after a page refresh
 - New game clears the saved session
 - Live shot, hit, miss, and accuracy statistics
+- Easy, normal, and hard difficulty presets
 
 ## Installation
 
@@ -24,11 +25,12 @@ _The game in action, with ships placed and gameplay in progress._
 ## How to Play
 
 1. Open the game in your web browser.
-2. You have 60 seconds to sink at least two battleships.
-3. Each battleship occupies three grid boxes.
-4. Enter coordinates using a letter followed by a number, from `A0` to `G6`.
-5. Hit all three boxes occupied by a ship to sink it.
-6. Select **New game** at any time to reset the board and timer.
+2. Choose a difficulty level before starting.
+3. You have 60 seconds to sink at least two battleships on Normal difficulty.
+4. Each battleship occupies three grid boxes.
+5. Enter coordinates using a letter followed by a number, from `A0` to `G6`.
+6. Hit all three boxes occupied by a ship to sink it.
+7. Select **New game** at any time to reset the board and timer.
 
 ## Development checks
 
