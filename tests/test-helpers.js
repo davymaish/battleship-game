@@ -20,6 +20,7 @@ function loadGameContext() {
     "assets/game-random.js",
     "assets/game-storage.js",
     "assets/game-stats.js",
+    "assets/game-results.js",
     "assets/game-model.js"
   ].forEach(function(file) {
     vm.runInContext(fs.readFileSync(file, "utf8"), context, { filename: file });
