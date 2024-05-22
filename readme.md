@@ -16,6 +16,7 @@ _The game in action, with ships placed and gameplay in progress._
 - New game clears the saved session
 - Live shot, hit, miss, and accuracy statistics
 - Easy, normal, and hard difficulty presets
+- Completed-game history with a persisted best score
 
 ## Installation
 
