@@ -155,23 +155,39 @@ var controller = {
     this.restart();
   },
 
+  exportSession: function() {
+    var blob = new Blob([gameSession.serialize()], { type: "application/json" });
+    var link = document.createElement("a");
+    link.href = URL.createObjectURL(blob);
+    link.download = "battleship-session.json";
+    link.click();
+    URL.revokeObjectURL(link.href);
+  },
+
+  importSession: function() {
+    var serialized = window.prompt("Paste a Battleship session JSON export:");
+    if (!serialized) {
+      return;
+    }
+    var parsed = gameSession.parse(serialized);
+    if (!parsed.valid) {
+      view.displayMessage(parsed.reason);
+      return;
+    }
+    gameStorage.save(parsed.session);
+    window.location.reload();
+  },
+
   saveSession: function() {
-    gameStorage.save({
-      ships: model.ships,
-      shipsSunk: model.shipsSunk,
-      guesses: this.guesses,
-      gameOver: this.gameOver,
-      state: gameState.current,
-      randomState: gameRandom.getState(),
-      shots: gameReplay.shots
-    });
+    gameStorage.save(gameSession.create());
   },
 
   restoreSession: function() {
-    var session = gameStorage.load();
-    if (!session || !Array.isArray(session.ships) || !Array.isArray(session.shots)) {
+    var parsed = gameSession.parse(gameStorage.load());
+    if (!parsed.valid) {
       return false;
     }
+    var session = parsed.session;
 
     var fleetResult = gameValidation.validateFleet(session.ships, gameConfig);
     if (!fleetResult.valid || !session.randomState) {
@@ -275,6 +291,14 @@ function init() {
 
   document.getElementById("difficultySelect").addEventListener("change", function(event) {
     controller.changeDifficulty(event.target.value);
+  });
+
+  document.getElementById("exportButton").addEventListener("click", function() {
+    controller.exportSession();
+  });
+
+  document.getElementById("importButton").addEventListener("click", function() {
+    controller.importSession();
   });
 
   document.getElementById("guessInput").onkeypress = handleKeyPress;
