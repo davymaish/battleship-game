@@ -17,6 +17,7 @@ _The game in action, with ships placed and gameplay in progress._
 - Live shot, hit, miss, and accuracy statistics
 - Easy, normal, and hard difficulty presets
 - Completed-game history with a persisted best score
+- Manual JSON session export and import
 
 ## Installation
 
@@ -32,6 +33,7 @@ _The game in action, with ships placed and gameplay in progress._
 5. Enter coordinates using a letter followed by a number, from `A0` to `G6`.
 6. Hit all three boxes occupied by a ship to sink it.
 7. Select **New game** at any time to reset the board and timer.
+8. Use **Export session** to download a backup or **Import session** to restore a JSON backup.
 
 ## Development checks
 
