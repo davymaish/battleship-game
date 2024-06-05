@@ -31,6 +31,30 @@ var view = {
       view.renderShots(payload.shots);
       view.displayMessage("Last shot undone.");
     });
+
+    this.bindBoardKeyboard();
+  },
+
+  bindBoardKeyboard: function() {
+    var cells = document.querySelectorAll("#board td");
+    cells.forEach(function(cell) {
+      var row = Number(cell.id.charAt(0));
+      var column = Number(cell.id.charAt(1));
+      cell.setAttribute("role", "gridcell");
+      cell.setAttribute("tabindex", row === 0 && column === 0 ? "0" : "-1");
+      cell.setAttribute("aria-label", "Row " + (row + 1) + ", column " + (column + 1));
+      cell.addEventListener("keydown", function(event) {
+        var next = gameKeyboard.nextCell(row, column, event.key, model.boardSize);
+        if (!next) {
+          return;
+        }
+        event.preventDefault();
+        var nextCell = document.getElementById(next.row + "" + next.column);
+        cells.forEach(function(otherCell) { otherCell.setAttribute("tabindex", "-1"); });
+        nextCell.setAttribute("tabindex", "0");
+        nextCell.focus();
+      });
+    });
   },
 
   updateLifecycle: function(state) {
