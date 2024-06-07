@@ -18,6 +18,7 @@ _The game in action, with ships placed and gameplay in progress._
 - Easy, normal, and hard difficulty presets
 - Completed-game history with a persisted best score
 - Manual JSON session export and import
+- Keyboard-accessible board navigation with semantic grid markup
 
 ## Installation
 
@@ -34,6 +35,7 @@ _The game in action, with ships placed and gameplay in progress._
 6. Hit all three boxes occupied by a ship to sink it.
 7. Select **New game** at any time to reset the board and timer.
 8. Use **Export session** to download a backup or **Import session** to restore a JSON backup.
+9. Use the arrow keys to move focus across the board cells.
 
 ## Development checks
 
