@@ -23,7 +23,8 @@ function loadGameContext() {
     "assets/game-results.js",
     "assets/game-model.js",
     "assets/game-session.js",
-    "assets/game-keyboard.js"
+    "assets/game-keyboard.js",
+    "assets/game-theme.js"
   ].forEach(function(file) {
     vm.runInContext(fs.readFileSync(file, "utf8"), context, { filename: file });
   });

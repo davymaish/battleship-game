@@ -3,6 +3,34 @@ body {
   margin: 0;
   font-family: Arial, sans-serif;
 }
+body[data-theme="ocean"] {
+  background-color: #06283d;
+}
+body[data-theme="ocean"] form {
+  background-color: #136f8a;
+}
+body[data-theme="ocean"] #messageArea,
+body[data-theme="ocean"] .counterArea,
+body[data-theme="ocean"] p {
+  color: #b9f2ff;
+}
+body[data-theme="contrast"] {
+  background-color: #000;
+  color: #fff;
+}
+body[data-theme="contrast"] form {
+  background-color: #000;
+  border: 2px solid #fff;
+}
+body[data-theme="contrast"] #messageArea,
+body[data-theme="contrast"] .counterArea,
+body[data-theme="contrast"] p {
+  color: #ff0;
+}
+td:focus {
+  outline: 4px solid #ff0;
+  outline-offset: -4px;
+}
 #board {
   position: relative;
   max-width: 1024px;
