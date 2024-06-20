@@ -10,9 +10,11 @@ var view = {
       } else if (result.hit) {
         view.displayHit(result.location);
         view.displayMessage(result.sunk ? "You sank my battleship!" : "HIT!");
+        gameAudio.playHit();
       } else {
         view.displayMiss(result.location);
         view.displayMessage("You missed.");
+        gameAudio.playMiss();
       }
       view.updateStats();
       view.updateLifecycle(gameState.current);
@@ -20,6 +22,7 @@ var view = {
 
     gameEvents.on("gameEnded", function(result) {
       view.displayEndScene(result.title, result.message);
+      result.title === "You Won!" ? gameAudio.playWin() : gameAudio.playLoss();
     });
 
     gameEvents.on("gameReset", function() {
