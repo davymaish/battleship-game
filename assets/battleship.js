@@ -305,6 +305,12 @@ function init() {
     controller.importSession();
   });
 
+  document.getElementById("audioButton").addEventListener("click", function(event) {
+    var enabled = gameAudio.toggle();
+    event.target.innerHTML = enabled ? "Mute sound" : "Enable sound";
+    event.target.setAttribute("aria-pressed", enabled ? "false" : "true");
+  });
+
   document.getElementById("guessInput").onkeypress = handleKeyPress;
   gameTheme.apply(document.getElementById("themeSelect").value);
   applyDifficulty(document.getElementById("difficultySelect").value);
