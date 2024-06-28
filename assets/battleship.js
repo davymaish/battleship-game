@@ -203,11 +203,13 @@ var controller = {
     session.shots.forEach(function(shot) { gameStats.record(shot); });
     gameRandom.restoreState(session.randomState);
     gameReplay.shots = session.shots;
+    gameShotHistory.restore(session.shots);
     gameState.restore(session.state);
     view.resetBoard();
     view.renderShots(gameReplay.shots);
     view.updateLifecycle(gameState.current);
     view.updateStats();
+    view.updateShotHistory();
     return true;
   },
 
