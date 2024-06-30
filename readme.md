@@ -21,6 +21,7 @@ _The game in action, with ships placed and gameplay in progress._
 - Keyboard-accessible board navigation with semantic grid markup
 - Classic, ocean, and high-contrast visual themes
 - Optional audio feedback with a mute control
+- Visible hit and miss shot history with undo synchronization
 
 ## Installation
 
@@ -40,6 +41,7 @@ _The game in action, with ships placed and gameplay in progress._
 9. Use the arrow keys to move focus across the board cells.
 10. Choose a theme to customize the interface or improve contrast.
 11. Use **Mute sound** to disable audio feedback when needed.
+12. Review the shot history panel to see every recorded hit, miss, and sunk ship.
 
 ## Development checks
 
