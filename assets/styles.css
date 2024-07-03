@@ -121,6 +121,17 @@ form small {
   align-items: center;
   margin-top: 0.35rem;
 }
+#shotHistory {
+  position: absolute;
+  top: 7rem;
+  right: 1rem;
+  max-width: 13rem;
+  max-height: 8rem;
+  overflow-y: auto;
+  padding-right: 1rem;
+  background: rgba(0, 0, 0, 0.65);
+  color: #fff;
+}
 form legend{
   margin-bottom: 2px;
   font-weight: 700;
@@ -201,5 +212,37 @@ form legend{
 
   .controls {
     flex-wrap: wrap;
+  }
+
+  #shotHistory {
+    top: 5.5rem;
+    right: 0.35rem;
+    max-width: 9rem;
+    max-height: 5rem;
+    font-size: 0.75rem;
+  }
+}
+
+@media (max-width: 420px) {
+  #board {
+    min-height: 0;
+  }
+
+  #messageArea,
+  .counterArea {
+    max-width: 48%;
+    font-size: 0.8rem;
+  }
+
+  form {
+    padding: 0.5rem;
+    font-size: 0.8rem;
+  }
+
+  form input,
+  form select,
+  form button {
+    max-width: 100%;
+    font-size: 0.8rem;
   }
 }
