@@ -22,6 +22,7 @@ _The game in action, with ships placed and gameplay in progress._
 - Classic, ocean, and high-contrast visual themes
 - Optional audio feedback with a mute control
 - Visible hit and miss shot history with undo synchronization
+- Mobile-friendly board and controls for narrow screens
 
 ## Installation
 
@@ -42,6 +43,7 @@ _The game in action, with ships placed and gameplay in progress._
 10. Choose a theme to customize the interface or improve contrast.
 11. Use **Mute sound** to disable audio feedback when needed.
 12. Review the shot history panel to see every recorded hit, miss, and sunk ship.
+13. On small screens, the board and controls resize to fit the viewport.
 
 ## Development checks
 
