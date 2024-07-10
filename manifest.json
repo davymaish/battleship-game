@@ -1,0 +1,10 @@
+{
+  "name": "JS Battleship Game",
+  "short_name": "Battleship",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#000000",
+  "theme_color": "#53af13",
+  "description": "A responsive browser Battleship game.",
+  "icons": []
+}
