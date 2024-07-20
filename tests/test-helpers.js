@@ -20,13 +20,14 @@ function loadGameContext() {
     "assets/game-random.js",
     "assets/game-storage.js",
     "assets/game-stats.js",
+    "assets/game-shot-history.js",
     "assets/game-results.js",
+    "assets/game-analytics.js",
     "assets/game-model.js",
     "assets/game-session.js",
     "assets/game-keyboard.js",
     "assets/game-theme.js",
-    "assets/game-audio.js",
-    "assets/game-shot-history.js"
+    "assets/game-audio.js"
   ].forEach(function(file) {
     vm.runInContext(fs.readFileSync(file, "utf8"), context, { filename: file });
   });
