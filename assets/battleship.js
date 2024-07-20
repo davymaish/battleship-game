@@ -210,6 +210,7 @@ var controller = {
     view.updateLifecycle(gameState.current);
     view.updateStats();
     view.updateShotHistory();
+    view.updateAnalytics();
     return true;
   },
 

@@ -19,6 +19,7 @@ var view = {
       gameShotHistory.record(result);
       view.updateShotHistory();
       view.updateStats();
+      view.updateAnalytics();
       view.updateLifecycle(gameState.current);
     });
 
@@ -96,6 +97,12 @@ var view = {
     });
   },
 
+  updateAnalytics: function() {
+    var current = gameAnalytics.current(gameStats, model, gameConfig);
+    var historical = gameAnalytics.historical(gameResults.records);
+    document.getElementById("analyticsSummary").innerHTML = "Games: " + historical.games + " | Wins: " + historical.wins + " | Losses: " + historical.losses + " | Ships remaining: " + current.remainingShips + " | Target: " + current.target;
+  },
+
   displayHit: function(location) {
     document.getElementById(location).setAttribute("class", "hit");
   },
@@ -124,6 +131,7 @@ var view = {
     this.displayMessage("Choose a coordinate to fire.");
     this.updateStats();
     this.updateResults();
+    this.updateAnalytics();
     gameShotHistory.reset();
     this.updateShotHistory();
     var counterArea = document.getElementById("counterArea");
