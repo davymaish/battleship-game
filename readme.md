@@ -24,6 +24,7 @@ _The game in action, with ships placed and gameplay in progress._
 - Visible hit and miss shot history with undo synchronization
 - Mobile-friendly board and controls for narrow screens
 - Installable offline web app support
+- Current-session and historical performance analytics
 
 ## Installation
 
@@ -46,6 +47,7 @@ _The game in action, with ships placed and gameplay in progress._
 12. Review the shot history panel to see every recorded hit, miss, and sunk ship.
 13. On small screens, the board and controls resize to fit the viewport.
 14. Install the game from a supported browser to use its cached offline shell.
+15. Use the analytics panel to review games, wins, losses, remaining ships, and the win target.
 
 ## Development checks
 
