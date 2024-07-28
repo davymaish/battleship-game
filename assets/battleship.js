@@ -269,6 +269,10 @@ function init() {
 
   gameHistory.bindEvents();
   view.bindEvents();
+  var preferences = gamePreferences.load();
+  document.getElementById("difficultySelect").value = preferences.difficulty;
+  document.getElementById("themeSelect").value = preferences.theme;
+  gameAudio.enabled = preferences.audioEnabled;
 
   var guessForm = document.getElementById("guessForm");
   guessForm.addEventListener("submit", function(event) {
@@ -294,10 +298,14 @@ function init() {
 
   document.getElementById("difficultySelect").addEventListener("change", function(event) {
     controller.changeDifficulty(event.target.value);
+    preferences.difficulty = event.target.value;
+    gamePreferences.save(preferences);
   });
 
   document.getElementById("themeSelect").addEventListener("change", function(event) {
     gameTheme.apply(event.target.value);
+    preferences.theme = event.target.value;
+    gamePreferences.save(preferences);
   });
 
   document.getElementById("exportButton").addEventListener("click", function() {
@@ -312,11 +320,15 @@ function init() {
     var enabled = gameAudio.toggle();
     event.target.innerHTML = enabled ? "Mute sound" : "Enable sound";
     event.target.setAttribute("aria-pressed", enabled ? "false" : "true");
+    preferences.audioEnabled = enabled;
+    gamePreferences.save(preferences);
   });
 
   document.getElementById("guessInput").onkeypress = handleKeyPress;
-  gameTheme.apply(document.getElementById("themeSelect").value);
-  applyDifficulty(document.getElementById("difficultySelect").value);
+  gameTheme.apply(preferences.theme);
+  applyDifficulty(preferences.difficulty);
+  document.getElementById("audioButton").innerHTML = preferences.audioEnabled ? "Mute sound" : "Enable sound";
+  document.getElementById("audioButton").setAttribute("aria-pressed", preferences.audioEnabled ? "false" : "true");
   gameResults.load();
   model.generateShipLocations();
   gameReplay.reset();
