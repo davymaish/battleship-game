@@ -86,6 +86,15 @@ var view = {
     var best = gameResults.bestScore();
     document.getElementById("resultsSummary").innerHTML = best === null ? "Best score: —" : "Best score: " + best + " guesses";
   },
+  updateAchievements: function() {
+    var unlocked = gameAchievements.list().filter(function(achievement) { return achievement.unlocked; });
+    var names = unlocked.map(function(achievement) { return achievement.name; });
+    var summary = "Achievements: " + unlocked.length + "/" + gameAchievements.definitions.length + " unlocked";
+    if (names.length) {
+      summary += " — " + names.join(", ");
+    }
+    document.getElementById("achievementsSummary").innerHTML = summary;
+  },
 
   updateShotHistory: function() {
     var history = document.getElementById("shotHistory");
