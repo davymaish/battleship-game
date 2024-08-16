@@ -86,6 +86,22 @@ var view = {
     var best = gameResults.bestScore();
     document.getElementById("resultsSummary").innerHTML = best === null ? "Best score: —" : "Best score: " + best + " guesses";
   },
+  updateLeaderboard: function() {
+    var leaderboard = document.getElementById("leaderboard");
+    var entries = gameLeaderboard.topWins(gameResults.records);
+    leaderboard.innerHTML = "";
+    if (!entries.length) {
+      var empty = document.createElement("li");
+      empty.innerHTML = "No wins recorded yet.";
+      leaderboard.appendChild(empty);
+      return;
+    }
+    entries.forEach(function(entry) {
+      var item = document.createElement("li");
+      item.innerHTML = gameLeaderboard.format(entry);
+      leaderboard.appendChild(item);
+    });
+  },
   updateAchievements: function() {
     var unlocked = gameAchievements.list().filter(function(achievement) { return achievement.unlocked; });
     var names = unlocked.map(function(achievement) { return achievement.name; });
@@ -140,6 +156,7 @@ var view = {
     this.displayMessage("Choose a coordinate to fire.");
     this.updateStats();
     this.updateResults();
+    this.updateLeaderboard();
     this.updateAnalytics();
     gameShotHistory.reset();
     this.updateShotHistory();
