@@ -28,6 +28,7 @@ _The game in action, with ships placed and gameplay in progress._
 - Difficulty, theme, and sound preferences persist across reloads
 - Shareable completed-game result summaries
 - Persistent achievement badges for milestone victories
+- Personal leaderboard showing the five best victories
 
 ## Installation
 
@@ -54,6 +55,7 @@ _The game in action, with ships placed and gameplay in progress._
 16. Your selected difficulty, theme, and sound setting are remembered for the next visit.
 17. Share a completed result with the Web Share API or copy it through the browser clipboard.
 18. Unlock and review badges for your first win, high accuracy, fast victories, and hard-mode wins.
+19. Review your personal leaderboard, ranked by guesses, accuracy, and difficulty.
 
 ## Development checks
 
