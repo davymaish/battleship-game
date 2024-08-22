@@ -111,6 +111,9 @@ var view = {
     }
     document.getElementById("achievementsSummary").innerHTML = summary;
   },
+  updateStreaks: function() {
+    document.getElementById("streakSummary").innerHTML = gameStreaks.summary(gameResults.records);
+  },
 
   updateShotHistory: function() {
     var history = document.getElementById("shotHistory");
@@ -157,6 +160,7 @@ var view = {
     this.updateStats();
     this.updateResults();
     this.updateLeaderboard();
+    this.updateStreaks();
     this.updateAnalytics();
     gameShotHistory.reset();
     this.updateShotHistory();
