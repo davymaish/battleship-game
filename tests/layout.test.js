@@ -27,3 +27,9 @@ test("the personal leaderboard is exposed in the page structure", function() {
   helpers.assert(html.indexOf("assets/game-achievements.js") < html.indexOf("assets/game-leaderboard.js"));
   helpers.assert(html.indexOf("assets/game-leaderboard.js") < html.indexOf("assets/game-view.js"));
 });
+
+test("win streaks are exposed in the page structure", function() {
+  helpers.assert(html.indexOf('id="streakSummary"') >= 0);
+  helpers.assert(html.indexOf("assets/game-leaderboard.js") < html.indexOf("assets/game-streaks.js"));
+  helpers.assert(html.indexOf("assets/game-streaks.js") < html.indexOf("assets/game-view.js"));
+});

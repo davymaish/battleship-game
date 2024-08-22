@@ -29,6 +29,7 @@ var timer = {
     gameAchievements.evaluate(record, gameResults.records);
     view.updateResults();
     view.updateLeaderboard();
+    view.updateStreaks();
     view.updateAchievements();
     if (model.shipsSunk >= gameConfig.minimumShipsToWin) {
       gameEvents.emit("gameEnded", {
@@ -133,6 +134,7 @@ var controller = {
       gameAchievements.evaluate(record, gameResults.records);
       view.updateResults();
       view.updateLeaderboard();
+      view.updateStreaks();
       view.updateAchievements();
       gameEvents.emit("gameEnded", {
         title: "You Won!",
@@ -354,6 +356,7 @@ function init() {
   gameResults.load();
   gameAchievements.load();
   view.updateLeaderboard();
+  view.updateStreaks();
   view.updateAchievements();
   model.generateShipLocations();
   gameReplay.reset();
