@@ -30,6 +30,7 @@ require("./storage.test.js");
 require("./stats.test.js");
 require("./difficulty.test.js");
 require("./results.test.js");
+require("./results-history.test.js");
 require("./achievements.test.js");
 require("./leaderboard.test.js");
 require("./streaks.test.js");
