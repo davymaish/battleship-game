@@ -22,6 +22,7 @@ function loadGameContext() {
     "assets/game-stats.js",
     "assets/game-shot-history.js",
     "assets/game-results.js",
+    "assets/game-results-history.js",
     "assets/game-achievements.js",
     "assets/game-leaderboard.js",
     "assets/game-streaks.js",
