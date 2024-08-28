@@ -86,6 +86,22 @@ var view = {
     var best = gameResults.bestScore();
     document.getElementById("resultsSummary").innerHTML = best === null ? "Best score: —" : "Best score: " + best + " guesses";
   },
+  updateRecentResults: function() {
+    var history = document.getElementById("recentResults");
+    var entries = gameResultsHistory.recent(gameResults.records);
+    history.innerHTML = "";
+    if (!entries.length) {
+      var empty = document.createElement("li");
+      empty.innerHTML = "No completed games yet.";
+      history.appendChild(empty);
+      return;
+    }
+    entries.forEach(function(entry) {
+      var item = document.createElement("li");
+      item.innerHTML = gameResultsHistory.format(entry);
+      history.appendChild(item);
+    });
+  },
   updateLeaderboard: function() {
     var leaderboard = document.getElementById("leaderboard");
     var entries = gameLeaderboard.topWins(gameResults.records);
@@ -159,6 +175,7 @@ var view = {
     this.displayMessage("Choose a coordinate to fire.");
     this.updateStats();
     this.updateResults();
+    this.updateRecentResults();
     this.updateLeaderboard();
     this.updateStreaks();
     this.updateAnalytics();
