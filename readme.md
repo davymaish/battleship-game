@@ -30,6 +30,7 @@ _The game in action, with ships placed and gameplay in progress._
 - Persistent achievement badges for milestone victories
 - Personal leaderboard showing the five best victories
 - Current and best consecutive win streak tracking
+- Recent completed-game archive with outcome and accuracy details
 
 ## Installation
 
@@ -58,6 +59,7 @@ _The game in action, with ships placed and gameplay in progress._
 18. Unlock and review badges for your first win, high accuracy, fast victories, and hard-mode wins.
 19. Review your personal leaderboard, ranked by guesses, accuracy, and difficulty.
 20. Track your current winning streak and the best streak in your completed-game history.
+21. Review the ten most recent completed games, including outcome, guesses, accuracy, and difficulty.
 
 ## Development checks
 
