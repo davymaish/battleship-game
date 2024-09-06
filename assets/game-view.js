@@ -130,6 +130,11 @@ var view = {
   updateStreaks: function() {
     document.getElementById("streakSummary").innerHTML = gameStreaks.summary(gameResults.records);
   },
+  updateChallenge: function(details) {
+    var challenge = details || controller.dailyChallenge || gameChallenge.describe();
+    var prefix = controller.dailyChallenge ? "Active " : "Available ";
+    document.getElementById("dailyChallengeSummary").innerHTML = prefix + challenge.label + " | Seed: " + challenge.seed;
+  },
 
   updateShotHistory: function() {
     var history = document.getElementById("shotHistory");
@@ -178,6 +183,7 @@ var view = {
     this.updateRecentResults();
     this.updateLeaderboard();
     this.updateStreaks();
+    this.updateChallenge();
     this.updateAnalytics();
     gameShotHistory.reset();
     this.updateShotHistory();

@@ -31,6 +31,7 @@ var timer = {
     view.updateRecentResults();
     view.updateLeaderboard();
     view.updateStreaks();
+    view.updateChallenge();
     view.updateAchievements();
     if (model.shipsSunk >= gameConfig.minimumShipsToWin) {
       gameEvents.emit("gameEnded", {
@@ -100,6 +101,7 @@ function applyDifficulty(name) {
 var controller = {
   guesses: 0,
   gameOver: false,
+  dailyChallenge: null,
 
   processGuess: function(guess) {
     if (this.gameOver || !gameState.canPlay()) {
@@ -137,6 +139,7 @@ var controller = {
       view.updateRecentResults();
       view.updateLeaderboard();
       view.updateStreaks();
+      view.updateChallenge();
       view.updateAchievements();
       gameEvents.emit("gameEnded", {
         title: "You Won!",
@@ -151,6 +154,9 @@ var controller = {
     gameStats.reset();
     gameStorage.clear();
     timer.stopCountDown();
+    if (!this.dailyChallenge) {
+      gameRandom.clearSeed();
+    }
     gameState.reset();
     gameReplay.reset();
     model.generateShipLocations();
@@ -158,6 +164,14 @@ var controller = {
     document.getElementById("endscene").classList.remove("show");
     document.getElementById("fireButton").disabled = false;
     document.getElementById("guessInput").focus();
+  },
+
+  startDailyChallenge: function() {
+    this.dailyChallenge = gameChallenge.describe();
+    gameRandom.setSeed(this.dailyChallenge.seed);
+    this.restart();
+    view.updateChallenge(this.dailyChallenge);
+    view.displayMessage("Daily challenge started. Good luck!");
   },
 
   changeDifficulty: function(name) {
@@ -306,6 +320,10 @@ function init() {
     controller.restart();
   });
 
+  document.getElementById("challengeButton").addEventListener("click", function() {
+    controller.startDailyChallenge();
+  });
+
   document.getElementById("undoButton").addEventListener("click", function() {
     controller.undo();
   });
@@ -357,6 +375,7 @@ function init() {
   document.getElementById("audioButton").setAttribute("aria-pressed", preferences.audioEnabled ? "false" : "true");
   gameResults.load();
   gameAchievements.load();
+  view.updateChallenge();
   view.updateRecentResults();
   view.updateLeaderboard();
   view.updateStreaks();
