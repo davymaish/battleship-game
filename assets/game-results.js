@@ -36,14 +36,15 @@ var gameResults = {
     }
   },
 
-  record: function(outcome, summary, guesses, difficulty) {
+  record: function(outcome, summary, guesses, difficulty, challengeDate) {
     var record = {
       outcome: outcome,
       guesses: guesses,
       shipsSunk: summary.shipsSunk,
       shots: summary.shots,
       accuracy: summary.accuracy,
-      difficulty: difficulty
+      difficulty: difficulty,
+      challengeDate: challengeDate || null
     };
     this.records.unshift(record);
     this.records = this.records.slice(0, 20);

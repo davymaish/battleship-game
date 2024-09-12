@@ -7,12 +7,14 @@ var gameResultsHistory = {
         outcome: record.outcome,
         guesses: record.guesses,
         accuracy: record.accuracy,
-        difficulty: record.difficulty
+        difficulty: record.difficulty,
+        challengeDate: record.challengeDate || null
       };
     });
   },
   format: function(entry) {
     var outcome = entry.outcome === "won" ? "Won" : "Lost";
-    return "#" + entry.number + " — " + outcome + ", " + entry.guesses + " guesses, " + entry.accuracy + "% accuracy (" + entry.difficulty + ")";
+    var challenge = entry.challengeDate ? " [Daily " + entry.challengeDate + "]" : "";
+    return "#" + entry.number + " — " + outcome + ", " + entry.guesses + " guesses, " + entry.accuracy + "% accuracy (" + entry.difficulty + ")" + challenge;
   }
 };

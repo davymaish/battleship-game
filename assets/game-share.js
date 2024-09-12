@@ -1,7 +1,8 @@
 var gameShare = {
-  buildSummary: function(outcome, guesses, stats, difficulty) {
+  buildSummary: function(outcome, guesses, stats, difficulty, challengeDate) {
     var result = outcome === "won" ? "I won" : "I played";
-    return result + " Battleship on " + difficulty + " difficulty in " + guesses + " guesses with " + stats.accuracy + "% accuracy.";
+    var challenge = challengeDate ? " in the daily challenge for " + challengeDate : "";
+    return result + " Battleship on " + difficulty + " difficulty" + challenge + " in " + guesses + " guesses with " + stats.accuracy + "% accuracy.";
   },
 
   share: function(text) {
