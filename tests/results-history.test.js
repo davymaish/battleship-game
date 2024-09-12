@@ -21,3 +21,9 @@ test("recent results format both outcomes", function() {
   helpers.assertEqual(history.format({ number: 1, outcome: "won", guesses: 5, accuracy: 80, difficulty: "hard" }), "#1 — Won, 5 guesses, 80% accuracy (hard)");
   helpers.assertEqual(history.format({ number: 2, outcome: "lost", guesses: 9, accuracy: 20, difficulty: "easy" }), "#2 — Lost, 9 guesses, 20% accuracy (easy)");
 });
+
+test("recent results identify daily challenge games", function() {
+  var entry = history.recent([result("won", 6, 83, "normal")])[0];
+  entry.challengeDate = "2024-09-07";
+  helpers.assertEqual(history.format(entry), "#1 — Won, 6 guesses, 83% accuracy (normal) [Daily 2024-09-07]");
+});

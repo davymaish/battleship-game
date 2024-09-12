@@ -38,3 +38,10 @@ test("results load invalid data as an empty history", function() {
   results.load();
   helpers.assertEqual(results.records.length, 0);
 });
+
+test("results retain daily challenge dates when provided", function() {
+  storage.storage = createMemoryStorage();
+  results.clear();
+  results.record("won", { shipsSunk: 3, shots: 6, accuracy: 83 }, 6, "normal", "2024-09-07");
+  helpers.assertEqual(results.records[0].challengeDate, "2024-09-07");
+});
