@@ -43,7 +43,13 @@ test("recent results are exposed in the page structure", function() {
 
 test("daily challenge controls are exposed in the page structure", function() {
   helpers.assert(html.indexOf('id="dailyChallengeSummary"') >= 0);
+  helpers.assert(html.indexOf('id="dailyChallengeResults"') >= 0);
   helpers.assert(html.indexOf('id="challengeButton"') >= 0);
   helpers.assert(html.indexOf("assets/game-random.js") < html.indexOf("assets/game-challenge.js"));
   helpers.assert(html.indexOf("assets/game-challenge.js") < html.indexOf("assets/game-view.js"));
+});
+
+test("daily challenge statistics load before the view", function() {
+  helpers.assert(html.indexOf("assets/game-challenge.js") < html.indexOf("assets/game-challenge-stats.js"));
+  helpers.assert(html.indexOf("assets/game-challenge-stats.js") < html.indexOf("assets/game-view.js"));
 });
