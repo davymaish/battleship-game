@@ -28,6 +28,7 @@ require("./validation.test.js");
 require("./model.test.js");
 require("./challenge.test.js");
 require("./challenge-stats.test.js");
+require("./challenge-streaks.test.js");
 require("./storage.test.js");
 require("./stats.test.js");
 require("./difficulty.test.js");
