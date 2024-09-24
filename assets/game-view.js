@@ -139,6 +139,9 @@ var view = {
     var summary = gameChallengeStats.summarize(gameResults.records);
     document.getElementById("dailyChallengeResults").innerHTML = gameChallengeStats.format(summary);
   },
+  updateChallengeStreaks: function() {
+    document.getElementById("dailyChallengeStreak").innerHTML = gameChallengeStreaks.summary(gameResults.records);
+  },
 
   updateShotHistory: function() {
     var history = document.getElementById("shotHistory");
@@ -189,6 +192,7 @@ var view = {
     this.updateStreaks();
     this.updateChallenge();
     this.updateChallengeStats();
+    this.updateChallengeStreaks();
     this.updateAnalytics();
     gameShotHistory.reset();
     this.updateShotHistory();
