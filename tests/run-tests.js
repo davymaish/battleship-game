@@ -36,6 +36,7 @@ require("./results.test.js");
 require("./results-history.test.js");
 require("./achievements.test.js");
 require("./leaderboard.test.js");
+require("./challenge-leaderboard.test.js");
 require("./streaks.test.js");
 require("./session.test.js");
 require("./keyboard.test.js");
