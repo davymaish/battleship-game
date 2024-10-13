@@ -158,6 +158,22 @@ var view = {
       leaderboard.appendChild(item);
     });
   },
+  updateChallengeCalendar: function() {
+    var calendar = document.getElementById("dailyChallengeCalendar");
+    var entries = gameChallengeCalendar.entries(gameResults.records);
+    calendar.innerHTML = "";
+    if (!entries.length) {
+      var empty = document.createElement("li");
+      empty.innerHTML = "No daily challenges completed yet.";
+      calendar.appendChild(empty);
+      return;
+    }
+    entries.forEach(function(entry) {
+      var item = document.createElement("li");
+      item.innerHTML = gameChallengeCalendar.format(entry);
+      calendar.appendChild(item);
+    });
+  },
 
   updateShotHistory: function() {
     var history = document.getElementById("shotHistory");
@@ -210,6 +226,7 @@ var view = {
     this.updateChallengeStats();
     this.updateChallengeStreaks();
     this.updateChallengeLeaderboard();
+    this.updateChallengeCalendar();
     this.updateAnalytics();
     gameShotHistory.reset();
     this.updateShotHistory();
