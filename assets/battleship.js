@@ -36,6 +36,7 @@ var timer = {
     view.updateChallengeStats();
     view.updateChallengeStreaks();
     view.updateChallengeLeaderboard();
+    view.updateChallengeCalendar();
     view.updateAchievements();
     if (model.shipsSunk >= gameConfig.minimumShipsToWin) {
       gameEvents.emit("gameEnded", {
@@ -147,6 +148,7 @@ var controller = {
       view.updateChallengeStats();
       view.updateChallengeStreaks();
       view.updateChallengeLeaderboard();
+      view.updateChallengeCalendar();
       view.updateAchievements();
       gameEvents.emit("gameEnded", {
         title: "You Won!",
@@ -389,6 +391,7 @@ function init() {
   view.updateChallengeStats();
   view.updateChallengeStreaks();
   view.updateChallengeLeaderboard();
+  view.updateChallengeCalendar();
   view.updateAchievements();
   model.generateShipLocations();
   gameReplay.reset();
