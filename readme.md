@@ -36,6 +36,7 @@ _The game in action, with ships placed and gameplay in progress._
 - Daily challenge performance summary with attempts, wins, losses, and best guesses
 - Current and best daily challenge win streak tracking across consecutive UTC dates
 - Daily challenge leaderboard ranking the five best challenge victories
+- Daily challenge calendar showing the ten most recent attempted UTC dates
 
 ## Installation
 
@@ -69,6 +70,7 @@ _The game in action, with ships placed and gameplay in progress._
 23. Review daily challenge attempts, wins, losses, and your best winning guess count in the challenge results panel.
 24. Build a daily challenge streak by winning on consecutive UTC dates and review your current and best streaks.
 25. Review the daily challenge leaderboard, ranked by guesses, accuracy, difficulty, and challenge date.
+26. Review the daily challenge calendar to see recent wins and losses by UTC challenge date.
 
 ## Development checks
 
