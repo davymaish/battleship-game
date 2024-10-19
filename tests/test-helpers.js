@@ -31,6 +31,7 @@ function loadGameContext() {
     "assets/game-leaderboard.js",
     "assets/game-challenge-leaderboard.js",
     "assets/game-challenge-calendar.js",
+    "assets/game-challenge-insights.js",
     "assets/game-streaks.js",
     "assets/game-analytics.js",
     "assets/game-model.js",

@@ -38,6 +38,7 @@ require("./achievements.test.js");
 require("./leaderboard.test.js");
 require("./challenge-leaderboard.test.js");
 require("./challenge-calendar.test.js");
+require("./challenge-insights.test.js");
 require("./streaks.test.js");
 require("./session.test.js");
 require("./keyboard.test.js");
