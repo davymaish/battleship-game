@@ -139,6 +139,10 @@ var view = {
     var summary = gameChallengeStats.summarize(gameResults.records);
     document.getElementById("dailyChallengeResults").innerHTML = gameChallengeStats.format(summary);
   },
+  updateChallengeInsights: function() {
+    var summary = gameChallengeInsights.summarize(gameResults.records);
+    document.getElementById("dailyChallengeInsights").innerHTML = gameChallengeInsights.format(summary);
+  },
   updateChallengeStreaks: function() {
     document.getElementById("dailyChallengeStreak").innerHTML = gameChallengeStreaks.summary(gameResults.records);
   },
@@ -224,6 +228,7 @@ var view = {
     this.updateStreaks();
     this.updateChallenge();
     this.updateChallengeStats();
+    this.updateChallengeInsights();
     this.updateChallengeStreaks();
     this.updateChallengeLeaderboard();
     this.updateChallengeCalendar();
