@@ -35,6 +35,7 @@ var timer = {
     view.updateChallenge();
     view.updateChallengeStats();
     view.updateChallengeInsights();
+    view.updateChallengeAchievements();
     view.updateChallengeStreaks();
     view.updateChallengeLeaderboard();
     view.updateChallengeCalendar();
@@ -148,6 +149,7 @@ var controller = {
       view.updateChallenge();
       view.updateChallengeStats();
       view.updateChallengeInsights();
+      view.updateChallengeAchievements();
       view.updateChallengeStreaks();
       view.updateChallengeLeaderboard();
       view.updateChallengeCalendar();
@@ -392,6 +394,7 @@ function init() {
   view.updateStreaks();
   view.updateChallengeStats();
   view.updateChallengeInsights();
+  view.updateChallengeAchievements();
   view.updateChallengeStreaks();
   view.updateChallengeLeaderboard();
   view.updateChallengeCalendar();

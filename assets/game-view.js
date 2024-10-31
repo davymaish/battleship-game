@@ -143,6 +143,16 @@ var view = {
     var summary = gameChallengeInsights.summarize(gameResults.records);
     document.getElementById("dailyChallengeInsights").innerHTML = gameChallengeInsights.format(summary);
   },
+  updateChallengeAchievements: function() {
+    var achievements = document.getElementById("dailyChallengeAchievements");
+    var badges = gameChallengeAchievements.list(gameResults.records);
+    achievements.innerHTML = "";
+    badges.forEach(function(badge) {
+      var item = document.createElement("li");
+      item.innerHTML = (badge.unlocked ? "Unlocked: " : "Locked: ") + badge.name + " — " + badge.description;
+      achievements.appendChild(item);
+    });
+  },
   updateChallengeStreaks: function() {
     document.getElementById("dailyChallengeStreak").innerHTML = gameChallengeStreaks.summary(gameResults.records);
   },
@@ -229,6 +239,7 @@ var view = {
     this.updateChallenge();
     this.updateChallengeStats();
     this.updateChallengeInsights();
+    this.updateChallengeAchievements();
     this.updateChallengeStreaks();
     this.updateChallengeLeaderboard();
     this.updateChallengeCalendar();

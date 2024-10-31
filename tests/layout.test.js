@@ -45,6 +45,8 @@ test("daily challenge controls are exposed in the page structure", function() {
   helpers.assert(html.indexOf('id="dailyChallengeSummary"') >= 0);
   helpers.assert(html.indexOf('id="dailyChallengeResults"') >= 0);
   helpers.assert(html.indexOf('id="dailyChallengeInsights"') >= 0);
+  helpers.assert(html.indexOf('id="dailyChallengeAchievementsTitle"') >= 0);
+  helpers.assert(html.indexOf('id="dailyChallengeAchievements"') >= 0);
   helpers.assert(html.indexOf('id="dailyChallengeStreak"') >= 0);
   helpers.assert(html.indexOf('id="dailyChallengeLeaderboardTitle"') >= 0);
   helpers.assert(html.indexOf('id="dailyChallengeLeaderboard"') >= 0);
@@ -78,4 +80,9 @@ test("daily challenge calendar loads before the view", function() {
 test("daily challenge insights load before the view", function() {
   helpers.assert(html.indexOf("assets/game-challenge-calendar.js") < html.indexOf("assets/game-challenge-insights.js"));
   helpers.assert(html.indexOf("assets/game-challenge-insights.js") < html.indexOf("assets/game-view.js"));
+});
+
+test("daily challenge achievements load before the view", function() {
+  helpers.assert(html.indexOf("assets/game-challenge-insights.js") < html.indexOf("assets/game-challenge-achievements.js"));
+  helpers.assert(html.indexOf("assets/game-challenge-achievements.js") < html.indexOf("assets/game-view.js"));
 });
