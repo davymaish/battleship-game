@@ -86,3 +86,8 @@ test("daily challenge achievements load before the view", function() {
   helpers.assert(html.indexOf("assets/game-challenge-insights.js") < html.indexOf("assets/game-challenge-achievements.js"));
   helpers.assert(html.indexOf("assets/game-challenge-achievements.js") < html.indexOf("assets/game-view.js"));
 });
+
+test("daily challenge sharing loads before the view", function() {
+  helpers.assert(html.indexOf("assets/game-challenge-achievements.js") < html.indexOf("assets/game-challenge-share.js"));
+  helpers.assert(html.indexOf("assets/game-challenge-share.js") < html.indexOf("assets/game-view.js"));
+});

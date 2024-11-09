@@ -221,7 +221,14 @@ var controller = {
       view.displayMessage("Finish a game before sharing a result.");
       return;
     }
-    var text = gameShare.buildSummary(record.outcome, record.guesses, record, record.difficulty, record.challengeDate);
+    var text;
+    if (record.challengeDate) {
+      var badges = gameChallengeAchievements.list(gameResults.records);
+      var streak = gameChallengeStreaks.current(gameResults.records);
+      text = gameChallengeShare.buildSummary(record, streak, badges);
+    } else {
+      text = gameShare.buildSummary(record.outcome, record.guesses, record, record.difficulty, record.challengeDate);
+    }
     gameShare.share(text).then(function(shared) {
       view.displayMessage(shared ? "Result shared." : "Sharing is not available in this browser.");
     });
