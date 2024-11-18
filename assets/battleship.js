@@ -175,6 +175,7 @@ var controller = {
     model.generateShipLocations();
     gameEvents.emit("gameReset");
     document.getElementById("endscene").classList.remove("show");
+    document.getElementById("exportChallengeButton").setAttribute("disabled", true);
     document.getElementById("fireButton").disabled = false;
     document.getElementById("guessInput").focus();
   },
@@ -232,6 +233,23 @@ var controller = {
     gameShare.share(text).then(function(shared) {
       view.displayMessage(shared ? "Result shared." : "Sharing is not available in this browser.");
     });
+  },
+
+  exportChallengeResult: function() {
+    var record = gameResults.records[0];
+    if (!record || !record.challengeDate) {
+      view.displayMessage("Finish a daily challenge before exporting its result.");
+      return;
+    }
+    var badges = gameChallengeAchievements.list(gameResults.records);
+    var streak = gameChallengeStreaks.current(gameResults.records);
+    var blob = new Blob([gameChallengeExport.serialize(record, streak, badges)], { type: "application/json" });
+    var link = document.createElement("a");
+    link.href = URL.createObjectURL(blob);
+    link.download = "battleship-challenge-" + record.challengeDate + ".json";
+    link.click();
+    URL.revokeObjectURL(link.href);
+    view.displayMessage("Daily challenge result exported.");
   },
 
   saveSession: function() {
@@ -378,6 +396,9 @@ function init() {
 
   document.getElementById("shareButton").addEventListener("click", function() {
     controller.shareResult();
+  });
+  document.getElementById("exportChallengeButton").addEventListener("click", function() {
+    controller.exportChallengeResult();
   });
 
   document.getElementById("audioButton").addEventListener("click", function(event) {
