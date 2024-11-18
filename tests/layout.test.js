@@ -91,3 +91,9 @@ test("daily challenge sharing loads before the view", function() {
   helpers.assert(html.indexOf("assets/game-challenge-achievements.js") < html.indexOf("assets/game-challenge-share.js"));
   helpers.assert(html.indexOf("assets/game-challenge-share.js") < html.indexOf("assets/game-view.js"));
 });
+
+test("daily challenge exports load before the view", function() {
+  helpers.assert(html.indexOf('id="exportChallengeButton"') >= 0);
+  helpers.assert(html.indexOf("assets/game-challenge-share.js") < html.indexOf("assets/game-challenge-export.js"));
+  helpers.assert(html.indexOf("assets/game-challenge-export.js") < html.indexOf("assets/game-view.js"));
+});
