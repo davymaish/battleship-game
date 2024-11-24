@@ -32,6 +32,7 @@ require("./challenge-streaks.test.js");
 require("./challenge-achievements.test.js");
 require("./challenge-share.test.js");
 require("./challenge-export.test.js");
+require("./challenge-import.test.js");
 require("./storage.test.js");
 require("./stats.test.js");
 require("./difficulty.test.js");
