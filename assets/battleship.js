@@ -216,6 +216,21 @@ var controller = {
     window.location.reload();
   },
 
+  importChallengeResult: function() {
+    var serialized = window.prompt("Paste a daily challenge result JSON export:");
+    if (!serialized) {
+      return;
+    }
+    var parsed = gameChallengeImport.parse(serialized);
+    if (!parsed.valid) {
+      view.displayMessage(parsed.reason);
+      return;
+    }
+    var result = parsed.result;
+    var badges = result.badges.length ? result.badges.join(", ") : "none";
+    view.displayMessage("Imported daily challenge " + result.challengeDate + ": " + result.outcome + " in " + result.guesses + " guesses. Streak: " + result.streak + ". Badges: " + badges + ".");
+  },
+
   shareResult: function() {
     var record = gameResults.records[0];
     if (!record) {
@@ -392,6 +407,9 @@ function init() {
 
   document.getElementById("importButton").addEventListener("click", function() {
     controller.importSession();
+  });
+  document.getElementById("importChallengeButton").addEventListener("click", function() {
+    controller.importChallengeResult();
   });
 
   document.getElementById("shareButton").addEventListener("click", function() {
