@@ -15,3 +15,14 @@ test("daily challenge descriptions include date and seed", function() {
   helpers.assertEqual(details.seed, challenge.seedForDate(details.date));
   helpers.assertEqual(details.label, "Daily challenge — 2024-09-07");
 });
+test("historical daily challenge dates produce replayable descriptions", function() {
+  var details = challenge.describeDate("2024-11-30");
+  helpers.assert(details !== null);
+  helpers.assertEqual(details.date, "2024-11-30");
+  helpers.assertEqual(details.seed, challenge.seedForDate("2024-11-30"));
+});
+test("historical daily challenge dates reject invalid calendar values", function() {
+  helpers.assert(!challenge.isDateKey("2024-02-30"));
+  helpers.assertEqual(challenge.describeDate("2024-02-30"), null);
+  helpers.assert(!challenge.isDateKey("not-a-date"));
+});

@@ -14,12 +14,24 @@ var gameChallenge = {
     }
     return hash >>> 0;
   },
-  describe: function(date) {
-    var dateKey = this.dateKey(date);
+  isDateKey: function(dateKey) {
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(dateKey)) {
+      return false;
+    }
+    var date = new Date(dateKey + "T00:00:00Z");
+    return !isNaN(date.getTime()) && this.dateKey(date) === dateKey;
+  },
+  describeDate: function(dateKey) {
+    if (!this.isDateKey(dateKey)) {
+      return null;
+    }
     return {
       date: dateKey,
       seed: this.seedForDate(dateKey),
       label: "Daily challenge — " + dateKey
     };
+  },
+  describe: function(date) {
+    return this.describeDate(this.dateKey(date));
   }
 };
