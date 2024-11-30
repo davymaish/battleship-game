@@ -44,6 +44,7 @@ _The game in action, with ships placed and gameplay in progress._
 - Validated daily challenge result imports for reviewing shared JSON files
 - Tamper-evident daily challenge exports with deterministic integrity checksums
 - Historical daily challenge replay from any valid UTC calendar date
+- Compact daily challenge codes for sharing and replaying deterministic dates
 
 ## Installation
 
@@ -85,6 +86,7 @@ _The game in action, with ships placed and gameplay in progress._
 31. Import a daily challenge result JSON file to validate and review its recorded outcome, streak, and badges.
 32. Exported challenge results include an integrity checksum, and modified checksummed files are rejected on import.
 33. Choose a valid UTC date to replay the deterministic daily challenge fleet from that day.
+34. Paste a `DC-YYYYMMDD-XXXXXXXX` challenge code to replay the matching deterministic fleet.
 
 ## Development checks
 
