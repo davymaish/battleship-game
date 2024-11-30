@@ -26,3 +26,15 @@ test("historical daily challenge dates reject invalid calendar values", function
   helpers.assertEqual(challenge.describeDate("2024-02-30"), null);
   helpers.assert(!challenge.isDateKey("not-a-date"));
 });
+test("daily challenge codes round-trip their historical date", function() {
+  var code = challenge.createCode("2024-11-30");
+  var details = challenge.parseCode(code);
+  helpers.assertEqual(code, details.code);
+  helpers.assertEqual(details.date, "2024-11-30");
+  helpers.assertEqual(details.seed, challenge.seedForDate("2024-11-30"));
+});
+test("daily challenge codes reject malformed and tampered values", function() {
+  helpers.assertEqual(challenge.parseCode("DC-20241130-00000000"), null);
+  helpers.assertEqual(challenge.parseCode("2024-11-30"), null);
+  helpers.assertEqual(challenge.parseCode("DC-20240230-00000000"), null);
+});
