@@ -41,6 +41,7 @@ _The game in action, with ships placed and gameplay in progress._
 - Daily challenge badges for first wins, three-day streaks, and precision victories
 - Daily challenge share summaries with result, streak, and unlocked badge context
 - Daily challenge result exports as portable JSON files
+- Validated daily challenge result imports for reviewing shared JSON files
 
 ## Installation
 
@@ -79,6 +80,7 @@ _The game in action, with ships placed and gameplay in progress._
 28. Unlock daily challenge badges by earning your first win, building a three-day streak, and winning with high accuracy.
 29. Share a daily challenge result with its date, outcome, streak, and unlocked challenge badges.
 30. Export a completed daily challenge result as a JSON file for later reference or sharing.
+31. Import a daily challenge result JSON file to validate and review its recorded outcome, streak, and badges.
 
 ## Development checks
 
