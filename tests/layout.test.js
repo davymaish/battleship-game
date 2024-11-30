@@ -57,6 +57,11 @@ test("daily challenge controls are exposed in the page structure", function() {
   helpers.assert(html.indexOf("assets/game-challenge.js") < html.indexOf("assets/game-view.js"));
 });
 
+test("historical daily challenge replay controls are exposed", function() {
+  helpers.assert(html.indexOf('id="challengeDateInput"') >= 0);
+  helpers.assert(html.indexOf('id="challengeReplayButton"') >= 0);
+});
+
 test("daily challenge statistics load before the view", function() {
   helpers.assert(html.indexOf("assets/game-challenge.js") < html.indexOf("assets/game-challenge-stats.js"));
   helpers.assert(html.indexOf("assets/game-challenge-stats.js") < html.indexOf("assets/game-view.js"));
