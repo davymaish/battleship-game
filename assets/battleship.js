@@ -191,6 +191,14 @@ var controller = {
     view.updateChallenge(this.dailyChallenge);
     view.displayMessage(dateKey ? "Historical daily challenge replay started. Good luck!" : "Daily challenge started. Good luck!");
   },
+  startChallengeCode: function(code) {
+    var details = gameChallenge.parseCode(code);
+    if (!details) {
+      view.displayMessage("That daily challenge code is invalid.");
+      return;
+    }
+    this.startDailyChallenge(details.date);
+  },
 
   changeDifficulty: function(name) {
     applyDifficulty(name);
@@ -382,6 +390,9 @@ function init() {
   });
   document.getElementById("challengeReplayButton").addEventListener("click", function() {
     controller.startDailyChallenge(document.getElementById("challengeDateInput").value);
+  });
+  document.getElementById("challengeCodeButton").addEventListener("click", function() {
+    controller.startChallengeCode(document.getElementById("challengeCodeInput").value);
   });
 
   document.getElementById("undoButton").addEventListener("click", function() {
