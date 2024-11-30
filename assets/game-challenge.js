@@ -47,7 +47,7 @@ var gameChallenge = {
     var digits = match[1];
     var dateKey = digits.slice(0, 4) + "-" + digits.slice(4, 6) + "-" + digits.slice(6, 8);
     var details = this.describeDate(dateKey);
-    return details && details.code === code.toUpperCase() ? details : null;
+    return details && details.code.toUpperCase() === code.toUpperCase() ? details : null;
   },
   describe: function(date) {
     return this.describeDate(this.dateKey(date));
