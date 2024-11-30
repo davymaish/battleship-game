@@ -42,6 +42,7 @@ _The game in action, with ships placed and gameplay in progress._
 - Daily challenge share summaries with result, streak, and unlocked badge context
 - Daily challenge result exports as portable JSON files
 - Validated daily challenge result imports for reviewing shared JSON files
+- Tamper-evident daily challenge exports with deterministic integrity checksums
 
 ## Installation
 
@@ -81,6 +82,7 @@ _The game in action, with ships placed and gameplay in progress._
 29. Share a daily challenge result with its date, outcome, streak, and unlocked challenge badges.
 30. Export a completed daily challenge result as a JSON file for later reference or sharing.
 31. Import a daily challenge result JSON file to validate and review its recorded outcome, streak, and badges.
+32. Exported challenge results include an integrity checksum, and modified checksummed files are rejected on import.
 
 ## Development checks
 
