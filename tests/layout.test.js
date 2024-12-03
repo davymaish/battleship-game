@@ -67,6 +67,11 @@ test("daily challenge code replay controls are exposed", function() {
   helpers.assert(html.indexOf('id="challengeCodeButton"') >= 0);
 });
 
+test("active daily challenge codes are exposed for sharing", function() {
+  helpers.assert(html.indexOf('id="dailyChallengeCode"') >= 0);
+  helpers.assert(html.indexOf('id="copyChallengeCodeButton"') >= 0);
+});
+
 test("daily challenge statistics load before the view", function() {
   helpers.assert(html.indexOf("assets/game-challenge.js") < html.indexOf("assets/game-challenge-stats.js"));
   helpers.assert(html.indexOf("assets/game-challenge-stats.js") < html.indexOf("assets/game-view.js"));
