@@ -134,6 +134,8 @@ var view = {
     var challenge = details || controller.dailyChallenge || gameChallenge.describe();
     var prefix = controller.dailyChallenge ? "Active " : "Available ";
     document.getElementById("dailyChallengeSummary").innerHTML = prefix + challenge.label + " | Seed: " + challenge.seed;
+    document.getElementById("dailyChallengeCode").innerHTML = "Challenge code: " + (controller.dailyChallenge ? challenge.code : "—");
+    document.getElementById("copyChallengeCodeButton").disabled = !controller.dailyChallenge;
   },
   updateChallengeStats: function() {
     var summary = gameChallengeStats.summarize(gameResults.records);
