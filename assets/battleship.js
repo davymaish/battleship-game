@@ -199,6 +199,15 @@ var controller = {
     }
     this.startDailyChallenge(details.date);
   },
+  copyChallengeCode: function() {
+    if (!this.dailyChallenge) {
+      view.displayMessage("Start a daily challenge before copying its code.");
+      return;
+    }
+    gameShare.share(this.dailyChallenge.code).then(function(shared) {
+      view.displayMessage(shared ? "Challenge code copied or shared." : "Copying is not available in this browser.");
+    });
+  },
 
   changeDifficulty: function(name) {
     applyDifficulty(name);
@@ -393,6 +402,9 @@ function init() {
   });
   document.getElementById("challengeCodeButton").addEventListener("click", function() {
     controller.startChallengeCode(document.getElementById("challengeCodeInput").value);
+  });
+  document.getElementById("copyChallengeCodeButton").addEventListener("click", function() {
+    controller.copyChallengeCode();
   });
 
   document.getElementById("undoButton").addEventListener("click", function() {
