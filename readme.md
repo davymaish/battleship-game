@@ -45,6 +45,7 @@ _The game in action, with ships placed and gameplay in progress._
 - Tamper-evident daily challenge exports with deterministic integrity checksums
 - Historical daily challenge replay from any valid UTC calendar date
 - Compact daily challenge codes for sharing and replaying deterministic dates
+- Active challenge code display with clipboard and Web Share support
 
 ## Installation
 
@@ -87,6 +88,7 @@ _The game in action, with ships placed and gameplay in progress._
 32. Exported challenge results include an integrity checksum, and modified checksummed files are rejected on import.
 33. Choose a valid UTC date to replay the deterministic daily challenge fleet from that day.
 34. Paste a `DC-YYYYMMDD-XXXXXXXX` challenge code to replay the matching deterministic fleet.
+35. Copy or share the active challenge code with the clipboard or Web Share API when supported.
 
 ## Development checks
 
