@@ -17,3 +17,9 @@ test("sharing safely reports unavailable environments", function() {
     helpers.assertEqual(shared, false);
   });
 });
+
+test("challenge-code sharing safely reports unavailable environments", function() {
+  share.shareCode("DC-20241202-12345678").then(function(shared) {
+    helpers.assertEqual(shared, false);
+  });
+});

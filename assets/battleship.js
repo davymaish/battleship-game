@@ -204,8 +204,17 @@ var controller = {
       view.displayMessage("Start a daily challenge before copying its code.");
       return;
     }
-    gameShare.share(this.dailyChallenge.code).then(function(shared) {
+    gameShare.shareCode(this.dailyChallenge.code).then(function(shared) {
       view.displayMessage(shared ? "Challenge code copied or shared." : "Copying is not available in this browser.");
+    });
+  },
+  shareChallengeCode: function(code) {
+    if (!code) {
+      view.displayMessage("There is no challenge code to share.");
+      return;
+    }
+    gameShare.shareCode(code).then(function(shared) {
+      view.displayMessage(shared ? "Challenge code copied or shared." : "Sharing is not available in this browser.");
     });
   },
 
