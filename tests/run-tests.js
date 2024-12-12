@@ -27,6 +27,7 @@ function run() {
 require("./validation.test.js");
 require("./model.test.js");
 require("./challenge.test.js");
+require("./challenge-code-history.test.js");
 require("./challenge-stats.test.js");
 require("./challenge-streaks.test.js");
 require("./challenge-achievements.test.js");
