@@ -46,6 +46,7 @@ _The game in action, with ships placed and gameplay in progress._
 - Historical daily challenge replay from any valid UTC calendar date
 - Compact daily challenge codes for sharing and replaying deterministic dates
 - Active challenge code display with clipboard and Web Share support
+- Recent daily challenge code history with outcomes and UTC dates
 
 ## Installation
 
@@ -89,6 +90,7 @@ _The game in action, with ships placed and gameplay in progress._
 33. Choose a valid UTC date to replay the deterministic daily challenge fleet from that day.
 34. Paste a `DC-YYYYMMDD-XXXXXXXX` challenge code to replay the matching deterministic fleet.
 35. Copy or share the active challenge code with the clipboard or Web Share API when supported.
+36. Review the five most recent distinct daily challenge codes with their dates and outcomes.
 
 ## Development checks
 
