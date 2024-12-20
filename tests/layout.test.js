@@ -3,6 +3,7 @@ var helpers = require("./test-helpers.js");
 
 var html = fs.readFileSync("index.html", "utf8");
 var css = fs.readFileSync("assets/styles.css", "utf8");
+var viewSource = fs.readFileSync("assets/game-view.js", "utf8");
 
 test("the page declares a responsive viewport", function() {
   helpers.assert(html.indexOf('name="viewport"') >= 0);
@@ -101,6 +102,12 @@ test("daily challenge code history loads before the view", function() {
 
 test("daily challenge code history supports one-click replay", function() {
   helpers.assert(html.indexOf('id="dailyChallengeCodes"') >= 0);
+});
+
+test("daily challenge code history supports sharing each code", function() {
+  helpers.assert(viewSource.indexOf('share.innerHTML = "Share"') >= 0);
+  helpers.assert(viewSource.indexOf("controller.shareChallengeCode(entry.code)") >= 0);
+  helpers.assert(viewSource.indexOf("Share daily challenge ") >= 0);
 });
 
 test("daily challenge insights load before the view", function() {
