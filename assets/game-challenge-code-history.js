@@ -9,7 +9,7 @@ var gameChallengeCodeHistory = {
       seen[record.challengeDate] = true;
       var code = gameChallenge.createCode(record.challengeDate);
       if (code) {
-        entries.push({ date: record.challengeDate, outcome: record.outcome, code: code });
+        entries.push({ date: record.challengeDate, outcome: record.outcome, code: code, replayDate: record.challengeDate });
       }
     });
     entries.sort(function(left, right) {
