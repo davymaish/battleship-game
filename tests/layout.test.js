@@ -99,6 +99,10 @@ test("daily challenge code history loads before the view", function() {
   helpers.assert(html.indexOf("assets/game-challenge-code-history.js") < html.indexOf("assets/game-view.js"));
 });
 
+test("daily challenge code history supports one-click replay", function() {
+  helpers.assert(html.indexOf('id="dailyChallengeCodes"') >= 0);
+});
+
 test("daily challenge insights load before the view", function() {
   helpers.assert(html.indexOf("assets/game-challenge-calendar.js") < html.indexOf("assets/game-challenge-insights.js"));
   helpers.assert(html.indexOf("assets/game-challenge-insights.js") < html.indexOf("assets/game-view.js"));
