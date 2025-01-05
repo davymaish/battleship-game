@@ -48,6 +48,7 @@ _The game in action, with ships placed and gameplay in progress._
 - Active challenge code display with clipboard and Web Share support
 - Recent daily challenge code history with outcomes and UTC dates
 - One-click replay actions for recent historical challenge codes
+- Share actions for copying or sharing recent historical challenge codes
 
 ## Installation
 
@@ -93,6 +94,7 @@ _The game in action, with ships placed and gameplay in progress._
 35. Copy or share the active challenge code with the clipboard or Web Share API when supported.
 36. Review the five most recent distinct daily challenge codes with their dates and outcomes.
 37. Replay any listed historical daily challenge directly from its recent-code entry.
+38. Copy or share a listed historical daily challenge code directly from its recent-code entry.
 
 ## Development checks
 
