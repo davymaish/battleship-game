@@ -167,6 +167,7 @@ counter.functionsToExecuteAtTimerEnd = function() {
 window.onload = init;
 
 function init() {
+  gameHistory.bindEvents();
   view.bindEvents();
 
   var guessForm = document.getElementById("guessForm");
