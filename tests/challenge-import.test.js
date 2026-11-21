@@ -40,3 +40,21 @@ test("daily challenge imports reject invalid result fields", function() {
   helpers.assert(!parsed.valid);
   helpers.assertEqual(parsed.reason, "The challenge date is invalid.");
 });
+
+test("daily challenge imports reject tampered checksummed results", function() {
+  var payload = {
+    type: "battleship-daily-challenge",
+    version: 1,
+    challengeDate: "2024-11-21",
+    outcome: "won",
+    guesses: 8,
+    accuracy: 75,
+    difficulty: "normal",
+    streak: 2,
+    badges: [],
+    checksum: "00000000"
+  };
+  var parsed = challengeImport.parse(JSON.stringify(payload));
+  helpers.assert(!parsed.valid);
+  helpers.assertEqual(parsed.reason, "The challenge result checksum is invalid.");
+});

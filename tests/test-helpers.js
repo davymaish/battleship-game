@@ -24,6 +24,7 @@ function loadGameContext() {
     "assets/game-challenge-streaks.js",
     "assets/game-challenge-achievements.js",
     "assets/game-challenge-share.js",
+    "assets/game-challenge-integrity.js",
     "assets/game-challenge-export.js",
     "assets/game-challenge-import.js",
     "assets/game-storage.js",

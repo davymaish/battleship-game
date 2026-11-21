@@ -5,7 +5,7 @@ var gameChallengeExport = {
     }).map(function(badge) {
       return badge.name;
     });
-    return JSON.stringify({
+    var payload = {
       type: "battleship-daily-challenge",
       version: 1,
       challengeDate: record.challengeDate,
@@ -15,6 +15,8 @@ var gameChallengeExport = {
       difficulty: record.difficulty,
       streak: streak,
       badges: unlocked
-    }, null, 2);
+    };
+    gameChallengeIntegrity.attach(payload);
+    return JSON.stringify(payload, null, 2);
   }
 };

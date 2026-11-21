@@ -24,6 +24,9 @@ var gameChallengeImport = {
     if (!Number.isFinite(payload.streak) || payload.streak < 0 || !Array.isArray(payload.badges) || payload.badges.some(function(badge) { return typeof badge !== "string"; })) {
       return { valid: false, reason: "The challenge progress is invalid." };
     }
+    if (payload.checksum !== undefined && !gameChallengeIntegrity.verify(payload)) {
+      return { valid: false, reason: "The challenge result checksum is invalid." };
+    }
     return { valid: true, result: payload };
   }
 };

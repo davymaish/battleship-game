@@ -103,3 +103,9 @@ test("daily challenge imports load after exports and before the view", function(
   helpers.assert(html.indexOf("assets/game-challenge-export.js") < html.indexOf("assets/game-challenge-import.js"));
   helpers.assert(html.indexOf("assets/game-challenge-import.js") < html.indexOf("assets/game-view.js"));
 });
+
+test("daily challenge integrity loads before export and import", function() {
+  helpers.assert(html.indexOf("assets/game-challenge-share.js") < html.indexOf("assets/game-challenge-integrity.js"));
+  helpers.assert(html.indexOf("assets/game-challenge-integrity.js") < html.indexOf("assets/game-challenge-export.js"));
+  helpers.assert(html.indexOf("assets/game-challenge-integrity.js") < html.indexOf("assets/game-challenge-import.js"));
+});
