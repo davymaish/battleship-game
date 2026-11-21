@@ -180,12 +180,16 @@ var controller = {
     document.getElementById("guessInput").focus();
   },
 
-  startDailyChallenge: function() {
-    this.dailyChallenge = gameChallenge.describe();
+  startDailyChallenge: function(dateKey) {
+    this.dailyChallenge = dateKey ? gameChallenge.describeDate(dateKey) : gameChallenge.describe();
+    if (!this.dailyChallenge) {
+      view.displayMessage("Choose a valid challenge date to replay.");
+      return;
+    }
     gameRandom.setSeed(this.dailyChallenge.seed);
     this.restart();
     view.updateChallenge(this.dailyChallenge);
-    view.displayMessage("Daily challenge started. Good luck!");
+    view.displayMessage(dateKey ? "Historical daily challenge replay started. Good luck!" : "Daily challenge started. Good luck!");
   },
 
   changeDifficulty: function(name) {
@@ -375,6 +379,9 @@ function init() {
 
   document.getElementById("challengeButton").addEventListener("click", function() {
     controller.startDailyChallenge();
+  });
+  document.getElementById("challengeReplayButton").addEventListener("click", function() {
+    controller.startDailyChallenge(document.getElementById("challengeDateInput").value);
   });
 
   document.getElementById("undoButton").addEventListener("click", function() {
