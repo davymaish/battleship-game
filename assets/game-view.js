@@ -175,6 +175,7 @@ var view = {
     });
   },
   updateChallengeCalendar: function() {
+    this.updateChallengeCodes();
     var calendar = document.getElementById("dailyChallengeCalendar");
     var entries = gameChallengeCalendar.entries(gameResults.records);
     calendar.innerHTML = "";
@@ -188,6 +189,22 @@ var view = {
       var item = document.createElement("li");
       item.innerHTML = gameChallengeCalendar.format(entry);
       calendar.appendChild(item);
+    });
+  },
+  updateChallengeCodes: function() {
+    var codes = document.getElementById("dailyChallengeCodes");
+    var entries = gameChallengeCodeHistory.entries(gameResults.records);
+    codes.innerHTML = "";
+    if (!entries.length) {
+      var empty = document.createElement("li");
+      empty.innerHTML = "No daily challenge codes yet.";
+      codes.appendChild(empty);
+      return;
+    }
+    entries.forEach(function(entry) {
+      var item = document.createElement("li");
+      item.innerHTML = gameChallengeCodeHistory.format(entry);
+      codes.appendChild(item);
     });
   },
 
