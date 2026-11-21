@@ -18,8 +18,9 @@
 			<div id="messageArea" role="status" aria-live="polite">Choose a coordinate to fire.</div>
 				<div id="gameState" role="status" aria-live="polite">Game state: setup</div>
 				<div id="gameStats" role="status" aria-live="polite">Shots: 0 | Hits: 0 | Misses: 0 | Accuracy: 0%</div>
-				<div id="resultsSummary" role="status" aria-live="polite">Best score: —</div>
-				<ol id="shotHistory" aria-label="Shot history"></ol>
+					<div id="resultsSummary" role="status" aria-live="polite">Best score: —</div>
+					<div id="analyticsSummary" role="status" aria-live="polite">Games: 0 | Wins: 0 | Losses: 0</div>
+					<div id="shotHistory" aria-label="Shot history"></div>
 				<div id="counterArea" class="counterArea">
 				<p>You have 60 seconds to sink at least two battleship!</p>
 				<p>Each battleship takes 3 grid boxes. </p> 
@@ -107,6 +108,7 @@
 			<script src="assets/game-theme.js"></script>
 			<script src="assets/game-audio.js"></script>
 			<script src="assets/game-shot-history.js"></script>
+			<script src="assets/game-analytics.js"></script>
 			<script src="assets/game-model.js"></script>
 		<script src="assets/game-view.js"></script>
 			<script src="assets/battleship.js"></script>

@@ -37,4 +37,5 @@ require("./audio.test.js");
 require("./shot-history.test.js");
 require("./layout.test.js");
 require("./pwa.test.js");
+require("./analytics.test.js");
 run();
