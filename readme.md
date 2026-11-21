@@ -20,6 +20,7 @@ _The game in action, with ships placed and gameplay in progress._
 - Manual JSON session export and import
 - Keyboard-accessible board navigation with semantic grid markup
 - Classic, ocean, and high-contrast visual themes
+- Optional audio feedback with a mute control
 
 ## Installation
 
@@ -38,6 +39,7 @@ _The game in action, with ships placed and gameplay in progress._
 8. Use **Export session** to download a backup or **Import session** to restore a JSON backup.
 9. Use the arrow keys to move focus across the board cells.
 10. Choose a theme to customize the interface or improve contrast.
+11. Use **Mute sound** to disable audio feedback when needed.
 
 ## Development checks
 
