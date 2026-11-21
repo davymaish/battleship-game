@@ -24,7 +24,8 @@ var timer = {
       model.shipsSunk >= gameConfig.minimumShipsToWin ? "won" : "lost",
       gameStats.summary(),
       controller.guesses,
-      gameDifficulty.current
+      gameDifficulty.current,
+      controller.dailyChallenge ? controller.dailyChallenge.date : null
     );
     gameAchievements.evaluate(record, gameResults.records);
     view.updateResults();
@@ -32,6 +33,7 @@ var timer = {
     view.updateLeaderboard();
     view.updateStreaks();
     view.updateChallenge();
+    view.updateChallengeStats();
     view.updateAchievements();
     if (model.shipsSunk >= gameConfig.minimumShipsToWin) {
       gameEvents.emit("gameEnded", {
@@ -133,13 +135,14 @@ var controller = {
       this.gameOver = true;
       timer.stopCountDown();
       gameState.transitionTo(gameState.states.WON);
-      var record = gameResults.record("won", gameStats.summary(), this.guesses, gameDifficulty.current);
+      var record = gameResults.record("won", gameStats.summary(), this.guesses, gameDifficulty.current, this.dailyChallenge ? this.dailyChallenge.date : null);
       gameAchievements.evaluate(record, gameResults.records);
       view.updateResults();
       view.updateRecentResults();
       view.updateLeaderboard();
       view.updateStreaks();
       view.updateChallenge();
+      view.updateChallengeStats();
       view.updateAchievements();
       gameEvents.emit("gameEnded", {
         title: "You Won!",
@@ -208,7 +211,7 @@ var controller = {
       view.displayMessage("Finish a game before sharing a result.");
       return;
     }
-    var text = gameShare.buildSummary(record.outcome, record.guesses, record, record.difficulty);
+    var text = gameShare.buildSummary(record.outcome, record.guesses, record, record.difficulty, record.challengeDate);
     gameShare.share(text).then(function(shared) {
       view.displayMessage(shared ? "Result shared." : "Sharing is not available in this browser.");
     });
@@ -379,6 +382,7 @@ function init() {
   view.updateRecentResults();
   view.updateLeaderboard();
   view.updateStreaks();
+  view.updateChallengeStats();
   view.updateAchievements();
   model.generateShipLocations();
   gameReplay.reset();

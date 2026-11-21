@@ -32,6 +32,8 @@ _The game in action, with ships placed and gameplay in progress._
 - Current and best consecutive win streak tracking
 - Recent completed-game archive with outcome and accuracy details
 - Deterministic daily challenge with a shared date-based fleet
+- Daily challenge results labeled by UTC challenge date
+- Daily challenge performance summary with attempts, wins, losses, and best guesses
 
 ## Installation
 
@@ -62,6 +64,7 @@ _The game in action, with ships placed and gameplay in progress._
 20. Track your current winning streak and the best streak in your completed-game history.
 21. Review the ten most recent completed games, including outcome, guesses, accuracy, and difficulty.
 22. Start the daily challenge to play the same seeded fleet as other players on the UTC calendar date.
+23. Review daily challenge attempts, wins, losses, and your best winning guess count in the challenge results panel.
 
 ## Development checks
 
