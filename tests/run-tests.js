@@ -38,4 +38,5 @@ require("./shot-history.test.js");
 require("./layout.test.js");
 require("./pwa.test.js");
 require("./analytics.test.js");
+require("./preferences.test.js");
 run();

@@ -26,6 +26,10 @@ var gameDifficulty = {
     return this.presets[name] || this.presets.normal;
   },
 
+  isAvailable: function(name) {
+    return Boolean(this.presets[name]);
+  },
+
   apply: function(name, config) {
     var selectedName = this.presets[name] ? name : "normal";
     var preset = this.presets[selectedName];
