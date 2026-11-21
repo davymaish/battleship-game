@@ -30,4 +30,5 @@ require("./storage.test.js");
 require("./stats.test.js");
 require("./difficulty.test.js");
 require("./results.test.js");
+require("./session.test.js");
 run();
