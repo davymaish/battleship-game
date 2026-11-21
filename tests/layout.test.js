@@ -33,3 +33,10 @@ test("win streaks are exposed in the page structure", function() {
   helpers.assert(html.indexOf("assets/game-leaderboard.js") < html.indexOf("assets/game-streaks.js"));
   helpers.assert(html.indexOf("assets/game-streaks.js") < html.indexOf("assets/game-view.js"));
 });
+
+test("recent results are exposed in the page structure", function() {
+  helpers.assert(html.indexOf('id="recentResultsTitle"') >= 0);
+  helpers.assert(html.indexOf('id="recentResults"') >= 0);
+  helpers.assert(html.indexOf("assets/game-results.js") < html.indexOf("assets/game-results-history.js"));
+  helpers.assert(html.indexOf("assets/game-results-history.js") < html.indexOf("assets/game-view.js"));
+});

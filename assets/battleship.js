@@ -28,6 +28,7 @@ var timer = {
     );
     gameAchievements.evaluate(record, gameResults.records);
     view.updateResults();
+    view.updateRecentResults();
     view.updateLeaderboard();
     view.updateStreaks();
     view.updateAchievements();
@@ -133,6 +134,7 @@ var controller = {
       var record = gameResults.record("won", gameStats.summary(), this.guesses, gameDifficulty.current);
       gameAchievements.evaluate(record, gameResults.records);
       view.updateResults();
+      view.updateRecentResults();
       view.updateLeaderboard();
       view.updateStreaks();
       view.updateAchievements();
@@ -355,6 +357,7 @@ function init() {
   document.getElementById("audioButton").setAttribute("aria-pressed", preferences.audioEnabled ? "false" : "true");
   gameResults.load();
   gameAchievements.load();
+  view.updateRecentResults();
   view.updateLeaderboard();
   view.updateStreaks();
   view.updateAchievements();
