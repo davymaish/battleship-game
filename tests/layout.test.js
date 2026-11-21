@@ -47,6 +47,8 @@ test("daily challenge controls are exposed in the page structure", function() {
   helpers.assert(html.indexOf('id="dailyChallengeStreak"') >= 0);
   helpers.assert(html.indexOf('id="dailyChallengeLeaderboardTitle"') >= 0);
   helpers.assert(html.indexOf('id="dailyChallengeLeaderboard"') >= 0);
+  helpers.assert(html.indexOf('id="dailyChallengeCalendarTitle"') >= 0);
+  helpers.assert(html.indexOf('id="dailyChallengeCalendar"') >= 0);
   helpers.assert(html.indexOf('id="challengeButton"') >= 0);
   helpers.assert(html.indexOf("assets/game-random.js") < html.indexOf("assets/game-challenge.js"));
   helpers.assert(html.indexOf("assets/game-challenge.js") < html.indexOf("assets/game-view.js"));
@@ -65,4 +67,9 @@ test("daily challenge streaks load after challenge statistics", function() {
 test("daily challenge leaderboard loads before the view", function() {
   helpers.assert(html.indexOf("assets/game-challenge-streaks.js") < html.indexOf("assets/game-challenge-leaderboard.js"));
   helpers.assert(html.indexOf("assets/game-challenge-leaderboard.js") < html.indexOf("assets/game-view.js"));
+});
+
+test("daily challenge calendar loads before the view", function() {
+  helpers.assert(html.indexOf("assets/game-challenge-leaderboard.js") < html.indexOf("assets/game-challenge-calendar.js"));
+  helpers.assert(html.indexOf("assets/game-challenge-calendar.js") < html.indexOf("assets/game-view.js"));
 });
