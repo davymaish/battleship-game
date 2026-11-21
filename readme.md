@@ -29,6 +29,7 @@ _The game in action, with ships placed and gameplay in progress._
 - Shareable completed-game result summaries
 - Persistent achievement badges for milestone victories
 - Personal leaderboard showing the five best victories
+- Current and best consecutive win streak tracking
 
 ## Installation
 
@@ -56,6 +57,7 @@ _The game in action, with ships placed and gameplay in progress._
 17. Share a completed result with the Web Share API or copy it through the browser clipboard.
 18. Unlock and review badges for your first win, high accuracy, fast victories, and hard-mode wins.
 19. Review your personal leaderboard, ranked by guesses, accuracy, and difficulty.
+20. Track your current winning streak and the best streak in your completed-game history.
 
 ## Development checks
 
