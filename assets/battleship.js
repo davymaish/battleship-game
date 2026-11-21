@@ -293,6 +293,10 @@ function init() {
     controller.changeDifficulty(event.target.value);
   });
 
+  document.getElementById("themeSelect").addEventListener("change", function(event) {
+    gameTheme.apply(event.target.value);
+  });
+
   document.getElementById("exportButton").addEventListener("click", function() {
     controller.exportSession();
   });
@@ -302,6 +306,7 @@ function init() {
   });
 
   document.getElementById("guessInput").onkeypress = handleKeyPress;
+  gameTheme.apply(document.getElementById("themeSelect").value);
   applyDifficulty(document.getElementById("difficultySelect").value);
   gameResults.load();
   model.generateShipLocations();
