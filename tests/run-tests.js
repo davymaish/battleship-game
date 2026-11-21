@@ -39,4 +39,5 @@ require("./layout.test.js");
 require("./pwa.test.js");
 require("./analytics.test.js");
 require("./preferences.test.js");
+require("./share.test.js");
 run();

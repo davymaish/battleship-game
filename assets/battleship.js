@@ -178,6 +178,18 @@ var controller = {
     window.location.reload();
   },
 
+  shareResult: function() {
+    var record = gameResults.records[0];
+    if (!record) {
+      view.displayMessage("Finish a game before sharing a result.");
+      return;
+    }
+    var text = gameShare.buildSummary(record.outcome, record.guesses, record, record.difficulty);
+    gameShare.share(text).then(function(shared) {
+      view.displayMessage(shared ? "Result shared." : "Sharing is not available in this browser.");
+    });
+  },
+
   saveSession: function() {
     gameStorage.save(gameSession.create());
   },
@@ -314,6 +326,10 @@ function init() {
 
   document.getElementById("importButton").addEventListener("click", function() {
     controller.importSession();
+  });
+
+  document.getElementById("shareButton").addEventListener("click", function() {
+    controller.shareResult();
   });
 
   document.getElementById("audioButton").addEventListener("click", function(event) {
