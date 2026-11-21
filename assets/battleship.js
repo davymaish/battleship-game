@@ -96,6 +96,7 @@ var controller = {
     }
 
     gameReplay.recordShot(result);
+    this.saveSession();
 
     if (result.hit && model.shipsSunk === model.numShips) {
       this.gameOver = true;
@@ -111,6 +112,7 @@ var controller = {
   restart: function() {
     this.guesses = 0;
     this.gameOver = false;
+    gameStorage.clear();
     timer.stopCountDown();
     gameState.reset();
     gameReplay.reset();
@@ -119,6 +121,43 @@ var controller = {
     document.getElementById("endscene").classList.remove("show");
     document.getElementById("fireButton").disabled = false;
     document.getElementById("guessInput").focus();
+  },
+
+  saveSession: function() {
+    gameStorage.save({
+      ships: model.ships,
+      shipsSunk: model.shipsSunk,
+      guesses: this.guesses,
+      gameOver: this.gameOver,
+      state: gameState.current,
+      randomState: gameRandom.getState(),
+      shots: gameReplay.shots
+    });
+  },
+
+  restoreSession: function() {
+    var session = gameStorage.load();
+    if (!session || !Array.isArray(session.ships) || !Array.isArray(session.shots)) {
+      return false;
+    }
+
+    var fleetResult = gameValidation.validateFleet(session.ships, gameConfig);
+    if (!fleetResult.valid || !session.randomState) {
+      gameStorage.clear();
+      return false;
+    }
+
+    model.ships = session.ships;
+    model.shipsSunk = session.shipsSunk;
+    this.guesses = session.guesses;
+    this.gameOver = session.gameOver;
+    gameRandom.restoreState(session.randomState);
+    gameReplay.shots = session.shots;
+    gameState.restore(session.state);
+    view.resetBoard();
+    view.renderShots(gameReplay.shots);
+    view.updateLifecycle(gameState.current);
+    return true;
   },
 
   undo: function() {
@@ -203,4 +242,5 @@ function init() {
   model.generateShipLocations();
   gameReplay.reset();
   gameState.reset();
+  controller.restoreSession();
 }
