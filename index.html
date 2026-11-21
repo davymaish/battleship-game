@@ -12,11 +12,11 @@
 		<div class="overlay"></div>
 	</div>
 	<div id="board">
-		<div id="messageArea"></div>
-		<div id="counterArea" class="counterArea">
-			<p>You have 60 seconds to sink at least two battleship!</p>
-			<p>Each battleship takes 3 grid boxes. </p> 
-			<p>You must hit a ship thrice to sink it (all 3 grids boxes)</p>
+			<div id="messageArea" role="status" aria-live="polite">Choose a coordinate to fire.</div>
+			<div id="counterArea" class="counterArea">
+				<p>You have 60 seconds to sink at least two battleship!</p>
+				<p>Each battleship takes 3 grid boxes. </p> 
+				<p>You must hit a ship thrice to sink it (all 3 grids boxes)</p>
 		</div>
 		<table>
 			<tr>
@@ -48,10 +48,14 @@
 				<td id="64"></td> <td id="65"></td> <td id="66"></td>
 			</tr>
 		</table>
-		<form>
-			<legend>Guess coordinates here (YX)</legend>
-			<input type="text" id="guessInput" placeholder="A0">
-			<input type="button" id="fireButton" value="Fire!">
+			<form id="guessForm">
+				<label for="guessInput">Guess a coordinate (A0–G6)</label>
+				<div class="controls">
+					<input type="text" id="guessInput" placeholder="A0" maxlength="2" autocomplete="off" aria-describedby="coordinateHelp">
+					<input type="submit" id="fireButton" value="Fire!">
+					<button type="button" id="restartButton">New game</button>
+				</div>
+				<small id="coordinateHelp">Use a letter from A–G and a number from 0–6.</small>
 			<div style="display: flex; align-items: center; justify-content: center; font-weight: 700;">
 				Made with <img height="0.15rem" style="margin: 0.15rem; height: 2rem; width: 2rem;" src="./assets/img/heart.png">by
 				<a style="text-decoration: none; margin-left: 0.25rem;" 

@@ -1,12 +1,16 @@
 body {
   background-color: black;
+  margin: 0;
+  font-family: Arial, sans-serif;
 }
 #board {
   position: relative;
+  max-width: 1024px;
   width: 1024px;
   height: 863px;
   margin: auto;
   background: url("img/board.jpg") no-repeat;
+  background-size: 100% 100%;
 }
 
 #messageArea {
@@ -66,6 +70,29 @@ form input {
   font-size: 1em;
   text-transform: uppercase;
 }
+form button,
+form input[type="submit"] {
+  cursor: pointer;
+  font-weight: bold;
+}
+form button:disabled,
+form input[type="submit"]:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+form label,
+form small {
+  display: block;
+}
+form small {
+  margin-top: 0.35rem;
+}
+.controls {
+  display: flex;
+  gap: 0.35rem;
+  align-items: center;
+  margin-top: 0.35rem;
+}
 form legend{
   margin-bottom: 2px;
   font-weight: 700;
@@ -106,4 +133,45 @@ form legend{
   display: block !important;
   animation: showMessage 1s ease-out;
   animation-fill-mode: both;
+}
+
+@media (max-width: 700px) {
+  #board {
+    width: 100vw;
+    height: 100vw;
+    min-height: 620px;
+  }
+
+  #messageArea,
+  .counterArea {
+    font-size: 1rem;
+    padding: 0.5rem;
+  }
+
+  .counterArea p {
+    margin: 0.2rem 0;
+    font-size: 0.8rem;
+  }
+
+  table {
+    left: 16.9%;
+    top: 11.4%;
+    width: 67%;
+    table-layout: fixed;
+  }
+
+  td {
+    width: 14.28%;
+    height: auto;
+    aspect-ratio: 1;
+  }
+
+  form {
+    left: 0;
+    right: 0;
+  }
+
+  .controls {
+    flex-wrap: wrap;
+  }
 }
