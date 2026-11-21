@@ -39,6 +39,7 @@ _The game in action, with ships placed and gameplay in progress._
 - Daily challenge calendar showing the ten most recent attempted UTC dates
 - Daily challenge insights showing win rate, average guesses, and latest play date
 - Daily challenge badges for first wins, three-day streaks, and precision victories
+- Daily challenge share summaries with result, streak, and unlocked badge context
 
 ## Installation
 
@@ -75,6 +76,7 @@ _The game in action, with ships placed and gameplay in progress._
 26. Review the daily challenge calendar to see recent wins and losses by UTC challenge date.
 27. Review daily challenge insights for your win rate, average guesses, and latest challenge date.
 28. Unlock daily challenge badges by earning your first win, building a three-day streak, and winning with high accuracy.
+29. Share a daily challenge result with its date, outcome, streak, and unlocked challenge badges.
 
 ## Development checks
 
