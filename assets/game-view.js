@@ -142,6 +142,22 @@ var view = {
   updateChallengeStreaks: function() {
     document.getElementById("dailyChallengeStreak").innerHTML = gameChallengeStreaks.summary(gameResults.records);
   },
+  updateChallengeLeaderboard: function() {
+    var leaderboard = document.getElementById("dailyChallengeLeaderboard");
+    var entries = gameChallengeLeaderboard.topWins(gameResults.records);
+    leaderboard.innerHTML = "";
+    if (!entries.length) {
+      var empty = document.createElement("li");
+      empty.innerHTML = "No daily challenge wins yet.";
+      leaderboard.appendChild(empty);
+      return;
+    }
+    entries.forEach(function(entry) {
+      var item = document.createElement("li");
+      item.innerHTML = gameChallengeLeaderboard.format(entry);
+      leaderboard.appendChild(item);
+    });
+  },
 
   updateShotHistory: function() {
     var history = document.getElementById("shotHistory");
@@ -193,6 +209,7 @@ var view = {
     this.updateChallenge();
     this.updateChallengeStats();
     this.updateChallengeStreaks();
+    this.updateChallengeLeaderboard();
     this.updateAnalytics();
     gameShotHistory.reset();
     this.updateShotHistory();
