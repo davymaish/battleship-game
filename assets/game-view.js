@@ -16,6 +16,8 @@ var view = {
         view.displayMessage("You missed.");
         gameAudio.playMiss();
       }
+      gameShotHistory.record(result);
+      view.updateShotHistory();
       view.updateStats();
       view.updateLifecycle(gameState.current);
     });
@@ -32,6 +34,8 @@ var view = {
     gameEvents.on("gameUndone", function(payload) {
       view.resetBoard();
       view.renderShots(payload.shots);
+      gameShotHistory.restore(payload.shots);
+      view.updateShotHistory();
       view.displayMessage("Last shot undone.");
     });
 
@@ -82,6 +86,16 @@ var view = {
     document.getElementById("resultsSummary").innerHTML = best === null ? "Best score: —" : "Best score: " + best + " guesses";
   },
 
+  updateShotHistory: function() {
+    var history = document.getElementById("shotHistory");
+    history.innerHTML = "";
+    gameShotHistory.entries.forEach(function(entry) {
+      var item = document.createElement("li");
+      item.innerHTML = gameShotHistory.label(entry);
+      history.appendChild(item);
+    });
+  },
+
   displayHit: function(location) {
     document.getElementById(location).setAttribute("class", "hit");
   },
@@ -110,6 +124,8 @@ var view = {
     this.displayMessage("Choose a coordinate to fire.");
     this.updateStats();
     this.updateResults();
+    gameShotHistory.reset();
+    this.updateShotHistory();
     var counterArea = document.getElementById("counterArea");
     counterArea.classList.remove("absolute");
     counterArea.innerHTML = "<p>You have " + gameConfig.timeLimitSeconds + " seconds to sink at least " + gameConfig.minimumShipsToWin + " battleships.</p><p>Each battleship takes " + gameConfig.shipLength + " grid boxes.</p><p>Enter coordinates from A0 to " + gameConfig.coordinateAlphabet.charAt(gameConfig.boardSize - 1) + (gameConfig.boardSize - 1) + ".</p>";

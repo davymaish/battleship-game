@@ -25,7 +25,8 @@ function loadGameContext() {
     "assets/game-session.js",
     "assets/game-keyboard.js",
     "assets/game-theme.js",
-    "assets/game-audio.js"
+    "assets/game-audio.js",
+    "assets/game-shot-history.js"
   ].forEach(function(file) {
     vm.runInContext(fs.readFileSync(file, "utf8"), context, { filename: file });
   });
