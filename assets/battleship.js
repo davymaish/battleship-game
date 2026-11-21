@@ -28,6 +28,7 @@ var timer = {
     );
     gameAchievements.evaluate(record, gameResults.records);
     view.updateResults();
+    view.updateLeaderboard();
     view.updateAchievements();
     if (model.shipsSunk >= gameConfig.minimumShipsToWin) {
       gameEvents.emit("gameEnded", {
@@ -131,6 +132,7 @@ var controller = {
       var record = gameResults.record("won", gameStats.summary(), this.guesses, gameDifficulty.current);
       gameAchievements.evaluate(record, gameResults.records);
       view.updateResults();
+      view.updateLeaderboard();
       view.updateAchievements();
       gameEvents.emit("gameEnded", {
         title: "You Won!",
@@ -351,6 +353,7 @@ function init() {
   document.getElementById("audioButton").setAttribute("aria-pressed", preferences.audioEnabled ? "false" : "true");
   gameResults.load();
   gameAchievements.load();
+  view.updateLeaderboard();
   view.updateAchievements();
   model.generateShipLocations();
   gameReplay.reset();

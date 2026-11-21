@@ -31,6 +31,7 @@ require("./stats.test.js");
 require("./difficulty.test.js");
 require("./results.test.js");
 require("./achievements.test.js");
+require("./leaderboard.test.js");
 require("./session.test.js");
 require("./keyboard.test.js");
 require("./theme.test.js");
