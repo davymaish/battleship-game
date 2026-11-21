@@ -21,7 +21,7 @@ var view = {
     this.displayMessage("Choose a coordinate to fire.");
     var counterArea = document.getElementById("counterArea");
     counterArea.classList.remove("absolute");
-    counterArea.innerHTML = "<p>You have 60 seconds to sink at least two battleships.</p><p>Each battleship takes 3 grid boxes.</p><p>Enter coordinates from A0 to G6.</p>";
+    counterArea.innerHTML = "<p>You have " + gameConfig.timeLimitSeconds + " seconds to sink at least " + gameConfig.minimumShipsToWin + " battleships.</p><p>Each battleship takes " + gameConfig.shipLength + " grid boxes.</p><p>Enter coordinates from A0 to " + gameConfig.coordinateAlphabet.charAt(gameConfig.boardSize - 1) + (gameConfig.boardSize - 1) + ".</p>";
   },
 
   displayEndScene: function(signMessage, textMessage) {
