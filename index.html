@@ -25,6 +25,7 @@
 					</section>
 					<div id="achievementsSummary" role="status" aria-live="polite">Achievements: 0/4 unlocked</div>
 					<div id="streakSummary" role="status" aria-live="polite">Win streak: 0 | Best: 0</div>
+					<div id="dailyChallengeSummary" role="status" aria-live="polite">Daily challenge available.</div>
 					<section aria-labelledby="recentResultsTitle">
 						<h2 id="recentResultsTitle">Recent games</h2>
 						<ol id="recentResults" aria-live="polite"><li>No completed games yet.</li></ol>
@@ -84,6 +85,7 @@
 					<input type="text" id="guessInput" placeholder="A0" maxlength="2" autocomplete="off" aria-describedby="coordinateHelp">
 					<input type="submit" id="fireButton" value="Fire!">
 					<button type="button" id="restartButton">New game</button>
+					<button type="button" id="challengeButton">Daily challenge</button>
 					<button type="button" id="undoButton" disabled>Undo</button>
 					<button type="button" id="pauseButton" disabled>Pause</button>
 					<button type="button" id="resumeButton" disabled>Resume</button>
@@ -109,9 +111,10 @@
 		<script src="assets/game-events.js"></script>
 		<script src="assets/game-history.js"></script>
 		<script src="assets/game-state.js"></script>
-			<script src="assets/game-replay.js"></script>
-			<script src="assets/game-random.js"></script>
-			<script src="assets/game-storage.js"></script>
+				<script src="assets/game-replay.js"></script>
+				<script src="assets/game-random.js"></script>
+				<script src="assets/game-challenge.js"></script>
+				<script src="assets/game-storage.js"></script>
 			<script src="assets/game-stats.js"></script>
 					<script src="assets/game-results.js"></script>
 					<script src="assets/game-results-history.js"></script>
