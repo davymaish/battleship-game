@@ -20,6 +20,13 @@ var timer = {
     this.paused = false;
     controller.gameOver = true;
     gameState.transitionTo(gameState.states.EXPIRED);
+    gameResults.record(
+      model.shipsSunk >= gameConfig.minimumShipsToWin ? "won" : "lost",
+      gameStats.summary(),
+      controller.guesses,
+      gameDifficulty.current
+    );
+    view.updateResults();
     if (model.shipsSunk >= gameConfig.minimumShipsToWin) {
       gameEvents.emit("gameEnded", {
         title: "You Won!",
@@ -119,6 +126,8 @@ var controller = {
       this.gameOver = true;
       timer.stopCountDown();
       gameState.transitionTo(gameState.states.WON);
+      gameResults.record("won", gameStats.summary(), this.guesses, gameDifficulty.current);
+      view.updateResults();
       gameEvents.emit("gameEnded", {
         title: "You Won!",
         message: "You sank all battleships in " + this.guesses + " guesses"
@@ -270,6 +279,7 @@ function init() {
 
   document.getElementById("guessInput").onkeypress = handleKeyPress;
   applyDifficulty(document.getElementById("difficultySelect").value);
+  gameResults.load();
   model.generateShipLocations();
   gameReplay.reset();
   gameState.reset();

@@ -50,6 +50,11 @@ var view = {
     document.getElementById("gameStats").innerHTML = "Shots: " + summary.shots + " | Hits: " + summary.hits + " | Misses: " + summary.misses + " | Accuracy: " + summary.accuracy + "%";
   },
 
+  updateResults: function() {
+    var best = gameResults.bestScore();
+    document.getElementById("resultsSummary").innerHTML = best === null ? "Best score: —" : "Best score: " + best + " guesses";
+  },
+
   displayHit: function(location) {
     document.getElementById(location).setAttribute("class", "hit");
   },
@@ -77,6 +82,7 @@ var view = {
 
     this.displayMessage("Choose a coordinate to fire.");
     this.updateStats();
+    this.updateResults();
     var counterArea = document.getElementById("counterArea");
     counterArea.classList.remove("absolute");
     counterArea.innerHTML = "<p>You have " + gameConfig.timeLimitSeconds + " seconds to sink at least " + gameConfig.minimumShipsToWin + " battleships.</p><p>Each battleship takes " + gameConfig.shipLength + " grid boxes.</p><p>Enter coordinates from A0 to " + gameConfig.coordinateAlphabet.charAt(gameConfig.boardSize - 1) + (gameConfig.boardSize - 1) + ".</p>";
