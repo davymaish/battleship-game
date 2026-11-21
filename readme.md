@@ -23,6 +23,7 @@ _The game in action, with ships placed and gameplay in progress._
 - Optional audio feedback with a mute control
 - Visible hit and miss shot history with undo synchronization
 - Mobile-friendly board and controls for narrow screens
+- Installable offline web app support
 
 ## Installation
 
@@ -44,6 +45,7 @@ _The game in action, with ships placed and gameplay in progress._
 11. Use **Mute sound** to disable audio feedback when needed.
 12. Review the shot history panel to see every recorded hit, miss, and sunk ship.
 13. On small screens, the board and controls resize to fit the viewport.
+14. Install the game from a supported browser to use its cached offline shell.
 
 ## Development checks
 
