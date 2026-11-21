@@ -1,4 +1,11 @@
 var view = {
+  updateLifecycle: function(state) {
+    document.getElementById("gameState").innerHTML = "Game state: " + state;
+    document.getElementById("fireButton").disabled = state !== gameState.states.SETUP && state !== gameState.states.PLAYING;
+    document.getElementById("pauseButton").disabled = state !== gameState.states.PLAYING;
+    document.getElementById("resumeButton").disabled = state !== gameState.states.PAUSED;
+  },
+
   displayMessage: function(msg) {
     document.getElementById("messageArea").innerHTML = msg;
   },
@@ -22,6 +29,7 @@ var view = {
     var counterArea = document.getElementById("counterArea");
     counterArea.classList.remove("absolute");
     counterArea.innerHTML = "<p>You have " + gameConfig.timeLimitSeconds + " seconds to sink at least " + gameConfig.minimumShipsToWin + " battleships.</p><p>Each battleship takes " + gameConfig.shipLength + " grid boxes.</p><p>Enter coordinates from A0 to " + gameConfig.coordinateAlphabet.charAt(gameConfig.boardSize - 1) + (gameConfig.boardSize - 1) + ".</p>";
+    this.updateLifecycle(gameState.states.SETUP);
   },
 
   displayEndScene: function(signMessage, textMessage) {

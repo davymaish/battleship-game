@@ -30,11 +30,23 @@ class SimpleTimer {
         this._timerFunction = setInterval(this._updateTimerDisplay.bind(this), this._everySecond);
     }
 
+    pauseTimer() {
+        clearInterval(this._timerFunction);
+        this._timerFunction = null;
+    }
+
+    resumeTimer() {
+        if (!this._timerFunction && this._timeLeft > 0) {
+            this._timerFunction = setInterval(this._updateTimerDisplay.bind(this), this._everySecond);
+        }
+    }
+
     /**
      * Force ends the timer and resets its container to their original state.
      */
     endTimer(invokeCallback = true) {
         clearInterval(this._timerFunction);
+        this._timerFunction = null;
         this._timeLeft = this._duration;
         this._changeContainerText(this._timerContainer, this._originalText);
         if (invokeCallback) {

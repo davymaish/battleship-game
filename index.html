@@ -11,8 +11,9 @@
 		<p class="winning-text"> You Lost</p>
 		<div class="overlay"></div>
 	</div>
-	<div id="board">
+		<div id="board">
 			<div id="messageArea" role="status" aria-live="polite">Choose a coordinate to fire.</div>
+			<div id="gameState" role="status" aria-live="polite">Game state: setup</div>
 			<div id="counterArea" class="counterArea">
 				<p>You have 60 seconds to sink at least two battleship!</p>
 				<p>Each battleship takes 3 grid boxes. </p> 
@@ -54,6 +55,8 @@
 					<input type="text" id="guessInput" placeholder="A0" maxlength="2" autocomplete="off" aria-describedby="coordinateHelp">
 					<input type="submit" id="fireButton" value="Fire!">
 					<button type="button" id="restartButton">New game</button>
+					<button type="button" id="pauseButton" disabled>Pause</button>
+					<button type="button" id="resumeButton" disabled>Resume</button>
 				</div>
 				<small id="coordinateHelp">Use a letter from A–G and a number from 0–6.</small>
 			<div style="display: flex; align-items: center; justify-content: center; font-weight: 700;">
@@ -67,6 +70,7 @@
 	</div>
 		<script src="assets/simple_timer.js"></script>
 		<script src="assets/game-config.js"></script>
+		<script src="assets/game-state.js"></script>
 		<script src="assets/game-model.js"></script>
 		<script src="assets/game-view.js"></script>
 		<script src="assets/battleship.js"></script>
