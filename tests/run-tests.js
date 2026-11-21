@@ -35,4 +35,5 @@ require("./keyboard.test.js");
 require("./theme.test.js");
 require("./audio.test.js");
 require("./shot-history.test.js");
+require("./layout.test.js");
 run();
