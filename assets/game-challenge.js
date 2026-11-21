@@ -28,8 +28,26 @@ var gameChallenge = {
     return {
       date: dateKey,
       seed: this.seedForDate(dateKey),
-      label: "Daily challenge — " + dateKey
+      label: "Daily challenge — " + dateKey,
+      code: this.createCode(dateKey)
     };
+  },
+  createCode: function(dateKey) {
+    if (!this.isDateKey(dateKey)) {
+      return null;
+    }
+    var seed = ("00000000" + this.seedForDate(dateKey).toString(16)).slice(-8);
+    return "DC-" + dateKey.replace(/-/g, "") + "-" + seed;
+  },
+  parseCode: function(code) {
+    var match = typeof code === "string" && code.toUpperCase().match(/^DC-(\d{8})-([0-9A-F]{8})$/);
+    if (!match) {
+      return null;
+    }
+    var digits = match[1];
+    var dateKey = digits.slice(0, 4) + "-" + digits.slice(4, 6) + "-" + digits.slice(6, 8);
+    var details = this.describeDate(dateKey);
+    return details && details.code.toUpperCase() === code.toUpperCase() ? details : null;
   },
   describe: function(date) {
     return this.describeDate(this.dateKey(date));

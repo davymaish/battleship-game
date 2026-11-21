@@ -24,8 +24,9 @@
 						<ol id="leaderboard" aria-live="polite"><li>No wins recorded yet.</li></ol>
 					</section>
 					<div id="achievementsSummary" role="status" aria-live="polite">Achievements: 0/4 unlocked</div>
-						<div id="streakSummary" role="status" aria-live="polite">Win streak: 0 | Best: 0</div>
-						<div id="dailyChallengeSummary" role="status" aria-live="polite">Daily challenge available.</div>
+							<div id="streakSummary" role="status" aria-live="polite">Win streak: 0 | Best: 0</div>
+							<div id="dailyChallengeSummary" role="status" aria-live="polite">Daily challenge available.</div>
+							<div id="dailyChallengeCode" role="status" aria-live="polite">Challenge code: —</div>
 						<div id="dailyChallengeResults" role="status" aria-live="polite">Daily challenges: 0 | Wins: 0 | Best: —</div>
 						<div id="dailyChallengeInsights" role="status" aria-live="polite">Daily challenge win rate: 0.0% | Average guesses: — | Last played: —</div>
 						<section aria-labelledby="dailyChallengeAchievementsTitle">
@@ -104,6 +105,10 @@
 					<label for="challengeDateInput">Replay date</label>
 					<input type="date" id="challengeDateInput">
 					<button type="button" id="challengeReplayButton">Replay challenge</button>
+					<label for="challengeCodeInput">Challenge code</label>
+					<input type="text" id="challengeCodeInput" placeholder="DC-YYYYMMDD-XXXXXXXX" autocomplete="off">
+					<button type="button" id="challengeCodeButton">Replay code</button>
+					<button type="button" id="copyChallengeCodeButton" disabled>Copy challenge code</button>
 					<button type="button" id="undoButton" disabled>Undo</button>
 					<button type="button" id="pauseButton" disabled>Pause</button>
 					<button type="button" id="resumeButton" disabled>Resume</button>
