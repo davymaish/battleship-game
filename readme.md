@@ -40,6 +40,7 @@ _The game in action, with ships placed and gameplay in progress._
 - Daily challenge insights showing win rate, average guesses, and latest play date
 - Daily challenge badges for first wins, three-day streaks, and precision victories
 - Daily challenge share summaries with result, streak, and unlocked badge context
+- Daily challenge result exports as portable JSON files
 
 ## Installation
 
@@ -77,6 +78,7 @@ _The game in action, with ships placed and gameplay in progress._
 27. Review daily challenge insights for your win rate, average guesses, and latest challenge date.
 28. Unlock daily challenge badges by earning your first win, building a three-day streak, and winning with high accuracy.
 29. Share a daily challenge result with its date, outcome, streak, and unlocked challenge badges.
+30. Export a completed daily challenge result as a JSON file for later reference or sharing.
 
 ## Development checks
 

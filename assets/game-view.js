@@ -255,6 +255,10 @@ var view = {
   displayEndScene: function(signMessage, textMessage) {
     document.getElementById("fireButton").setAttribute("disabled", true);
     document.getElementById("shareButton").removeAttribute("disabled");
+    var record = gameResults.records[0];
+    if (record && record.challengeDate) {
+      document.getElementById("exportChallengeButton").removeAttribute("disabled");
+    }
     var endScene = document.getElementById("endscene");
     endScene.getElementsByClassName("winning-sign")[0].innerHTML = signMessage;
     endScene.getElementsByClassName("winning-text")[0].innerHTML = textMessage;
