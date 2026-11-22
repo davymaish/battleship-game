@@ -203,7 +203,15 @@ var view = {
     }
     entries.forEach(function(entry) {
       var item = document.createElement("li");
-      item.innerHTML = gameChallengeCodeHistory.format(entry);
+      item.innerHTML = gameChallengeCodeHistory.format(entry) + " ";
+      var replay = document.createElement("button");
+      replay.type = "button";
+      replay.innerHTML = "Replay";
+      replay.setAttribute("aria-label", "Replay daily challenge " + entry.date);
+      replay.addEventListener("click", function() {
+        controller.startDailyChallenge(entry.replayDate);
+      });
+      item.appendChild(replay);
       codes.appendChild(item);
     });
   },

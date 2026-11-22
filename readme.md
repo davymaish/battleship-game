@@ -47,6 +47,7 @@ _The game in action, with ships placed and gameplay in progress._
 - Compact daily challenge codes for sharing and replaying deterministic dates
 - Active challenge code display with clipboard and Web Share support
 - Recent daily challenge code history with outcomes and UTC dates
+- One-click replay actions for recent historical challenge codes
 
 ## Installation
 
@@ -91,6 +92,7 @@ _The game in action, with ships placed and gameplay in progress._
 34. Paste a `DC-YYYYMMDD-XXXXXXXX` challenge code to replay the matching deterministic fleet.
 35. Copy or share the active challenge code with the clipboard or Web Share API when supported.
 36. Review the five most recent distinct daily challenge codes with their dates and outcomes.
+37. Replay any listed historical daily challenge directly from its recent-code entry.
 
 ## Development checks
 

@@ -13,6 +13,7 @@ test("daily challenge code history keeps recent distinct dates", function() {
   helpers.assertEqual(entries[0].date, "2024-12-02");
   helpers.assertEqual(entries[0].outcome, "won");
   helpers.assertEqual(entries[0].code, context.gameChallenge.createCode("2024-12-02"));
+  helpers.assertEqual(entries[0].replayDate, "2024-12-02");
 });
 
 test("daily challenge code history applies a limit and readable format", function() {
