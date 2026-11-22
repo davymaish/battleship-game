@@ -212,6 +212,14 @@ var view = {
         controller.startDailyChallenge(entry.replayDate);
       });
       item.appendChild(replay);
+      var share = document.createElement("button");
+      share.type = "button";
+      share.innerHTML = "Share";
+      share.setAttribute("aria-label", "Share daily challenge " + entry.date + " code");
+      share.addEventListener("click", function() {
+        controller.shareChallengeCode(entry.code);
+      });
+      item.appendChild(share);
       codes.appendChild(item);
     });
   },

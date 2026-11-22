@@ -6,11 +6,19 @@ var gameShare = {
   },
 
   share: function(text) {
+    return this.shareText("Battleship result", text);
+  },
+
+  shareCode: function(code) {
+    return this.shareText("Battleship challenge code", code);
+  },
+
+  shareText: function(title, text) {
     if (typeof navigator === "undefined") {
       return Promise.resolve(false);
     }
     if (navigator.share) {
-      return navigator.share({ title: "Battleship result", text: text }).then(function() { return true; }).catch(function() { return false; });
+      return navigator.share({ title: title, text: text }).then(function() { return true; }).catch(function() { return false; });
     }
     if (navigator.clipboard && navigator.clipboard.writeText) {
       return navigator.clipboard.writeText(text).then(function() { return true; }).catch(function() { return false; });
