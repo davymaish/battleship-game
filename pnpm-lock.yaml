@@ -20,6 +20,9 @@ importers:
 
   apps/web:
     dependencies:
+      '@battleship/challenge-core':
+        specifier: workspace:*
+        version: link:../../packages/challenge-core
       '@battleship/game-core':
         specifier: workspace:*
         version: link:../../packages/game-core
