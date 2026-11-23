@@ -14,6 +14,58 @@ main {
   padding: 2rem 1rem;
 }
 
+.challenge-panel {
+  margin: 1rem 0 1.5rem;
+  padding: 1rem;
+  border: 1px solid #c8d5e8;
+  border-radius: 0.6rem;
+  background: #eaf2fc;
+}
+
+.challenge-panel h2 {
+  margin: 0;
+  font-size: 1.1rem;
+}
+
+.challenge-panel p {
+  margin: 0.5rem 0;
+}
+
+.challenge-panel code {
+  display: inline-block;
+  padding: 0.3rem 0.45rem;
+  border-radius: 0.3rem;
+  background: #fff;
+  font-weight: 600;
+}
+
+.challenge-form {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.85rem;
+}
+
+.challenge-form input {
+  min-width: 0;
+  flex: 1;
+  padding: 0.55rem;
+  border: 1px solid #aebbd1;
+  border-radius: 0.35rem;
+}
+
+.challenge-form button {
+  border: 0;
+  border-radius: 0.35rem;
+  padding: 0.55rem 0.75rem;
+  background: #1359a8;
+  color: #fff;
+  cursor: pointer;
+}
+
+.challenge-error {
+  color: #a22929;
+}
+
 .board {
   display: grid;
   grid-template-columns: repeat(7, minmax(2.5rem, 1fr));
