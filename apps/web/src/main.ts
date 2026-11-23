@@ -8,8 +8,8 @@ import {
 import "./style.css";
 
 const ships: Ship[] = [
-  { id: "alpha", cells: [{ row: 1, column: 1 }, { row: 1, column: 2 }] },
-  { id: "beta", cells: [{ row: 4, column: 4 }] },
+  { id: "alpha", cells: [{ row: 1, column: 1 }, { row: 1, column: 2 }, { row: 1, column: 3 }] },
+  { id: "beta", cells: [{ row: 4, column: 4 }, { row: 4, column: 5 }, { row: 4, column: 6 }] },
 ];
 
 const appElement = document.querySelector<HTMLDivElement>("#app");
@@ -50,7 +50,9 @@ function render(): void {
       button.addEventListener("click", () => {
         const turn = fire(state, coordinate);
         state = turn.state;
-        message = turn.result.outcome === "hit"
+        message = turn.result.outcome === "blocked"
+          ? "The game is over."
+          : turn.result.outcome === "hit"
           ? turn.result.sunkShipId
             ? `You sank ${turn.result.sunkShipId}.`
             : "Hit!"

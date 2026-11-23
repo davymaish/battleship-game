@@ -1,15 +1,21 @@
 import { describe, expect, it } from "vitest";
 import {
   createGame,
+  createRandomGame,
+  createSeededRandom,
+  expireGame,
   fire,
+  generateFleet,
+  getDifficultyConfig,
   isValidCoordinate,
+  startGame,
   validateFleet,
   type Ship,
 } from "./index";
 
 const ships: Ship[] = [
-  { id: "alpha", cells: [{ row: 0, column: 0 }, { row: 0, column: 1 }] },
-  { id: "beta", cells: [{ row: 2, column: 2 }] },
+  { id: "alpha", cells: [{ row: 0, column: 0 }, { row: 0, column: 1 }, { row: 0, column: 2 }] },
+  { id: "beta", cells: [{ row: 2, column: 2 }, { row: 2, column: 3 }, { row: 2, column: 4 }] },
 ];
 
 describe("game-core", () => {
@@ -26,6 +32,16 @@ describe("game-core", () => {
       { id: "beta", cells: [{ row: 0, column: 0 }] },
     ]);
     expect(errors).toContain("Fleet contains overlapping cell 0:0.");
+  });
+
+  it("generates deterministic valid fleets for difficulty presets", () => {
+    const config = getDifficultyConfig("hard");
+    const first = generateFleet(config, createSeededRandom(1234));
+    const second = generateFleet(config, createSeededRandom(1234));
+
+    expect(first).toEqual(second);
+    expect(first).toHaveLength(config.numShips);
+    expect(validateFleet(first, config)).toEqual([]);
   });
 
   it("records hits, misses, repeated shots, and wins", () => {
@@ -46,9 +62,30 @@ describe("game-core", () => {
     state = turn.state;
 
     state = fire(state, { row: 0, column: 1 }).state;
-    turn = fire(state, { row: 2, column: 2 });
+    turn = fire(state, { row: 0, column: 2 });
+    expect(turn.result.sunkShipId).toBe("alpha");
+    expect(turn.result.shipsSunk).toBe(1);
+    expect(turn.result.phase).toBe("playing");
+    state = turn.state;
+
+    state = fire(state, { row: 2, column: 2 }).state;
+    state = fire(state, { row: 2, column: 3 }).state;
+    turn = fire(state, { row: 2, column: 4 });
     expect(turn.result.sunkShipId).toBe("beta");
     expect(turn.result.shipsRemaining).toBe(0);
+    expect(turn.result.shipsSunk).toBe(2);
     expect(turn.result.phase).toBe("won");
+  });
+
+  it("transitions through setup, playing, and expired lifecycle states", () => {
+    const setup = createRandomGame("easy", 99);
+    expect(setup.phase).toBe("setup");
+
+    const playing = startGame(setup);
+    expect(playing.phase).toBe("playing");
+
+    const expired = expireGame(playing);
+    expect(expired.phase).toBe("lost");
+    expect(fire(expired, { row: 0, column: 0 }).result.outcome).toBe("blocked");
   });
 });
