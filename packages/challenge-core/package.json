@@ -1,0 +1,14 @@
+{
+  "name": "@battleship/challenge-core",
+  "private": true,
+  "version": "2.0.0-dev",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "test": "vitest run",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
+  }
+}

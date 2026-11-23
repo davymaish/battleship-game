@@ -24,6 +24,8 @@ importers:
         specifier: workspace:*
         version: link:../../packages/game-core
 
+  packages/challenge-core: {}
+
   packages/game-core: {}
 
 packages:
