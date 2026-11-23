@@ -1,0 +1,17 @@
+{
+  "name": "battleship-game-v2",
+  "private": true,
+  "version": "2.0.0-dev",
+  "packageManager": "pnpm@11.25.0",
+  "scripts": {
+    "build": "pnpm --filter @battleship/web build",
+    "dev": "pnpm --filter @battleship/web dev",
+    "test": "pnpm -r test",
+    "typecheck": "pnpm -r typecheck"
+  },
+  "devDependencies": {
+    "typescript": "^5.7.3",
+    "vite": "^6.0.7",
+    "vitest": "^2.1.8"
+  }
+}
