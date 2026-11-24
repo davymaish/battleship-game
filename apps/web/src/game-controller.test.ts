@@ -17,6 +17,9 @@ describe("game controller", () => {
     expect(session.game.phase).toBe("setup");
     expect(session.game.shots.size).toBe(0);
     expect(session.message).toBe("Choose a coordinate to fire.");
+    expect(session.events).toEqual([
+      { type: "challenge-started", code: session.challenge.details.code, difficulty: "normal" },
+    ]);
   });
 
   it("preserves the game when a replay code is invalid", () => {
@@ -45,6 +48,7 @@ describe("game controller", () => {
     expect(next.game.config.numShips).toBe(4);
     expect(next.game.config.minimumShipsToWin).toBe(3);
     expect(next.message).toBe("Started hard difficulty.");
+    expect(next.events.at(-1)).toEqual({ type: "difficulty-changed", difficulty: "hard" });
   });
 
   it("updates the session message after firing", () => {
@@ -59,5 +63,10 @@ describe("game controller", () => {
     const next = fireAt(session, firstCell);
     expect(next.game.shots.size).toBe(1);
     expect(next.message).toBe("Hit!");
+    expect(next.events.at(-1)).toMatchObject({
+      type: "shot-fired",
+      coordinate: firstCell,
+      outcome: "hit",
+    });
   });
 });
