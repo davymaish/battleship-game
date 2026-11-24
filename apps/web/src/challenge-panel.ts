@@ -56,6 +56,7 @@ export function renderChallengePanel(
 
   const form = document.createElement("form");
   form.className = "challenge-form";
+  form.setAttribute("aria-label", "Load replay challenge");
   form.addEventListener("submit", (event) => {
     event.preventDefault();
     const input = form.elements.namedItem("challenge-code");
@@ -65,10 +66,13 @@ export function renderChallengePanel(
   });
 
   const input = document.createElement("input");
+  input.id = "challenge-code";
   input.name = "challenge-code";
   input.type = "text";
   input.value = session.challenge.input;
   input.placeholder = "DC-YYYYMMDD-XXXXXXXX";
+  input.autocomplete = "off";
+  input.spellcheck = false;
   input.setAttribute("aria-label", "Challenge code");
   form.appendChild(input);
 
@@ -80,9 +84,11 @@ export function renderChallengePanel(
 
   if (session.challenge.error) {
     const error = document.createElement("p");
+    error.id = "challenge-code-error";
     error.className = "challenge-error";
     error.textContent = session.challenge.error;
     error.setAttribute("role", "alert");
+    input.setAttribute("aria-describedby", error.id);
     section.appendChild(error);
   }
 

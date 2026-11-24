@@ -1,5 +1,6 @@
 import type { Coordinate } from "@battleship/game-core";
 import type { GameSession } from "./game-controller";
+import { cellAriaLabel, cellDataState } from "./ui-accessibility";
 
 export function renderBoard(
   session: GameSession,
@@ -16,9 +17,16 @@ export function renderBoard(
       const button = document.createElement("button");
       button.type = "button";
       button.className = "cell";
-      button.textContent = session.game.shots.has(`${row}:${column}`) ? "•" : "";
-      button.setAttribute("aria-label", `Row ${row + 1}, column ${column + 1}`);
-      button.disabled = session.game.phase === "won" || session.game.shots.has(`${row}:${column}`);
+      const selected = session.game.shots.has(`${row}:${column}`);
+      const terminal = session.game.phase === "won" || session.game.phase === "lost";
+      button.setAttribute("role", "gridcell");
+      button.setAttribute("aria-rowindex", String(row + 1));
+      button.setAttribute("aria-colindex", String(column + 1));
+      button.setAttribute("aria-label", cellAriaLabel(row, column, selected));
+      button.setAttribute("aria-pressed", String(selected));
+      button.dataset.state = cellDataState(selected, terminal);
+      button.textContent = selected ? "•" : "";
+      button.disabled = terminal || selected;
       button.addEventListener("click", () => onFire(coordinate));
       board.appendChild(button);
     }

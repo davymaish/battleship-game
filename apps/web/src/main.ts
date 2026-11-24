@@ -51,6 +51,8 @@ function render(): void {
   const status = document.createElement("p");
   status.textContent = session.message;
   status.setAttribute("role", "status");
+  status.setAttribute("aria-live", "polite");
+  status.setAttribute("aria-atomic", "true");
   app.appendChild(status);
 
   app.appendChild(renderBoard(session, (coordinate) => {
