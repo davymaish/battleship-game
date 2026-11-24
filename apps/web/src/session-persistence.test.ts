@@ -4,6 +4,7 @@ import {
   createLocalSessionStore,
   createMemorySessionStore,
   parseSnapshot,
+  restoreSession,
   snapshotFromSession,
   type StorageLike,
 } from "./session-persistence";
@@ -34,6 +35,9 @@ describe("session persistence", () => {
     expect(snapshot.difficulty).toBe("hard");
     expect(snapshot.events).toHaveLength(2);
     expect(parseSnapshot(JSON.stringify(snapshot))).toEqual(snapshot);
+    const restored = restoreSession(snapshot);
+    expect(restored?.game).toEqual(fireAt(session, first).game);
+    expect(restored?.message).toBe("Restored saved session.");
   });
 
   it("round-trips through memory and local-style stores", () => {
@@ -61,5 +65,11 @@ describe("session persistence", () => {
       difficulty: "extreme",
       events: [],
     }))).toBeNull();
+    expect(restoreSession({
+      version: 1,
+      challengeCode: "not-a-code",
+      difficulty: "normal",
+      events: [],
+    })).toBeNull();
   });
 });

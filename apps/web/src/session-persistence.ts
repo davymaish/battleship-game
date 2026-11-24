@@ -1,5 +1,8 @@
+import { parseCode } from "@battleship/challenge-core";
 import type { Difficulty } from "@battleship/game-core";
 import type { GameSession } from "./game-controller";
+import { createGameForChallenge } from "./game-session";
+import { replayCurrentGame } from "./history-replay";
 import type { SessionEvent } from "./session-events";
 
 export interface SessionSnapshot {
@@ -28,6 +31,27 @@ export function snapshotFromSession(session: GameSession): SessionSnapshot {
     difficulty: session.difficulty,
     events: session.events,
   };
+}
+
+export function restoreSession(snapshot: SessionSnapshot): GameSession | null {
+  try {
+    const details = parseCode(snapshot.challengeCode);
+    if (!details) {
+      return null;
+    }
+
+    const session: GameSession = {
+      challenge: { details, input: details.code, error: null },
+      difficulty: snapshot.difficulty,
+      game: createGameForChallenge(details, snapshot.difficulty),
+      message: "Restored saved session.",
+      events: snapshot.events,
+    };
+
+    return { ...session, game: replayCurrentGame(session) };
+  } catch {
+    return null;
+  }
 }
 
 function isDifficulty(value: unknown): value is Difficulty {

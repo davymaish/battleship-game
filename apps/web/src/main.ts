@@ -9,6 +9,11 @@ import {
   setDifficulty,
   type GameSession,
 } from "./game-controller";
+import {
+  createLocalSessionStore,
+  restoreSession,
+  snapshotFromSession,
+} from "./session-persistence";
 import "./style.css";
 
 const appElement = document.querySelector<HTMLDivElement>("#app");
@@ -16,7 +21,17 @@ if (!appElement) {
   throw new Error("The v2 application root is missing.");
 }
 const app = appElement;
-let session: GameSession = createSession();
+const sessionStore = createLocalSessionStore(window.localStorage);
+const savedSnapshot = sessionStore.read();
+let session: GameSession = savedSnapshot
+  ? restoreSession(savedSnapshot) ?? createSession()
+  : createSession();
+
+function persistSession(): void {
+  sessionStore.write(snapshotFromSession(session));
+}
+
+persistSession();
 
 function isDifficulty(value: string): value is Difficulty {
   return value === "easy" || value === "normal" || value === "hard";
@@ -59,6 +74,7 @@ function renderChallenge(): HTMLElement {
   difficulty.addEventListener("change", () => {
     if (isDifficulty(difficulty.value)) {
       session = setDifficulty(session, difficulty.value);
+      persistSession();
       render();
     }
   });
@@ -73,6 +89,7 @@ function renderChallenge(): HTMLElement {
       return;
     }
     session = loadChallenge(session, input.value);
+    persistSession();
     render();
   });
 
@@ -130,6 +147,7 @@ function render(): void {
       button.disabled = session.game.phase === "won" || session.game.shots.has(`${row}:${column}`);
       button.addEventListener("click", () => {
         session = fireAt(session, coordinate);
+        persistSession();
         render();
       });
       board.appendChild(button);
