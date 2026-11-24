@@ -1,14 +1,12 @@
 import {
-  fire,
   type Coordinate,
-  type GameState,
 } from "@battleship/game-core";
 import {
-  currentChallenge,
-  resolveChallengeCode,
-  type ChallengeViewModel,
-} from "./challenge-model";
-import { createGameForChallenge } from "./game-session";
+  createSession,
+  fireAt,
+  loadChallenge,
+  type GameSession,
+} from "./game-controller";
 import "./style.css";
 
 const appElement = document.querySelector<HTMLDivElement>("#app");
@@ -16,10 +14,7 @@ if (!appElement) {
   throw new Error("The v2 application root is missing.");
 }
 const app = appElement;
-
-let challenge: ChallengeViewModel = currentChallenge();
-let state: GameState = createGameForChallenge(challenge.details);
-let message = "Choose a coordinate to fire.";
+let session: GameSession = createSession();
 
 function renderChallenge(): HTMLElement {
   const section = document.createElement("section");
@@ -32,11 +27,11 @@ function renderChallenge(): HTMLElement {
   section.appendChild(heading);
 
   const label = document.createElement("p");
-  label.textContent = `${challenge.details.label} · Seed ${challenge.details.seed}`;
+  label.textContent = `${session.challenge.details.label} · Seed ${session.challenge.details.seed}`;
   section.appendChild(label);
 
   const code = document.createElement("code");
-  code.textContent = challenge.details.code;
+  code.textContent = session.challenge.details.code;
   section.appendChild(code);
 
   const form = document.createElement("form");
@@ -47,18 +42,14 @@ function renderChallenge(): HTMLElement {
     if (!(input instanceof HTMLInputElement)) {
       return;
     }
-    challenge = resolveChallengeCode(input.value, challenge);
-    if (!challenge.error) {
-      state = createGameForChallenge(challenge.details);
-    }
-    message = challenge.error ?? `Loaded ${challenge.details.label}.`;
+    session = loadChallenge(session, input.value);
     render();
   });
 
   const input = document.createElement("input");
   input.name = "challenge-code";
   input.type = "text";
-  input.value = challenge.input;
+  input.value = session.challenge.input;
   input.placeholder = "DC-YYYYMMDD-XXXXXXXX";
   input.setAttribute("aria-label", "Challenge code");
   form.appendChild(input);
@@ -69,10 +60,10 @@ function renderChallenge(): HTMLElement {
   form.appendChild(button);
   section.appendChild(form);
 
-  if (challenge.error) {
+  if (session.challenge.error) {
     const error = document.createElement("p");
     error.className = "challenge-error";
-    error.textContent = challenge.error;
+    error.textContent = session.challenge.error;
     error.setAttribute("role", "alert");
     section.appendChild(error);
   }
@@ -89,7 +80,7 @@ function render(): void {
   app.appendChild(renderChallenge());
 
   const status = document.createElement("p");
-  status.textContent = message;
+  status.textContent = session.message;
   status.setAttribute("role", "status");
   app.appendChild(status);
 
@@ -98,28 +89,17 @@ function render(): void {
   board.setAttribute("role", "grid");
   board.setAttribute("aria-label", "Battleship board");
 
-  for (let row = 0; row < state.config.boardSize; row += 1) {
-    for (let column = 0; column < state.config.boardSize; column += 1) {
+  for (let row = 0; row < session.game.config.boardSize; row += 1) {
+    for (let column = 0; column < session.game.config.boardSize; column += 1) {
       const coordinate: Coordinate = { row, column };
       const button = document.createElement("button");
       button.type = "button";
       button.className = "cell";
-      button.textContent = state.shots.has(`${row}:${column}`) ? "•" : "";
+      button.textContent = session.game.shots.has(`${row}:${column}`) ? "•" : "";
       button.setAttribute("aria-label", `Row ${row + 1}, column ${column + 1}`);
-      button.disabled = state.phase === "won" || state.shots.has(`${row}:${column}`);
+      button.disabled = session.game.phase === "won" || session.game.shots.has(`${row}:${column}`);
       button.addEventListener("click", () => {
-        const turn = fire(state, coordinate);
-        state = turn.state;
-        message = turn.result.outcome === "blocked"
-          ? "The game is over."
-          : turn.result.outcome === "hit"
-          ? turn.result.sunkShipId
-            ? `You sank ${turn.result.sunkShipId}.`
-            : "Hit!"
-          : "Miss.";
-        if (turn.result.phase === "won") {
-          message = "You won!";
-        }
+        session = fireAt(session, coordinate);
         render();
       });
       board.appendChild(button);
