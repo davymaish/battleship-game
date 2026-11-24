@@ -39,6 +39,20 @@ main {
   font-weight: 600;
 }
 
+.challenge-panel label {
+  display: block;
+  margin-top: 0.85rem;
+  font-weight: 600;
+}
+
+.challenge-panel select {
+  margin-top: 0.35rem;
+  padding: 0.45rem;
+  border: 1px solid #aebbd1;
+  border-radius: 0.35rem;
+  background: #fff;
+}
+
 .challenge-form {
   display: flex;
   gap: 0.5rem;

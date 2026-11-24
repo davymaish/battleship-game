@@ -1,5 +1,6 @@
 import {
   fire,
+  type Difficulty,
   type Coordinate,
   type GameState,
 } from "@battleship/game-core";
@@ -12,15 +13,20 @@ import { createGameForChallenge } from "./game-session";
 
 export interface GameSession {
   readonly challenge: ChallengeViewModel;
+  readonly difficulty: Difficulty;
   readonly game: GameState;
   readonly message: string;
 }
 
-export function createSession(now: Date = new Date()): GameSession {
+export function createSession(
+  now: Date = new Date(),
+  difficulty: Difficulty = "normal",
+): GameSession {
   const challenge = currentChallenge(now);
   return {
     challenge,
-    game: createGameForChallenge(challenge.details),
+    difficulty,
+    game: createGameForChallenge(challenge.details, difficulty),
     message: "Choose a coordinate to fire.",
   };
 }
@@ -33,8 +39,18 @@ export function loadChallenge(session: GameSession, input: string): GameSession 
 
   return {
     challenge,
-    game: createGameForChallenge(challenge.details),
+    difficulty: session.difficulty,
+    game: createGameForChallenge(challenge.details, session.difficulty),
     message: `Loaded ${challenge.details.label}.`,
+  };
+}
+
+export function setDifficulty(session: GameSession, difficulty: Difficulty): GameSession {
+  return {
+    ...session,
+    difficulty,
+    game: createGameForChallenge(session.challenge.details, difficulty),
+    message: `Started ${difficulty} difficulty.`,
   };
 }
 

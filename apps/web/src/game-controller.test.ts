@@ -3,6 +3,7 @@ import {
   createSession,
   fireAt,
   loadChallenge,
+  setDifficulty,
 } from "./game-controller";
 
 const now = new Date("2026-11-23T07:00:00Z");
@@ -12,6 +13,7 @@ describe("game controller", () => {
     const session = createSession(now);
 
     expect(session.challenge.details.date).toBe("2026-11-23");
+    expect(session.difficulty).toBe("normal");
     expect(session.game.phase).toBe("setup");
     expect(session.game.shots.size).toBe(0);
     expect(session.message).toBe("Choose a coordinate to fire.");
@@ -33,6 +35,16 @@ describe("game controller", () => {
     expect(next.game).not.toBe(session.game);
     expect(next.game.shots.size).toBe(0);
     expect(next.message).toBe("Loaded Daily challenge — 2026-11-22.");
+  });
+
+  it("resets the same challenge with the selected difficulty", () => {
+    const session = createSession(now);
+    const next = setDifficulty(session, "hard");
+
+    expect(next.difficulty).toBe("hard");
+    expect(next.game.config.numShips).toBe(4);
+    expect(next.game.config.minimumShipsToWin).toBe(3);
+    expect(next.message).toBe("Started hard difficulty.");
   });
 
   it("updates the session message after firing", () => {

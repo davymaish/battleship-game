@@ -1,10 +1,12 @@
 import {
   type Coordinate,
+  type Difficulty,
 } from "@battleship/game-core";
 import {
   createSession,
   fireAt,
   loadChallenge,
+  setDifficulty,
   type GameSession,
 } from "./game-controller";
 import "./style.css";
@@ -15,6 +17,10 @@ if (!appElement) {
 }
 const app = appElement;
 let session: GameSession = createSession();
+
+function isDifficulty(value: string): value is Difficulty {
+  return value === "easy" || value === "normal" || value === "hard";
+}
 
 function renderChallenge(): HTMLElement {
   const section = document.createElement("section");
@@ -33,6 +39,30 @@ function renderChallenge(): HTMLElement {
   const code = document.createElement("code");
   code.textContent = session.challenge.details.code;
   section.appendChild(code);
+
+  const difficultyLabel = document.createElement("label");
+  difficultyLabel.textContent = "Difficulty";
+  difficultyLabel.htmlFor = "difficulty";
+  section.appendChild(difficultyLabel);
+
+  const difficulty = document.createElement("select");
+  difficulty.id = "difficulty";
+  difficulty.name = "difficulty";
+  difficulty.setAttribute("aria-label", "Difficulty");
+  for (const optionValue of ["easy", "normal", "hard"] as const) {
+    const option = document.createElement("option");
+    option.value = optionValue;
+    option.textContent = optionValue.charAt(0).toUpperCase() + optionValue.slice(1);
+    option.selected = session.difficulty === optionValue;
+    difficulty.appendChild(option);
+  }
+  difficulty.addEventListener("change", () => {
+    if (isDifficulty(difficulty.value)) {
+      session = setDifficulty(session, difficulty.value);
+      render();
+    }
+  });
+  section.appendChild(difficulty);
 
   const form = document.createElement("form");
   form.className = "challenge-form";
