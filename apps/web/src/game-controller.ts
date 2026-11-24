@@ -10,12 +10,14 @@ import {
   type ChallengeViewModel,
 } from "./challenge-model";
 import { createGameForChallenge } from "./game-session";
+import type { SessionEvent } from "./session-events";
 
 export interface GameSession {
   readonly challenge: ChallengeViewModel;
   readonly difficulty: Difficulty;
   readonly game: GameState;
   readonly message: string;
+  readonly events: readonly SessionEvent[];
 }
 
 export function createSession(
@@ -28,6 +30,7 @@ export function createSession(
     difficulty,
     game: createGameForChallenge(challenge.details, difficulty),
     message: "Choose a coordinate to fire.",
+    events: [{ type: "challenge-started", code: challenge.details.code, difficulty }],
   };
 }
 
@@ -42,6 +45,10 @@ export function loadChallenge(session: GameSession, input: string): GameSession 
     difficulty: session.difficulty,
     game: createGameForChallenge(challenge.details, session.difficulty),
     message: `Loaded ${challenge.details.label}.`,
+    events: [
+      ...session.events,
+      { type: "challenge-loaded", code: challenge.details.code, difficulty: session.difficulty },
+    ],
   };
 }
 
@@ -51,6 +58,7 @@ export function setDifficulty(session: GameSession, difficulty: Difficulty): Gam
     difficulty,
     game: createGameForChallenge(session.challenge.details, difficulty),
     message: `Started ${difficulty} difficulty.`,
+    events: [...session.events, { type: "difficulty-changed", difficulty }],
   };
 }
 
@@ -70,5 +78,14 @@ export function fireAt(session: GameSession, coordinate: Coordinate): GameSessio
     ...session,
     game: turn.state,
     message: turn.result.phase === "won" ? "You won!" : message,
+    events: [
+      ...session.events,
+      {
+        type: "shot-fired",
+        coordinate,
+        outcome: turn.result.outcome,
+        phase: turn.result.phase,
+      },
+    ],
   };
 }
