@@ -1,21 +1,15 @@
 import {
-  createGame,
   fire,
   type Coordinate,
   type GameState,
-  type Ship,
 } from "@battleship/game-core";
 import {
   currentChallenge,
   resolveChallengeCode,
   type ChallengeViewModel,
 } from "./challenge-model";
+import { createGameForChallenge } from "./game-session";
 import "./style.css";
-
-const ships: Ship[] = [
-  { id: "alpha", cells: [{ row: 1, column: 1 }, { row: 1, column: 2 }, { row: 1, column: 3 }] },
-  { id: "beta", cells: [{ row: 4, column: 4 }, { row: 4, column: 5 }, { row: 4, column: 6 }] },
-];
 
 const appElement = document.querySelector<HTMLDivElement>("#app");
 if (!appElement) {
@@ -23,9 +17,9 @@ if (!appElement) {
 }
 const app = appElement;
 
-let state: GameState = createGame(ships);
-let message = "Choose a coordinate to fire.";
 let challenge: ChallengeViewModel = currentChallenge();
+let state: GameState = createGameForChallenge(challenge.details);
+let message = "Choose a coordinate to fire.";
 
 function renderChallenge(): HTMLElement {
   const section = document.createElement("section");
@@ -54,6 +48,9 @@ function renderChallenge(): HTMLElement {
       return;
     }
     challenge = resolveChallengeCode(input.value, challenge);
+    if (!challenge.error) {
+      state = createGameForChallenge(challenge.details);
+    }
     message = challenge.error ?? `Loaded ${challenge.details.label}.`;
     render();
   });
