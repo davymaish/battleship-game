@@ -1,5 +1,4 @@
 import {
-  createSession,
   fireAt,
   loadChallenge,
   setDifficulty,
@@ -7,14 +6,8 @@ import {
 } from "./game-controller";
 import { renderBoard } from "./board";
 import { renderChallengePanel } from "./challenge-panel";
-import {
-  createLocalSessionStore,
-  createMemorySessionStore,
-  createResilientSessionStore,
-  restoreSession,
-  snapshotFromSession,
-  type SessionStore,
-} from "./session-persistence";
+import { snapshotFromSession } from "./session-persistence";
+import { createBrowserRuntime } from "./browser-runtime";
 import "./style.css";
 
 const appElement = document.querySelector<HTMLDivElement>("#app");
@@ -22,19 +15,9 @@ if (!appElement) {
   throw new Error("The v2 application root is missing.");
 }
 const app = appElement;
-function createBrowserSessionStore(): SessionStore {
-  try {
-    return createResilientSessionStore(window.localStorage);
-  } catch {
-    return createMemorySessionStore();
-  }
-}
-
-const sessionStore = createBrowserSessionStore();
-const savedSnapshot = sessionStore.read();
-let session: GameSession = savedSnapshot
-  ? restoreSession(savedSnapshot) ?? createSession()
-  : createSession();
+const runtime = createBrowserRuntime(() => window.localStorage);
+const sessionStore = runtime.sessionStore;
+let session: GameSession = runtime.initialSession;
 
 function persistSession(): void {
   sessionStore.write(snapshotFromSession(session));
