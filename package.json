@@ -7,7 +7,9 @@
     "build": "pnpm --filter @battleship/web build",
     "dev": "pnpm --filter @battleship/web dev",
     "test": "pnpm -r test",
-    "typecheck": "pnpm -r typecheck"
+    "typecheck": "pnpm -r typecheck",
+    "verify:v1": "node tests/run-tests.js",
+    "verify:v2": "pnpm typecheck && pnpm test && pnpm build"
   },
   "devDependencies": {
     "typescript": "^5.7.3",
