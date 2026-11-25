@@ -45,6 +45,8 @@ tests/                     Regression suite for the released application line
 
 The V2 application is composed from the workspace packages. `game-core` is browser-independent and owns game rules, difficulty presets, fleet generation, validation, and firing. `challenge-core` owns UTC challenge identity, deterministic seeds, compact replay codes, and challenge parsing. The web package provides session orchestration, persistence, rendering, and browser integration.
 
+New gameplay features should be implemented in `apps/web` and the V2 workspace packages. The root-level legacy application and its regression suite remain available as a separate preserved line.
+
 ## Scripts
 
 | Command | Description |
