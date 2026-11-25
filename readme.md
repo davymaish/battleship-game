@@ -2,6 +2,9 @@
 
 A modern, accessible Battleship game built as a TypeScript monorepo. The application provides deterministic games, daily challenge replay codes, persistent sessions, multiple difficulty levels, and a responsive browser interface.
 
+![Battleship V2 gameplay](screenshots/v2-gameplay.png)
+
+
 ## Play locally
 
 Requirements:
