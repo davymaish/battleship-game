@@ -102,3 +102,34 @@ export function createMemorySessionStore(): SessionStore {
     clear: () => { value = null; },
   };
 }
+
+export function createResilientSessionStore(storage: StorageLike): SessionStore {
+  const primary = createLocalSessionStore(storage);
+  const fallback = createMemorySessionStore();
+
+  return {
+    read: () => {
+      try {
+        return primary.read() ?? fallback.read();
+      } catch {
+        return fallback.read();
+      }
+    },
+    write: (snapshot) => {
+      fallback.write(snapshot);
+      try {
+        primary.write(snapshot);
+      } catch {
+        // Memory fallback remains available for the current session.
+      }
+    },
+    clear: () => {
+      fallback.clear();
+      try {
+        primary.clear();
+      } catch {
+        // A failing browser store must not block clearing memory state.
+      }
+    },
+  };
+}
