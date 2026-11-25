@@ -1,120 +1,68 @@
-## JS Battleship Game
+# Battleship
 
-This is a simple Battleship game implemented in HTML5, CSS, and JavaScript. The game allows a player to find ships by guessing their locations on the map. Ships are randomly placed on the map when a new game starts.
+A modern, accessible Battleship game built as a TypeScript monorepo. The application provides deterministic games, daily challenge replay codes, persistent sessions, multiple difficulty levels, and a responsive browser interface.
 
-![Gameplay Screenshot](screenshots/gameplay.png)
-_The game in action, with ships placed and gameplay in progress._
+## Play locally
 
-## Features
+Requirements:
 
-- Responsive design compatible with different screen sizes
-- Interactive map grid for ship placement and guessing
-- Real-time feedback on hits and misses
-- A 60-second time limit with a real-time countdown
-- New-game control for starting a fresh board without reloading the page
-- Active game sessions are restored after a page refresh
-- New game clears the saved session
-- Live shot, hit, miss, and accuracy statistics
-- Easy, normal, and hard difficulty presets
-- Completed-game history with a persisted best score
-- Manual JSON session export and import
-- Keyboard-accessible board navigation with semantic grid markup
-- Classic, ocean, and high-contrast visual themes
-- Optional audio feedback with a mute control
-- Visible hit and miss shot history with undo synchronization
-- Mobile-friendly board and controls for narrow screens
-- Installable offline web app support
-- Current-session and historical performance analytics
-- Difficulty, theme, and sound preferences persist across reloads
-- Shareable completed-game result summaries
-- Persistent achievement badges for milestone victories
-- Personal leaderboard showing the five best victories
-- Current and best consecutive win streak tracking
-- Recent completed-game archive with outcome and accuracy details
-- Deterministic daily challenge with a shared date-based fleet
-- Daily challenge results labeled by UTC challenge date
-- Daily challenge performance summary with attempts, wins, losses, and best guesses
-- Current and best daily challenge win streak tracking across consecutive UTC dates
-- Daily challenge leaderboard ranking the five best challenge victories
-- Daily challenge calendar showing the ten most recent attempted UTC dates
-- Daily challenge insights showing win rate, average guesses, and latest play date
-- Daily challenge badges for first wins, three-day streaks, and precision victories
-- Daily challenge share summaries with result, streak, and unlocked badge context
-- Daily challenge result exports as portable JSON files
-- Validated daily challenge result imports for reviewing shared JSON files
-- Tamper-evident daily challenge exports with deterministic integrity checksums
-- Historical daily challenge replay from any valid UTC calendar date
-- Compact daily challenge codes for sharing and replaying deterministic dates
-- Active challenge code display with clipboard and Web Share support
-- Recent daily challenge code history with outcomes and UTC dates
-- One-click replay actions for recent historical challenge codes
-- Share actions for copying or sharing recent historical challenge codes
+- Node.js 22 or newer
+- pnpm 11.25.0
 
-## Installation
-
-1. Clone the repository: `git clone https://github.com/davymaish/battleship-game.git`
-2. Open the `index.html` file in your preferred web browser.
-
-## How to Play
-
-1. Open the game in your web browser.
-2. Choose a difficulty level before starting.
-3. You have 60 seconds to sink at least two battleships on Normal difficulty.
-4. Each battleship occupies three grid boxes.
-5. Enter coordinates using a letter followed by a number, from `A0` to `G6`.
-6. Hit all three boxes occupied by a ship to sink it.
-7. Select **New game** at any time to reset the board and timer.
-8. Use **Export session** to download a backup or **Import session** to restore a JSON backup.
-9. Use the arrow keys to move focus across the board cells.
-10. Choose a theme to customize the interface or improve contrast.
-11. Use **Mute sound** to disable audio feedback when needed.
-12. Review the shot history panel to see every recorded hit, miss, and sunk ship.
-13. On small screens, the board and controls resize to fit the viewport.
-14. Install the game from a supported browser to use its cached offline shell.
-15. Use the analytics panel to review games, wins, losses, remaining ships, and the win target.
-16. Your selected difficulty, theme, and sound setting are remembered for the next visit.
-17. Share a completed result with the Web Share API or copy it through the browser clipboard.
-18. Unlock and review badges for your first win, high accuracy, fast victories, and hard-mode wins.
-19. Review your personal leaderboard, ranked by guesses, accuracy, and difficulty.
-20. Track your current winning streak and the best streak in your completed-game history.
-21. Review the ten most recent completed games, including outcome, guesses, accuracy, and difficulty.
-22. Start the daily challenge to play the same seeded fleet as other players on the UTC calendar date.
-23. Review daily challenge attempts, wins, losses, and your best winning guess count in the challenge results panel.
-24. Build a daily challenge streak by winning on consecutive UTC dates and review your current and best streaks.
-25. Review the daily challenge leaderboard, ranked by guesses, accuracy, difficulty, and challenge date.
-26. Review the daily challenge calendar to see recent wins and losses by UTC challenge date.
-27. Review daily challenge insights for your win rate, average guesses, and latest challenge date.
-28. Unlock daily challenge badges by earning your first win, building a three-day streak, and winning with high accuracy.
-29. Share a daily challenge result with its date, outcome, streak, and unlocked challenge badges.
-30. Export a completed daily challenge result as a JSON file for later reference or sharing.
-31. Import a daily challenge result JSON file to validate and review its recorded outcome, streak, and badges.
-32. Exported challenge results include an integrity checksum, and modified checksummed files are rejected on import.
-33. Choose a valid UTC date to replay the deterministic daily challenge fleet from that day.
-34. Paste a `DC-YYYYMMDD-XXXXXXXX` challenge code to replay the matching deterministic fleet.
-35. Copy or share the active challenge code with the clipboard or Web Share API when supported.
-36. Review the five most recent distinct daily challenge codes with their dates and outcomes.
-37. Replay any listed historical daily challenge directly from its recent-code entry.
-38. Copy or share a listed historical daily challenge code directly from its recent-code entry.
-
-## Development checks
-
-Run the browser-independent regression suite with Node.js:
+Install dependencies and start the development server:
 
 ```bash
-node tests/run-tests.js
+pnpm install
+pnpm dev
 ```
+
+Open the local URL shown by Vite. To create and preview a production build:
+
+```bash
+pnpm build
+pnpm --filter @battleship/web preview
+```
+
+## How to play
+
+Choose a difficulty, select a coordinate on the board, and fire. The board reports hits, misses, repeated shots, sunk ships, and the win state. Difficulty changes start a fresh game using the current challenge.
+
+The daily challenge is deterministic for a UTC calendar date. Use the displayed challenge code to replay the same challenge later or share it with another player. A saved session is restored automatically when the browser supports local storage. If storage is unavailable, the current session continues in memory.
+
+The board uses semantic grid and cell roles, keyboard-friendly controls, row and column metadata, and live status announcements for assistive technology.
+
+## Project structure
+
+```text
+apps/web/                  Browser application and accessible UI
+packages/game-core/        Typed Battleship rules and deterministic fleets
+packages/challenge-core/   Daily challenge dates, seeds, codes, and replay data
+tests/                     Regression suite for the released application line
+```
+
+The V2 application is composed from the workspace packages. `game-core` is browser-independent and owns game rules, difficulty presets, fleet generation, validation, and firing. `challenge-core` owns UTC challenge identity, deterministic seeds, compact replay codes, and challenge parsing. The web package provides session orchestration, persistence, rendering, and browser integration.
+
+## Scripts
+
+| Command | Description |
+| --- | --- |
+| `pnpm dev` | Start the V2 development server |
+| `pnpm build` | Build the V2 production bundle |
+| `pnpm --filter @battleship/web preview` | Preview the production bundle |
+| `pnpm typecheck` | Type-check every workspace package |
+| `pnpm test` | Run all V2 workspace tests |
+| `pnpm verify:v2` | Run V2 typecheck, tests, and build |
+| `pnpm verify:v1` | Run the preserved regression suite |
+| `pnpm release:verify` | Run all release checks |
+
+## Continuous integration
+
+GitHub Actions runs `pnpm release:verify` for pushes to `main` and pull requests targeting `main`. The workflow installs the locked dependency graph, checks all TypeScript packages, runs the V2 tests and production build, and verifies the preserved regression suite.
 
 ## Contributing
 
-Contributions are welcome! If you find any issues or have ideas for improvements, please open an issue or submit a pull request.
+Create a feature branch, make focused changes, and run `pnpm release:verify` before opening a pull request. Pull requests should include tests for behavior changes and keep the workspace type-safe.
 
 ## License
 
 This project is licensed under the [MIT License](LICENSE).
-
-## Contact
-
-For any inquiries or feedback, feel free to contact me via:
-
-- Website: [davymaish.github.io](https://davymaish.github.io)
-- Email: [davymaish6@gmail.com](mailto:davymaish6@gmail.com)
