@@ -3,6 +3,7 @@ import { createSession, fireAt } from "./game-controller";
 import {
   createLocalSessionStore,
   createMemorySessionStore,
+  createResilientSessionStore,
   parseSnapshot,
   restoreSession,
   snapshotFromSession,
@@ -17,6 +18,14 @@ function fakeStorage(): StorageLike {
     getItem: (key) => values.get(key) ?? null,
     setItem: (key, value) => { values.set(key, value); },
     removeItem: (key) => { values.delete(key); },
+  };
+}
+
+function throwingStorage(): StorageLike {
+  return {
+    getItem: () => { throw new Error("Storage unavailable"); },
+    setItem: () => { throw new Error("Storage unavailable"); },
+    removeItem: () => { throw new Error("Storage unavailable"); },
   };
 }
 
@@ -71,5 +80,16 @@ describe("session persistence", () => {
       difficulty: "normal",
       events: [],
     })).toBeNull();
+  });
+
+  it("keeps the current session usable when browser storage fails", () => {
+    const snapshot = snapshotFromSession(createSession(now));
+    const store = createResilientSessionStore(throwingStorage());
+
+    expect(store.read()).toBeNull();
+    expect(() => store.write(snapshot)).not.toThrow();
+    expect(store.read()).toEqual(snapshot);
+    expect(() => store.clear()).not.toThrow();
+    expect(store.read()).toBeNull();
   });
 });

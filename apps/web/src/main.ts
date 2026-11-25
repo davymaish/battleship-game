@@ -9,8 +9,11 @@ import { renderBoard } from "./board";
 import { renderChallengePanel } from "./challenge-panel";
 import {
   createLocalSessionStore,
+  createMemorySessionStore,
+  createResilientSessionStore,
   restoreSession,
   snapshotFromSession,
+  type SessionStore,
 } from "./session-persistence";
 import "./style.css";
 
@@ -19,7 +22,15 @@ if (!appElement) {
   throw new Error("The v2 application root is missing.");
 }
 const app = appElement;
-const sessionStore = createLocalSessionStore(window.localStorage);
+function createBrowserSessionStore(): SessionStore {
+  try {
+    return createResilientSessionStore(window.localStorage);
+  } catch {
+    return createMemorySessionStore();
+  }
+}
+
+const sessionStore = createBrowserSessionStore();
 const savedSnapshot = sessionStore.read();
 let session: GameSession = savedSnapshot
   ? restoreSession(savedSnapshot) ?? createSession()
