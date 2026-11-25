@@ -1,13 +1,11 @@
 import {
-  fireAt,
-  loadChallenge,
-  setDifficulty,
   type GameSession,
 } from "./game-controller";
 import { renderBoard } from "./board";
 import { renderChallengePanel } from "./challenge-panel";
 import { snapshotFromSession } from "./session-persistence";
 import { createBrowserRuntime } from "./browser-runtime";
+import { createSessionInteractions } from "./session-interactions";
 import "./style.css";
 
 const appElement = document.querySelector<HTMLDivElement>("#app");
@@ -18,11 +16,14 @@ const app = appElement;
 const runtime = createBrowserRuntime(() => window.localStorage);
 const sessionStore = runtime.sessionStore;
 let session: GameSession = runtime.initialSession;
-
 function persistSession(): void {
   sessionStore.write(snapshotFromSession(session));
 }
-
+const interactions = createSessionInteractions(session, (next) => {
+  session = next;
+  persistSession();
+  render();
+});
 function render(): void {
   app.innerHTML = "";
 
@@ -31,14 +32,10 @@ function render(): void {
   app.appendChild(heading);
   app.appendChild(renderChallengePanel(session, {
     onDifficulty: (difficulty) => {
-      session = setDifficulty(session, difficulty);
-      persistSession();
-      render();
+      interactions.changeDifficulty(difficulty);
     },
     onLoad: (code) => {
-      session = loadChallenge(session, code);
-      persistSession();
-      render();
+      interactions.loadReplay(code);
     },
   }));
 
@@ -50,9 +47,7 @@ function render(): void {
   app.appendChild(status);
 
   app.appendChild(renderBoard(session, (coordinate) => {
-    session = fireAt(session, coordinate);
-    persistSession();
-    render();
+    interactions.fire(coordinate);
   }));
 }
 
