@@ -194,3 +194,20 @@ main {
 .win-streaks-panel p {
   margin: 0.75rem 0 0;
 }
+
+.daily-summary-panel {
+  margin: 1.5rem 0;
+  padding: 1rem;
+  border: 1px solid #c8d5e8;
+  border-radius: 0.6rem;
+  background: #f8fbff;
+}
+
+.daily-summary-panel h2 {
+  margin: 0;
+  font-size: 1.1rem;
+}
+
+.daily-summary-panel p {
+  margin: 0.75rem 0 0;
+}
