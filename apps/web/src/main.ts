@@ -10,6 +10,8 @@ import { extractCompletedResult } from "./game-results";
 import { recordCompletedResult } from "./results-history";
 import { createBrowserResultsStore } from "./results-storage";
 import { renderResultsPanel } from "./results-panel";
+import { achievementDefinitions, unlockedAchievements } from "./achievements";
+import { renderAchievementsPanel } from "./achievements-panel";
 import "./style.css";
 
 const appElement = document.querySelector<HTMLDivElement>("#app");
@@ -62,6 +64,8 @@ function render(): void {
   app.appendChild(status);
 
   app.appendChild(renderResultsPanel(resultsArchive));
+  const unlockedIds = new Set(unlockedAchievements(resultsArchive.results).map((achievement) => achievement.id));
+  app.appendChild(renderAchievementsPanel(achievementDefinitions(), unlockedIds));
 
   app.appendChild(renderBoard(session, (coordinate) => {
     interactions.fire(coordinate);
