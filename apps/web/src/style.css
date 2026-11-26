@@ -157,3 +157,23 @@ main {
   color: #145c38;
   font-weight: 600;
 }
+
+.personal-bests-panel {
+  margin: 1.5rem 0;
+  padding: 1rem;
+  border: 1px solid #c8d5e8;
+  border-radius: 0.6rem;
+  background: #fffdf7;
+}
+
+.personal-bests-panel h2 {
+  margin: 0;
+  font-size: 1.1rem;
+}
+
+.personal-bests-list {
+  display: grid;
+  gap: 0.45rem;
+  margin: 0.75rem 0 0;
+  padding-left: 1.25rem;
+}

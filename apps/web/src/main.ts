@@ -12,6 +12,8 @@ import { createBrowserResultsStore } from "./results-storage";
 import { renderResultsPanel } from "./results-panel";
 import { achievementDefinitions, unlockedAchievements } from "./achievements";
 import { renderAchievementsPanel } from "./achievements-panel";
+import { calculatePersonalBests } from "./personal-bests";
+import { renderPersonalBestsPanel } from "./personal-bests-panel";
 import "./style.css";
 
 const appElement = document.querySelector<HTMLDivElement>("#app");
@@ -64,6 +66,7 @@ function render(): void {
   app.appendChild(status);
 
   app.appendChild(renderResultsPanel(resultsArchive));
+  app.appendChild(renderPersonalBestsPanel(calculatePersonalBests(resultsArchive.results)));
   const unlockedIds = new Set(unlockedAchievements(resultsArchive.results).map((achievement) => achievement.id));
   app.appendChild(renderAchievementsPanel(achievementDefinitions(), unlockedIds));
 
