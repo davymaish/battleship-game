@@ -14,6 +14,8 @@ import { achievementDefinitions, unlockedAchievements } from "./achievements";
 import { renderAchievementsPanel } from "./achievements-panel";
 import { calculatePersonalBests } from "./personal-bests";
 import { renderPersonalBestsPanel } from "./personal-bests-panel";
+import { calculateWinStreaks } from "./win-streaks";
+import { renderWinStreaksPanel } from "./win-streaks-panel";
 import "./style.css";
 
 const appElement = document.querySelector<HTMLDivElement>("#app");
@@ -67,6 +69,7 @@ function render(): void {
 
   app.appendChild(renderResultsPanel(resultsArchive));
   app.appendChild(renderPersonalBestsPanel(calculatePersonalBests(resultsArchive.results)));
+  app.appendChild(renderWinStreaksPanel(calculateWinStreaks(resultsArchive.results)));
   const unlockedIds = new Set(unlockedAchievements(resultsArchive.results).map((achievement) => achievement.id));
   app.appendChild(renderAchievementsPanel(achievementDefinitions(), unlockedIds));
 

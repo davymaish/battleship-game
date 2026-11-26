@@ -177,3 +177,20 @@ main {
   margin: 0.75rem 0 0;
   padding-left: 1.25rem;
 }
+
+.win-streaks-panel {
+  margin: 1.5rem 0;
+  padding: 1rem;
+  border: 1px solid #c8d5e8;
+  border-radius: 0.6rem;
+  background: #f7faff;
+}
+
+.win-streaks-panel h2 {
+  margin: 0;
+  font-size: 1.1rem;
+}
+
+.win-streaks-panel p {
+  margin: 0.75rem 0 0;
+}
