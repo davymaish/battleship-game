@@ -1,12 +1,16 @@
 import type { CompletedGameResult } from "./game-results";
 import type { ResultsArchive } from "./results-history";
+import type { ShareOutcome } from "./result-sharing";
 
 export function formatCompletedResult(result: CompletedGameResult): string {
   const outcome = result.outcome === "won" ? "Victory" : "Loss";
   return `${outcome} · ${result.difficulty} · ${result.guesses} guesses · ${Math.round(result.accuracy * 100)}% accuracy`;
 }
 
-export function renderResultsPanel(archive: ResultsArchive): HTMLElement {
+export function renderResultsPanel(
+  archive: ResultsArchive,
+  onShare?: (result: CompletedGameResult) => Promise<ShareOutcome>,
+): HTMLElement {
   const section = document.createElement("section");
   section.className = "results-panel";
   section.setAttribute("aria-labelledby", "results-heading");
@@ -34,6 +38,20 @@ export function renderResultsPanel(archive: ResultsArchive): HTMLElement {
     const details = document.createElement("span");
     details.textContent = ` · ${result.challengeDate} · ${result.challengeCode}`;
     item.appendChild(details);
+    if (onShare) {
+      const shareButton = document.createElement("button");
+      shareButton.type = "button";
+      shareButton.className = "result-share-button";
+      shareButton.textContent = "Share";
+      shareButton.setAttribute("aria-label", `Share result from ${result.challengeDate}`);
+      shareButton.addEventListener("click", async () => {
+        shareButton.disabled = true;
+        const outcome = await onShare(result);
+        shareButton.textContent = outcome === "shared" ? "Shared" : outcome === "copied" ? "Copied" : "Unavailable";
+        shareButton.disabled = false;
+      });
+      item.appendChild(shareButton);
+    }
     list.appendChild(item);
   }
   section.appendChild(list);
