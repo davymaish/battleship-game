@@ -128,3 +128,32 @@ main {
 .results-list li {
   margin: 0.5rem 0;
 }
+
+.achievements-panel {
+  margin: 1.5rem 0;
+  padding: 1rem;
+  border: 1px solid #c8d5e8;
+  border-radius: 0.6rem;
+  background: #f8fbff;
+}
+
+.achievements-panel h2 {
+  margin: 0;
+  font-size: 1.1rem;
+}
+
+.achievements-list {
+  display: grid;
+  gap: 0.45rem;
+  margin: 0.75rem 0 0;
+  padding-left: 1.25rem;
+}
+
+.achievements-list li[data-status="locked"] {
+  color: #5d6a7c;
+}
+
+.achievements-list li[data-status="unlocked"] {
+  color: #145c38;
+  font-weight: 600;
+}
