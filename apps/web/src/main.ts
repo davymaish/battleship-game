@@ -19,6 +19,8 @@ import { renderWinStreaksPanel } from "./win-streaks-panel";
 import { calculateDailyChallengeSummary } from "./daily-summary";
 import { renderDailyChallengeSummaryPanel } from "./daily-summary-panel";
 import { shareCompletedResult } from "./result-sharing";
+import { exportSession, importSession } from "./session-transfer";
+import { renderSessionTransferPanel } from "./session-transfer-panel";
 import "./style.css";
 
 const appElement = document.querySelector<HTMLDivElement>("#app");
@@ -74,6 +76,15 @@ function render(): void {
   app.appendChild(renderPersonalBestsPanel(calculatePersonalBests(resultsArchive.results)));
   app.appendChild(renderWinStreaksPanel(calculateWinStreaks(resultsArchive.results)));
   app.appendChild(renderDailyChallengeSummaryPanel(calculateDailyChallengeSummary(resultsArchive.results)));
+  app.appendChild(renderSessionTransferPanel({
+    exportSession: () => exportSession(session),
+    importSession: (value) => {
+      const restored = importSession(value);
+      if (!restored) return false;
+      interactions.replace(restored);
+      return true;
+    },
+  }));
   const unlockedIds = new Set(unlockedAchievements(resultsArchive.results).map((achievement) => achievement.id));
   app.appendChild(renderAchievementsPanel(achievementDefinitions(), unlockedIds));
 
