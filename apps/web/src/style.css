@@ -285,3 +285,72 @@ main {
   gap: 0.6rem;
   flex-wrap: wrap;
 }
+
+/* Responsive refinement */
+@media (min-width: 48rem) {
+  main {
+    max-width: 44rem;
+    padding-inline: 1.5rem;
+  }
+
+  .board {
+    gap: 0.45rem;
+  }
+
+  .results-list li,
+  .challenge-history-list li {
+    min-height: 2rem;
+  }
+}
+
+@media (max-width: 30rem) {
+  main {
+    padding: 1rem 0.65rem;
+  }
+
+  .challenge-panel,
+  .results-panel,
+  .personal-bests-panel,
+  .win-streaks-panel,
+  .daily-summary-panel,
+  .session-transfer-panel,
+  .challenge-history-panel,
+  .achievements-panel {
+    margin-block: 1rem;
+    padding: 0.8rem;
+  }
+
+  .challenge-form {
+    flex-direction: column;
+  }
+
+  .challenge-form button,
+  .session-transfer-controls button {
+    width: 100%;
+  }
+
+  .board {
+    gap: 0.2rem;
+  }
+
+  .cell {
+    min-width: 0;
+    border-radius: 0.25rem;
+    font-size: 1rem;
+  }
+
+  .results-list li,
+  .challenge-history-list li {
+    display: grid;
+    gap: 0.35rem;
+  }
+
+  .result-share-button {
+    width: fit-content;
+    margin-left: 0;
+  }
+
+  .challenge-history-list li button {
+    width: fit-content;
+  }
+}
