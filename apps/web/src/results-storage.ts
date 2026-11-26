@@ -64,6 +64,16 @@ export function createResilientResultsStore(storage: StorageLike): ResultsArchiv
   };
 }
 
+export function createBrowserResultsStore(
+  getStorage: () => StorageLike,
+): ResultsArchiveStore {
+  try {
+    return createResilientResultsStore(getStorage());
+  } catch {
+    return createMemoryResultsStore();
+  }
+}
+
 export function createMemoryResultsArchiveStore(): ResultsArchiveStore {
   return createMemoryResultsStore();
 }
