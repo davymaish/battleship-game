@@ -21,6 +21,8 @@ import { renderDailyChallengeSummaryPanel } from "./daily-summary-panel";
 import { shareCompletedResult } from "./result-sharing";
 import { exportSession, importSession } from "./session-transfer";
 import { renderSessionTransferPanel } from "./session-transfer-panel";
+import { collectChallengeHistory } from "./challenge-history";
+import { renderChallengeHistoryPanel } from "./challenge-history-panel";
 import "./style.css";
 
 const appElement = document.querySelector<HTMLDivElement>("#app");
@@ -76,6 +78,9 @@ function render(): void {
   app.appendChild(renderPersonalBestsPanel(calculatePersonalBests(resultsArchive.results)));
   app.appendChild(renderWinStreaksPanel(calculateWinStreaks(resultsArchive.results)));
   app.appendChild(renderDailyChallengeSummaryPanel(calculateDailyChallengeSummary(resultsArchive.results)));
+  app.appendChild(renderChallengeHistoryPanel(collectChallengeHistory(resultsArchive.results), {
+    onReplay: (code) => interactions.loadReplay(code),
+  }));
   app.appendChild(renderSessionTransferPanel({
     exportSession: () => exportSession(session),
     importSession: (value) => {

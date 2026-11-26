@@ -258,3 +258,30 @@ main {
 .session-transfer-status {
   min-height: 1.4em;
 }
+
+.challenge-history-panel {
+  margin: 1.5rem 0;
+  padding: 1rem;
+  border: 1px solid #c8d5e8;
+  border-radius: 0.6rem;
+  background: #f9f7ff;
+}
+
+.challenge-history-panel h2 {
+  margin: 0;
+  font-size: 1.1rem;
+}
+
+.challenge-history-list {
+  display: grid;
+  gap: 0.5rem;
+  margin: 0.75rem 0 0;
+  padding-left: 1.5rem;
+}
+
+.challenge-history-list li {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+}
