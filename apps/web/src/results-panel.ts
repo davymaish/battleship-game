@@ -48,7 +48,7 @@ export function renderResultsPanel(
         shareButton.disabled = true;
         const outcome = await onShare(result);
         shareButton.textContent = outcome === "shared" ? "Shared" : outcome === "copied" ? "Copied" : "Unavailable";
-        if (outcome !== "unavailable") shareButton.disabled = false;
+        shareButton.disabled = false;
       });
       item.appendChild(shareButton);
     }
