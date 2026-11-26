@@ -106,3 +106,25 @@ main {
   cursor: default;
   opacity: 0.7;
 }
+
+.results-panel {
+  margin: 1.5rem 0;
+  padding: 1rem;
+  border: 1px solid #c8d5e8;
+  border-radius: 0.6rem;
+  background: #fff;
+}
+
+.results-panel h2 {
+  margin: 0;
+  font-size: 1.1rem;
+}
+
+.results-list {
+  margin: 0.75rem 0 0;
+  padding-left: 1.25rem;
+}
+
+.results-list li {
+  margin: 0.5rem 0;
+}
