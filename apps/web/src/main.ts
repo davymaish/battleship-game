@@ -18,6 +18,7 @@ import { calculateWinStreaks } from "./win-streaks";
 import { renderWinStreaksPanel } from "./win-streaks-panel";
 import { calculateDailyChallengeSummary } from "./daily-summary";
 import { renderDailyChallengeSummaryPanel } from "./daily-summary-panel";
+import { shareCompletedResult } from "./result-sharing";
 import "./style.css";
 
 const appElement = document.querySelector<HTMLDivElement>("#app");
@@ -69,7 +70,7 @@ function render(): void {
   status.setAttribute("aria-atomic", "true");
   app.appendChild(status);
 
-  app.appendChild(renderResultsPanel(resultsArchive));
+  app.appendChild(renderResultsPanel(resultsArchive, (result) => shareCompletedResult(result)));
   app.appendChild(renderPersonalBestsPanel(calculatePersonalBests(resultsArchive.results)));
   app.appendChild(renderWinStreaksPanel(calculateWinStreaks(resultsArchive.results)));
   app.appendChild(renderDailyChallengeSummaryPanel(calculateDailyChallengeSummary(resultsArchive.results)));
