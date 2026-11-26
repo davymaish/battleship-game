@@ -8,6 +8,7 @@ import {
 
 export interface SessionInteractions {
   getSession(): GameSession;
+  replace(session: GameSession): GameSession;
   changeDifficulty(difficulty: Difficulty): GameSession;
   loadReplay(code: string): GameSession;
   fire(coordinate: Coordinate): GameSession;
@@ -27,6 +28,7 @@ export function createSessionInteractions(
 
   return {
     getSession: () => session,
+    replace: (next) => update(next),
     changeDifficulty: (difficulty) => update(setDifficulty(session, difficulty)),
     loadReplay: (code) => update(loadChallenge(session, code)),
     fire: (coordinate) => update(fireAt(session, coordinate)),
