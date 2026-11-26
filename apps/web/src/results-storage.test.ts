@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 import type { StorageLike } from "./session-persistence";
 import { createResultsArchive, recordCompletedResult } from "./results-history";
-import { createLocalResultsStore, createResilientResultsStore } from "./results-storage";
+import { createBrowserResultsStore, createLocalResultsStore, createResilientResultsStore } from "./results-storage";
 import type { CompletedGameResult } from "./game-results";
 
 const savedResult: CompletedGameResult = {
@@ -54,5 +54,15 @@ describe("results storage", () => {
     expect(store.read()).toEqual(archive);
     expect(() => store.clear()).not.toThrow();
     expect(store.read()).toEqual(createResultsArchive());
+  });
+
+  it("falls back to memory when the browser storage getter throws", () => {
+    const store = createBrowserResultsStore(() => {
+      throw new Error("Storage access denied");
+    });
+    const archive = recordCompletedResult(createResultsArchive(), savedResult);
+
+    expect(() => store.write(archive)).not.toThrow();
+    expect(store.read()).toEqual(archive);
   });
 });

@@ -8,7 +8,7 @@ import { createBrowserRuntime } from "./browser-runtime";
 import { createSessionInteractions } from "./session-interactions";
 import { extractCompletedResult } from "./game-results";
 import { recordCompletedResult } from "./results-history";
-import { createResilientResultsStore } from "./results-storage";
+import { createBrowserResultsStore } from "./results-storage";
 import { renderResultsPanel } from "./results-panel";
 import "./style.css";
 
@@ -19,7 +19,7 @@ if (!appElement) {
 const app = appElement;
 const runtime = createBrowserRuntime(() => window.localStorage);
 const sessionStore = runtime.sessionStore;
-const resultsStore = createResilientResultsStore(window.localStorage);
+const resultsStore = createBrowserResultsStore(() => window.localStorage);
 let resultsArchive = resultsStore.read();
 let session: GameSession = runtime.initialSession;
 function persistSession(): void {
